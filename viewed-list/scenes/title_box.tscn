@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://byeecahjptc1t"]
+
+[ext_resource type="Script" uid="uid://d0y0ucuheyjmx" path="res://scripts/title_box.gd" id="1_02rgh"]
+
+[node name="TextBox" type="Container"]
+custom_minimum_size = Vector2(300, 50)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_02rgh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+offset_left = 5.0
+offset_right = 205.0
+offset_bottom = 50.0
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -8
+text = "Название тайтла"
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
