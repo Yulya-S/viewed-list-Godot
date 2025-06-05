@@ -13,8 +13,9 @@ func set_title(data):
 	box.tooltip_text = data.title
 
 
-func save_stars(value: float): pass
+# сохранение значения рейтинга
+func save_rating(value: float): pass
 
-func save_block(value: float): pass
+func save_part(value: float): pass
 
 func save_chapter(value: float): pass

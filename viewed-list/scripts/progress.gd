@@ -1,0 +1,42 @@
+extends Node2D
+
+@onready var Part = $Part
+@onready var Chapter = $Chapter
+
+
+# Изменение наименований разделов
+func set_labels(part_name: String, chapter_name: String) -> void:
+	Part.get_child(0).set_text(part_name)
+	Chapter.get_child(0).set_text(chapter_name)
+
+
+# Изменение значений разделов
+func set_values(part_value: int, chapter_value: int) -> void:
+	Part.text = str(part_value)
+	Chapter.text = str(chapter_value)
+
+
+# Валидация номера части
+func _on_part_text_changed() -> void:
+	var text = Part.get_text()
+	if len(text) > 0:
+		var filtered_text = ""
+		for i in text: if i.is_valid_int(): filtered_text += i
+		Part.set_text(filtered_text)
+		if "\n" in text: Part.release_focus()
+
+func _on_part_text_set() -> void:
+	pass
+
+
+# Валидация номера главы
+func _on_chapter_text_changed() -> void:
+	var text = Chapter.get_text()
+	if len(text) > 0:
+		var filtered_text = ""
+		for i in text: if i.is_valid_int(): filtered_text += i
+		Chapter.set_text(filtered_text)
+		if "\n" in text: Chapter.release_focus()
+
+func _on_chapter_text_set() -> void:
+	pass

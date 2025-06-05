@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfj0lx0yj4638"]
+
+[ext_resource type="Script" uid="uid://joplcs53wb7" path="res://scripts/progress.gd" id="1_f1jb4"]
+
+[node name="Progress" type="Node2D"]
+position = Vector2(83, 0)
+script = ExtResource("1_f1jb4")
+
+[node name="Part" type="TextEdit" parent="."]
+clip_contents = false
+offset_left = 28.0
+offset_right = 73.0
+offset_bottom = 33.0
+text = "1"
+autowrap_mode = 1
+scroll_past_end_of_file = true
+structured_text_bidi_override = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Part"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.711111
+offset_left = -79.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Часть"
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Chapter" type="TextEdit" parent="."]
+clip_contents = false
+offset_left = 186.0
+offset_right = 231.0
+offset_bottom = 33.0
+text = "1"
+autowrap_mode = 1
+scroll_past_end_of_file = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Chapter"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.711111
+offset_left = -79.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Глава"
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="text_changed" from="Part" to="." method="_on_part_text_changed"]
+[connection signal="text_set" from="Part" to="." method="_on_part_text_set"]
+[connection signal="text_changed" from="Chapter" to="." method="_on_chapter_text_changed"]
+[connection signal="text_set" from="Chapter" to="." method="_on_chapter_text_set"]
