@@ -21,6 +21,7 @@ func set_title(data):
 			Status.add_child(load("res://scenes/progress.tscn").instantiate())
 			Status.get_child(-1).position = Vector2(120, 8)
 			Status.get_child(-1).set_values(data.part, data.chapter)
+			Status.get_child(-1).set_labels(data.part_name, data.chapter_name)
 			Status.get_child(0).set_text("В процессе")
 		TitleStatus.WAIT:
 			Status.add_child(load("res://scenes/rating.tscn").instantiate())

@@ -6,7 +6,8 @@ var db: SQLite = null
 
 func _ready() -> void:
 	connecting_db("res://bases/base.db")
-	add_titles("SELECT * FROM titles ORDER BY title;")
+	#add_titles("SELECT * FROM titles ORDER BY title;")
+	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
 	
 
 # Подключение БД
