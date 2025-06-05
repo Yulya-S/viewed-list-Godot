@@ -11,4 +11,10 @@ func set_title(data):
 	id = data.id
 	title.set_text(data.title)
 	box.tooltip_text = data.title
-	
+
+
+func save_stars(value: float): pass
+
+func save_block(value: float): pass
+
+func save_chapter(value: float): pass

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://byeecahjptc1t"]
+[gd_scene load_steps=3 format=3 uid="uid://byeecahjptc1t"]
 
 [ext_resource type="Script" uid="uid://d0y0ucuheyjmx" path="res://scripts/title_box.gd" id="1_02rgh"]
+[ext_resource type="PackedScene" uid="uid://clp3ctkvawra" path="res://scenes/stars.tscn" id="2_3lelf"]
 
 [node name="TextBox" type="Container"]
 custom_minimum_size = Vector2(300, 50)
@@ -10,14 +11,14 @@ script = ExtResource("1_02rgh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(300, 50)
+custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="ColorRect"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 offset_left = 5.0
-offset_right = 205.0
+offset_right = 242.0
 offset_bottom = 50.0
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -26,3 +27,10 @@ text = "Название тайтла"
 vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
+
+[node name="Stars" parent="ColorRect" instance=ExtResource("2_3lelf")]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 6.0
+offset_right = 444.0
+offset_bottom = 46.0
