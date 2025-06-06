@@ -19,6 +19,7 @@ func set_title(data):
 	Box.tooltip_text = data.title
 	Section.set_text(data.section_title)
 	
+	# Измеение названия статуса
 	match TitleStatus.values()[data.status]:
 		TitleStatus.NONE: StatusLabel.set_text("Не начато")
 		TitleStatus.WAIT: add_rating(data.rating, "Ожидается продолжение")

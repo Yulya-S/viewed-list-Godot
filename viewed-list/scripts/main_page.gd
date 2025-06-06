@@ -13,13 +13,11 @@ var title = load("res://scenes/title_box.tscn")
 
 var db: SQLite = null
 
+# Создание страницы
 func _ready() -> void:
 	connecting_db("res://bases/base.db")
 	db.query("SELECT id, title FROM sections;")
-	for i in db.query_result:
-		FilterSection.add_item(i.title, i.id)
-	
-	#add_titles("SELECT * FROM titles ORDER BY title;")
+	for i in db.query_result: FilterSection.add_item(i.title, i.id)
 	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
 	
 
@@ -35,7 +33,6 @@ func add_titles(request_text: String):
 	for i in TitleContainer.get_children():
 		i.queue_free()
 		TitleContainer.remove_child(i)
-	
 	db.query(request_text)
 	for i in db.query_result:
 		TitleContainer.add_child(title.instantiate())
@@ -44,9 +41,7 @@ func add_titles(request_text: String):
 
 # Закрытие БД во время закрытия приложения
 func _notification(what):
-	if db:
-		if what == Window.NOTIFICATION_WM_CLOSE_REQUEST:
-			db.close_db()
+	if db: if what == Window.NOTIFICATION_WM_CLOSE_REQUEST: db.close_db()
 				
 
 # Изменение значения рейтинга
@@ -60,6 +55,7 @@ func _on_filter_chapter_text_changed() -> void: Global.valide_text(FilterChapter
 
 # Нажатие кнопки фильтра
 func _on_filter_button_down() -> void:
+	# Фильтры
 	var filter_text: String = ""
 	if FilterSection.selected > 0:
 		filter_text = Global.filter_text(filter_text, "t.section_id", str(FilterSection.selected))
@@ -74,6 +70,8 @@ func _on_filter_button_down() -> void:
 	if FilterChapter.get_text() != "":
 		filter_text = Global.filter_text(filter_text, "t.chapter", FilterChapter.get_text())
 	if filter_text != "": filter_text = " WHERE " + filter_text + " "
+	
+	# Сортировка
 	var order: String = ""
 	match FilterOrder.selected:
 		0: order = "t.id"
@@ -83,8 +81,8 @@ func _on_filter_button_down() -> void:
 		4: order = "t.rating DESC"
 		5: order = "t.part DESC, t.chapter DESC"
 	
+	# Сборка запроса
 	var request = "SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display " + \
 				   "FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) "+\
 				   "AS j ON j.id = t.section_id "+ filter_text +" ORDER BY " + order + ";"
-	print(request)
 	add_titles(request)
