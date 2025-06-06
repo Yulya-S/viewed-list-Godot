@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var TitleBox = get_parent().get_parent().get_parent()
 @onready var Part = $Part
 @onready var Chapter = $Chapter
 
@@ -25,8 +26,7 @@ func _on_part_text_changed() -> void:
 		Part.set_text(filtered_text)
 		if "\n" in text: Part.release_focus()
 
-func _on_part_text_set() -> void:
-	pass
+func _on_part_text_set() -> void: TitleBox.save_part(int(Part.get_text()))
 
 
 # Валидация номера главы
@@ -38,5 +38,4 @@ func _on_chapter_text_changed() -> void:
 		Chapter.set_text(filtered_text)
 		if "\n" in text: Chapter.release_focus()
 
-func _on_chapter_text_set() -> void:
-	pass
+func _on_chapter_text_set() -> void: TitleBox.save_chapter(int(Chapter.get_text()))
