@@ -17,25 +17,19 @@ func set_values(part_value: int, chapter_value: int) -> void:
 	Chapter.text = str(chapter_value)
 
 
-# Валидация номера части
+# Изменение значения части
 func _on_part_text_changed() -> void:
+	Global.valide_text(Part)
 	var text = Part.get_text()
-	if len(text) > 0:
-		var filtered_text = ""
-		for i in text: if i.is_valid_int(): filtered_text += i
-		Part.set_text(filtered_text)
-		if "\n" in text: Part.release_focus()
+	if len(text) > 0 and "\n" in text: Part.release_focus()
 
 func _on_part_text_set() -> void: TitleBox.save_part(int(Part.get_text()))
 
 
-# Валидация номера главы
+# Изменение значения главы
 func _on_chapter_text_changed() -> void:
+	Global.valide_text(Chapter)
 	var text = Chapter.get_text()
-	if len(text) > 0:
-		var filtered_text = ""
-		for i in text: if i.is_valid_int(): filtered_text += i
-		Chapter.set_text(filtered_text)
-		if "\n" in text: Chapter.release_focus()
+	if len(text) > 0 and "\n" in text: Chapter.release_focus()
 
 func _on_chapter_text_set() -> void: TitleBox.save_chapter(int(Chapter.get_text()))
