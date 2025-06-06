@@ -9,15 +9,15 @@ offset_bottom = 40.0
 script = ExtResource("1_02rgh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(600, 50)
+custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
-custom_minimum_size = Vector2(567, 50)
+custom_minimum_size = Vector2(380, 50)
 layout_mode = 2
 offset_left = 5.0
-offset_right = 572.0
+offset_right = 385.0
 offset_bottom = 50.0
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -30,13 +30,13 @@ clip_text = true
 [node name="Status" type="ColorRect" parent="ColorRect"]
 custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
-offset_left = 600.0
+offset_left = 400.0
 offset_right = 1134.0
 offset_bottom = 50.0
 size_flags_horizontal = 8
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
-[node name="Label" type="Label" parent="ColorRect/Status"]
+[node name="Status" type="Label" parent="ColorRect/Status"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 6
@@ -47,6 +47,29 @@ anchor_bottom = 0.5
 offset_left = -205.0
 offset_top = -25.0
 offset_right = -5.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -8
+text = "Не начато"
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="Section" type="Label" parent="ColorRect/Status"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -734.0
+offset_top = -25.0
+offset_right = -534.0
 offset_bottom = 25.0
 grow_horizontal = 0
 grow_vertical = 2

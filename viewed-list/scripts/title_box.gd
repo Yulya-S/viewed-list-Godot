@@ -4,6 +4,8 @@ extends Container
 @onready var Box = $ColorRect
 @onready var Title = $ColorRect/Label
 @onready var Status = $ColorRect/Status
+@onready var StatusLabel = $ColorRect/Status/Status
+@onready var Section = $ColorRect/Status/Section
 
 
 enum TitleStatus {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED}
@@ -15,28 +17,29 @@ func set_title(data):
 	id = data.id
 	Title.set_text(data.title)
 	Box.tooltip_text = data.title
+	Section.set_text(data.section_title)
 	
 	match TitleStatus.values()[data.status]:
-		TitleStatus.NONE: Status.get_child(0).set_text("Не начато")
+		TitleStatus.NONE: StatusLabel.set_text("Не начато")
 		TitleStatus.WAIT: add_rating(data.rating, "Ожидается продолжение")
-		TitleStatus.UNLIKE: Status.get_child(0).set_text("Не понравилось")
+		TitleStatus.UNLIKE: StatusLabel.set_text("Не понравилось")
 		TitleStatus.COMPLETED:  add_rating(data.rating, "Завершено")
 		TitleStatus.PROGRESS:
 			if data.display:
 				Status.add_child(load("res://scenes/progress.tscn").instantiate())
-				Status.get_child(-1).position = Vector2(120, 8)
+				Status.get_child(-1).position = Vector2(340, 8)
 				Status.get_child(-1).set_values(data.part, data.chapter)
 				Status.get_child(-1).set_labels(data.part_name, data.chapter_name)
-			Status.get_child(0).set_text("В процессе")
-		_: Status.get_child(0).set_text("Не известный статус")
+			StatusLabel.set_text("В процессе")
+		_: StatusLabel.set_text("Не известный статус")
 
 
 # Добавление рейтинга
 func add_rating(rating: int, text: String):
 	Status.add_child(load("res://scenes/rating.tscn").instantiate())
-	Status.get_child(-1).position = Vector2(0, 5)
+	Status.get_child(-1).position = Vector2(220, 5)
 	Status.get_child(-1).value = rating
-	Status.get_child(0).set_text(text)
+	StatusLabel.set_text(text)
 
 
 # изменение значения рейтинга

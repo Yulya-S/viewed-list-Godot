@@ -20,7 +20,7 @@ func _ready() -> void:
 		FilterSection.add_item(i.title, i.id)
 	
 	#add_titles("SELECT * FROM titles ORDER BY title;")
-	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
+	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
 	
 
 # Подключение БД
@@ -37,7 +37,6 @@ func add_titles(request_text: String):
 		TitleContainer.remove_child(i)
 	
 	db.query(request_text)
-	#print(db.query_result)
 	for i in db.query_result:
 		TitleContainer.add_child(title.instantiate())
 		TitleContainer.get_child(-1).set_title(i)
@@ -84,8 +83,8 @@ func _on_filter_button_down() -> void:
 		4: order = "t.rating DESC"
 		5: order = "t.part DESC, t.chapter DESC"
 	
-	var request = "SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.part_name, j.chapter_name, j.display " + \
-				   "FROM `titles` t INNER JOIN ( SELECT s.id, s.part_name, s.chapter_name, s.display FROM `sections` s) "+\
+	var request = "SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display " + \
+				   "FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) "+\
 				   "AS j ON j.id = t.section_id "+ filter_text +" ORDER BY " + order + ";"
 	print(request)
 	add_titles(request)
