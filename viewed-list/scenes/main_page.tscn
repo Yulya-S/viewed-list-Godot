@@ -12,27 +12,29 @@ offset_right = 1152.0
 offset_bottom = 59.0
 color = Color(1, 0.619608, 0.427451, 1)
 
-[node name="Hint" type="TextureButton" parent="Head"]
+[node name="Button" type="Button" parent="Head"]
+layout_mode = 0
+offset_left = 79.68
+offset_top = 10.0
+offset_right = 207.68
+offset_bottom = 138.0
+scale = Vector2(0.31, 0.31)
+icon = ExtResource("3_ohacb")
+
+[node name="Button2" type="Button" parent="Head"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 10.0
-offset_right = 60.0
-offset_bottom = 50.0
-texture_normal = ExtResource("2_8blsl")
-
-[node name="Setting" type="TextureButton" parent="Head"]
-layout_mode = 0
-offset_left = 80.0
-offset_top = 10.0
-offset_right = 120.0
-offset_bottom = 50.0
-texture_normal = ExtResource("3_ohacb")
+offset_right = 148.0
+offset_bottom = 138.0
+scale = Vector2(0.31, 0.31)
+icon = ExtResource("2_8blsl")
 
 [node name="Sections" type="Button" parent="Head"]
 layout_mode = 0
-offset_left = 140.0
+offset_left = 139.36
 offset_top = 10.0
-offset_right = 241.0
+offset_right = 240.36
 offset_bottom = 50.0
 text = "К разделам"
 
@@ -196,9 +198,10 @@ offset_bottom = 124.0
 text = "Применить"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_top = 200.0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = 3.0
+offset_top = 205.0
+offset_right = 1148.0
+offset_bottom = 645.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 custom_minimum_size = Vector2(971, 0)

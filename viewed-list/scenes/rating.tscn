@@ -5,8 +5,9 @@
 [ext_resource type="Script" uid="uid://70hg0jb3xyrl" path="res://scripts/rating.gd" id="3_55a0e"]
 
 [node name="Rating" type="TextureProgressBar"]
-offset_right = 197.0
-offset_bottom = 40.0
+offset_right = 500.0
+offset_bottom = 100.0
+scale = Vector2(0.4, 0.4)
 mouse_default_cursor_shape = 2
 max_value = 5.0
 texture_under = ExtResource("1_janua")

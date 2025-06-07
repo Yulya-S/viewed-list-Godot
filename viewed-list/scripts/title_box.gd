@@ -28,7 +28,7 @@ func set_title(data):
 		TitleStatus.PROGRESS:
 			if data.display:
 				Status.add_child(load("res://scenes/progress.tscn").instantiate())
-				Status.get_child(-1).position = Vector2(340, 8)
+				Status.get_child(-1).position = Vector2(300, 8)
 				Status.get_child(-1).set_values(data.part, data.chapter)
 				Status.get_child(-1).set_labels(data.part_name, data.chapter_name)
 			StatusLabel.set_text("В процессе")
@@ -38,7 +38,7 @@ func set_title(data):
 # Добавление рейтинга
 func add_rating(rating: int, text: String):
 	Status.add_child(load("res://scenes/rating.tscn").instantiate())
-	Status.get_child(-1).position = Vector2(220, 5)
+	Status.get_child(-1).position = Vector2(220, 0)
 	Status.get_child(-1).value = rating
 	StatusLabel.set_text(text)
 
