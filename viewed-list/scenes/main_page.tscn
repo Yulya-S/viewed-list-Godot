@@ -1,0 +1,213 @@
+[gd_scene load_steps=4 format=3 uid="uid://gfasxd6ic3rm"]
+
+[ext_resource type="Script" uid="uid://bcq4qduq8tguw" path="res://scripts/main_page.gd" id="1_i1i83"]
+[ext_resource type="Texture2D" uid="uid://dyfovwtr0u2n5" path="res://img/question.png" id="2_8blsl"]
+[ext_resource type="Texture2D" uid="uid://bclgwquwbe685" path="res://img/gear.png" id="3_ohacb"]
+
+[node name="MainPage" type="Node2D"]
+script = ExtResource("1_i1i83")
+
+[node name="Head" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 59.0
+color = Color(1, 0.619608, 0.427451, 1)
+
+[node name="Button" type="Button" parent="Head"]
+layout_mode = 0
+offset_left = 79.68
+offset_top = 10.0
+offset_right = 207.68
+offset_bottom = 138.0
+scale = Vector2(0.31, 0.31)
+icon = ExtResource("3_ohacb")
+
+[node name="Button2" type="Button" parent="Head"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 148.0
+offset_bottom = 138.0
+scale = Vector2(0.31, 0.31)
+icon = ExtResource("2_8blsl")
+
+[node name="Sections" type="Button" parent="Head"]
+layout_mode = 0
+offset_left = 139.36
+offset_top = 10.0
+offset_right = 240.36
+offset_bottom = 50.0
+text = "К разделам"
+
+[node name="Exit" type="Button" parent="Head"]
+layout_mode = 0
+offset_left = 1031.0
+offset_top = 10.0
+offset_right = 1132.0
+offset_bottom = 50.0
+text = "Выйти"
+
+[node name="Filters" type="ColorRect" parent="."]
+offset_top = 59.0
+offset_right = 1152.0
+offset_bottom = 200.0
+color = Color(0.509804, 0.894118, 0.768627, 1)
+
+[node name="Section" type="OptionButton" parent="Filters"]
+offset_left = 20.0
+offset_top = 31.0
+offset_right = 283.0
+offset_bottom = 62.0
+selected = 0
+item_count = 1
+popup/item_0/id = 0
+
+[node name="Label" type="Label" parent="Filters/Section"]
+layout_mode = 0
+offset_top = -28.0
+offset_right = 263.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Раздел"
+
+[node name="Name" type="TextEdit" parent="Filters"]
+clip_contents = false
+layout_mode = 0
+offset_left = 303.0
+offset_top = 31.0
+offset_right = 566.0
+offset_bottom = 62.0
+autowrap_mode = 1
+scroll_past_end_of_file = true
+
+[node name="Label" type="Label" parent="Filters/Name"]
+layout_mode = 0
+offset_top = -28.0
+offset_right = 263.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Фрагмент названия"
+
+[node name="Status" type="OptionButton" parent="Filters"]
+offset_left = 586.0
+offset_top = 31.0
+offset_right = 849.0
+offset_bottom = 62.0
+selected = 0
+item_count = 6
+popup/item_0/id = 0
+popup/item_1/text = "Не начато"
+popup/item_1/id = 1
+popup/item_2/text = "В процессе"
+popup/item_2/id = 2
+popup/item_3/text = "Ожидается продолжение"
+popup/item_3/id = 3
+popup/item_4/text = "Не понравилось"
+popup/item_4/id = 4
+popup/item_5/text = "Завершено"
+popup/item_5/id = 5
+
+[node name="Label" type="Label" parent="Filters/Status"]
+layout_mode = 0
+offset_top = -28.0
+offset_right = 273.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Статус"
+
+[node name="Order" type="OptionButton" parent="Filters"]
+offset_left = 869.0
+offset_top = 31.0
+offset_right = 1132.0
+offset_bottom = 62.0
+selected = 2
+item_count = 6
+popup/item_0/text = "По времени добавления"
+popup/item_0/id = 0
+popup/item_1/text = "По разделу"
+popup/item_1/id = 1
+popup/item_2/text = "По алфавиту"
+popup/item_2/id = 2
+popup/item_3/text = "По статусу"
+popup/item_3/id = 3
+popup/item_4/text = "По рейтингу"
+popup/item_4/id = 4
+popup/item_5/text = "По процессу"
+popup/item_5/id = 5
+
+[node name="Label" type="Label" parent="Filters/Order"]
+layout_mode = 0
+offset_top = -28.0
+offset_right = 263.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Способ сортировки"
+
+[node name="Rating" type="TextEdit" parent="Filters"]
+clip_contents = false
+offset_left = 20.0
+offset_top = 93.0
+offset_right = 283.0
+offset_bottom = 124.0
+autowrap_mode = 1
+scroll_past_end_of_file = true
+
+[node name="Label" type="Label" parent="Filters/Rating"]
+offset_top = -28.0
+offset_right = 263.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Рейтинг"
+
+[node name="Part" type="TextEdit" parent="Filters"]
+clip_contents = false
+offset_left = 303.0
+offset_top = 93.0
+offset_right = 566.0
+offset_bottom = 124.0
+autowrap_mode = 1
+scroll_past_end_of_file = true
+
+[node name="Label" type="Label" parent="Filters/Part"]
+offset_top = -28.0
+offset_right = 263.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Часть"
+
+[node name="Chapter" type="TextEdit" parent="Filters"]
+clip_contents = false
+offset_left = 586.0
+offset_top = 93.0
+offset_right = 849.0
+offset_bottom = 124.0
+autowrap_mode = 1
+scroll_past_end_of_file = true
+
+[node name="Label" type="Label" parent="Filters/Chapter"]
+offset_top = -28.0
+offset_right = 263.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Глава"
+
+[node name="Button" type="Button" parent="Filters"]
+offset_left = 869.0
+offset_top = 93.0
+offset_right = 1132.0
+offset_bottom = 124.0
+text = "Применить"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 3.0
+offset_top = 205.0
+offset_right = 1148.0
+offset_bottom = 645.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(971, 0)
+layout_mode = 2
+
+[connection signal="text_changed" from="Filters/Rating" to="." method="_on_filter_rating_text_changed"]
+[connection signal="text_changed" from="Filters/Part" to="." method="_on_filter_part_text_changed"]
+[connection signal="text_changed" from="Filters/Chapter" to="." method="_on_filter_chapter_text_changed"]
+[connection signal="button_down" from="Filters/Button" to="." method="_on_filter_button_down"]
