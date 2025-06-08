@@ -1,4 +1,6 @@
 extends Node
+# Сигналы
+signal open_title_page(page)
 
 # Проверка что текст это число
 func valide_text(text_container) -> void:

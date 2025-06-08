@@ -11,6 +11,7 @@ script = ExtResource("1_02rgh")
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
@@ -34,6 +35,7 @@ offset_left = 400.0
 offset_right = 1120.0
 offset_bottom = 50.0
 size_flags_horizontal = 8
+mouse_filter = 2
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
 [node name="Status" type="Label" parent="ColorRect/Status"]
