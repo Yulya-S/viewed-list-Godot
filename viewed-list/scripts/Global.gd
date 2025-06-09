@@ -2,6 +2,8 @@ extends Node
 # Сигналы
 signal open_title_page(page)
 
+var db: SQLite = null
+
 # Проверка что текст это число
 func valide_text(text_container) -> void:
 	var text = text_container.get_text()

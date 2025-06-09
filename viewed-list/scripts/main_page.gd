@@ -11,21 +11,19 @@ extends Node2D
 
 var title = load("res://scenes/title_box.tscn")
 
-var db: SQLite = null
-
 # Создание страницы
 func _ready() -> void:
 	connecting_db("res://bases/base.db")
-	db.query("SELECT id, title FROM sections;")
-	for i in db.query_result: FilterSection.add_item(i.title, i.id)
+	Global.db.query("SELECT id, title FROM sections;")
+	for i in Global.db.query_result: FilterSection.add_item(i.title, i.id)
 	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
 	
 
 # Подключение БД
 func connecting_db(db_name: String):
-	db = SQLite.new()
-	db.path = db_name
-	db.open_db()
+	Global.db = SQLite.new()
+	Global.db.path = db_name
+	Global.db.open_db()
 
 
 # Заполнение страницы тайтлами
@@ -33,15 +31,15 @@ func add_titles(request_text: String):
 	for i in TitleContainer.get_children():
 		i.queue_free()
 		TitleContainer.remove_child(i)
-	db.query(request_text)
-	for i in db.query_result:
+	Global.db.query(request_text)
+	for i in Global.db.query_result:
 		TitleContainer.add_child(title.instantiate())
 		TitleContainer.get_child(-1).set_title(i)
 
 
 # Закрытие БД во время закрытия приложения
 func _notification(what):
-	if db: if what == Window.NOTIFICATION_WM_CLOSE_REQUEST: db.close_db()
+	if Global.db: if what == Window.NOTIFICATION_WM_CLOSE_REQUEST: Global.db.close_db()
 				
 
 # Изменение значения рейтинга

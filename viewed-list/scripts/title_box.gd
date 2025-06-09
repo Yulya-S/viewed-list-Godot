@@ -1,6 +1,5 @@
 extends Container
 
-@onready var MainPage = get_parent().get_parent().get_parent()
 @onready var Box = $ColorRect
 @onready var Title = $ColorRect/Label
 @onready var Status = $ColorRect/Status
@@ -45,12 +44,12 @@ func add_rating(rating: int, text: String):
 
 # изменение значения рейтинга
 func save_rating(value: float):
-	MainPage.db.query("UPDATE `titles` SET rating = " + str(value) + " WHERE id = " + str(id) + ";")
+	Global.db.query("UPDATE `titles` SET rating = " + str(value) + " WHERE id = " + str(id) + ";")
 
 # изменение значения части
 func save_part(value: int):
-	MainPage.db.query("UPDATE `titles` SET part = " + str(value) + " WHERE id = " + str(id) + ";")
+	Global.db.query("UPDATE `titles` SET part = " + str(value) + " WHERE id = " + str(id) + ";")
 
 # изменение значения главы
 func save_chapter(value: int):
-	MainPage.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
+	Global.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
