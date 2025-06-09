@@ -8,8 +8,10 @@ extends Container
 
 
 enum TitleStatus {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED}
-var id: int = 0
+enum BoxStatus {NORMAL, HOVER}
 
+var id: int = 0
+var box_state = BoxStatus.NORMAL
 
 # Привязка тайтла к контейнеру
 func set_title(data):
@@ -53,3 +55,13 @@ func save_part(value: int):
 # изменение значения главы
 func save_chapter(value: int):
 	Global.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
+
+
+func _input(event: InputEvent) -> void:
+	if box_state == BoxStatus.NORMAL: return
+	if event.is_action("click") and event.is_pressed():
+		Global.emit_signal("open_title_page", self)
+
+func _on_color_rect_mouse_entered() -> void: box_state = BoxStatus.HOVER
+
+func _on_color_rect_mouse_exited() -> void: box_state = BoxStatus.NORMAL
