@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var Error = $Window/Error
 @onready var Name = $Window/Name
 @onready var Section = $Window/Section
 @onready var Status = $Window/Status
@@ -27,9 +28,31 @@ func set_title(new_title):
 	Progress.set_values(value.part, value.chapter)
 	if value.rating: Rating.value = value.rating
 	Note.set_text(value.note)
-	
+
+
+# Отображение ошибки если тайтл уже есть в разделе
+func check_title():
+	Global.db.query('SELECT id FROM titles WHERE title = "' + Name.get_text() + '" AND section_id = ' + str(Section.selected + 1)+ ";")
+	var value = Global.db.query_result
+	Error.visible = false
+	if not title and len(value) > 0: Error.visible = true
+	else: for i in value: if i.id != title.id: Error.visible = true
+
+func _on_name_text_changed() -> void:
+	var text: String = Name.get_text()
+	if len(text) > 0 and "\n" in text:
+		Name.set_text(Name.get_text().replace("\n", ""))
+		Name.release_focus()
+
+func _on_name_text_set() -> void: check_title()
+
+func _on_section_item_selected(index: int) -> void: check_title()
+
 
 # Обработка нажатия кнопки отмены
 func _on_close_button_down() -> void:
 	queue_free()
 	get_parent().remove_child(self)
+
+
+	

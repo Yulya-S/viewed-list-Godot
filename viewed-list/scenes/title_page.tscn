@@ -163,4 +163,6 @@ theme_override_font_sizes/font_size = 24
 text = "X"
 
 [connection signal="text_changed" from="Window/Name" to="." method="_on_name_text_changed"]
+[connection signal="text_set" from="Window/Name" to="." method="_on_name_text_set"]
+[connection signal="item_selected" from="Window/Section" to="." method="_on_section_item_selected"]
 [connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
