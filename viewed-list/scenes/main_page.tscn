@@ -39,6 +39,14 @@ offset_right = 240.36
 offset_bottom = 50.0
 text = "К разделам"
 
+[node name="Add" type="Button" parent="Head"]
+layout_mode = 0
+offset_left = 260.36
+offset_top = 10.0
+offset_right = 398.36
+offset_bottom = 50.0
+text = "Добавить Тайтл"
+
 [node name="Exit" type="Button" parent="Head"]
 layout_mode = 0
 offset_left = 1031.0
@@ -219,6 +227,7 @@ offset_bottom = 645.0
 custom_minimum_size = Vector2(971, 0)
 layout_mode = 2
 
+[connection signal="button_down" from="Head/Add" to="." method="_on_add_button_down"]
 [connection signal="text_changed" from="Filters/Rating" to="." method="_on_filter_rating_text_changed"]
 [connection signal="text_changed" from="Filters/Part" to="." method="_on_filter_part_text_changed"]
 [connection signal="text_changed" from="Filters/Chapter" to="." method="_on_filter_chapter_text_changed"]

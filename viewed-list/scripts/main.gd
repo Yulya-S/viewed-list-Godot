@@ -10,6 +10,6 @@ func _ready() -> void:
 	pass
 
 
-func _open_title_page(page):
+func _open_title_page(page = null):
 	add_child(load("res://scenes/title_page.tscn").instantiate())
-	get_child(-1).set_title(page)
+	if page: get_child(-1).set_title(page)
