@@ -15,6 +15,7 @@ var title = null
 func _ready() -> void:
 	Global.db.query("SELECT id, title FROM sections;")
 	for i in Global.db.query_result: Section.add_item(i.title, i.id)
+	Name.grab_focus()
 
 
 # Изменение данных на странице
