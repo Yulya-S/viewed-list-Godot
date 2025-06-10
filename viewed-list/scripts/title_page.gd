@@ -29,6 +29,7 @@ func set_title(new_title):
 	if value.rating: Rating.value = value.rating
 	Note.set_text(value.note)
 	_on_status_item_selected(Status.selected)
+	$Window/Delete.visible = true
 
 
 # Отображение ошибки если тайтл уже есть в разделе
@@ -73,5 +74,20 @@ func _on_close_button_down() -> void:
 	queue_free()
 	get_parent().remove_child(self)
 
-
-	
+# Обработка нажатия кнопки сохранения
+func _on_apply_button_down() -> void:
+	_on_name_text_set()
+	if Error.visible: return
+	if title:
+		Global.db.query("UPDATE `titles` SET section_id = " + str(Section.selected + 1) + \
+						', title = "' + Name.get_text() + '", status = ' + str(Status.selected) + \
+						", part = " + Progress.Part.get_text() + ", chapter = " + Progress.Chapter.get_text() + \
+						', note = "' + Note.get_text() + '", rating = ' + str(Rating.value) + \
+						" WHERE id = " + str(title.id) + ";")
+	else:
+		Global.db.query("INSERT INTO `titles` (`section_id`, `title`, `status`, `part`, `chapter`, `note`, `rating`)" + \
+						" VALUES (" + str(Section.selected + 1) + ", " + Name.get_text() + ", " + \
+						str(Status.selected) + ", " + Progress.Part.get_text() + ", " + Progress.Chapter.get_text() + \
+						", " + Note.get_text() + ", " + str(Rating.value)+ ");")
+	Global.emit_signal("update_main_page")
+	_on_close_button_down()

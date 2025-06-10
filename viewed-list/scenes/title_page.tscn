@@ -137,6 +137,7 @@ offset_bottom = 463.0
 wrap_mode = 1
 
 [node name="Delete" type="Button" parent="Window"]
+visible = false
 layout_mode = 0
 offset_left = 60.0
 offset_top = 478.0
@@ -168,4 +169,5 @@ text = "X"
 [connection signal="text_set" from="Window/Name" to="." method="_on_name_text_set"]
 [connection signal="item_selected" from="Window/Section" to="." method="_on_section_item_selected"]
 [connection signal="item_selected" from="Window/Status" to="." method="_on_status_item_selected"]
+[connection signal="button_down" from="Window/Apply" to="." method="_on_apply_button_down"]
 [connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
