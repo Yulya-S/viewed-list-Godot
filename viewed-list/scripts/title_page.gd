@@ -46,7 +46,7 @@ func progress_display():
 	var value = Global.db.query_result[0]
 	Progress.set_labels(value.part_name, value.chapter_name)
 	Progress.visible = false
-	if Status.selected > 0:	Progress.visible = bool(value.display)
+	if Status.selected > 0: Progress.visible = bool(value.display)
 
 
 # Изменение названия тайтла
@@ -66,7 +66,7 @@ func _on_section_item_selected(_index: int) -> void:
 # Отображения Части, Главы и рейтинга при изменении статуса тайтла
 func _on_status_item_selected(_index: int) -> void:
 	progress_display()
-	Rating.visible = Status.selected > 1
+	Rating.visible = Status.selected > 1 and Status.selected != 3
 	
 
 # Обработка нажатия кнопки отмены
