@@ -7,6 +7,7 @@ var section = load("res://scenes/section_box.tscn")
 
 # Создание страницы
 func _ready() -> void:
+	$Head.SectionTItles.text = "К тайтлам"
 	#add_sections("SELECT * FROM sections;")
 	add_sections("SELECT s.*, j.titles_count FROM `sections` AS s INNER JOIN (SELECT t.section_id, COUNT(t.section_id) AS titles_count FROM `titles` AS t GROUP BY t.section_id) AS j ON j.section_id = s.id;")
 
