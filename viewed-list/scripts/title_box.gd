@@ -57,11 +57,13 @@ func save_chapter(value: int):
 	Global.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
 
 
+# Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:
 	if box_state == BoxStatus.NORMAL: return
-	if event.is_action("click") and event.is_pressed():
-		Global.emit_signal("open_title_page", self)
+	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_title_page", self)
 
+
+# Обработка наведения мыши на контейнер
 func _on_color_rect_mouse_entered() -> void: box_state = BoxStatus.HOVER
 
 func _on_color_rect_mouse_exited() -> void: box_state = BoxStatus.NORMAL

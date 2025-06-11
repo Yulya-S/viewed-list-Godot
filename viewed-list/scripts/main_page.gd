@@ -88,5 +88,4 @@ func _on_filter_button_down() -> void:
 
 
 # Обработка нажатия кнопки добавления нового тайтла
-func _on_add_button_down() -> void:
-	Global.emit_signal("open_title_page")
+func _on_add_button_down() -> void: Global.emit_signal("open_title_page")

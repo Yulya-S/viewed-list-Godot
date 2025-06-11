@@ -10,6 +10,7 @@ func _ready() -> void:
 	pass
 
 
+# Открытие страницы изменения тайтла
 func _open_title_page(page = null):
 	add_child(load("res://scenes/title_page.tscn").instantiate())
 	if page: get_child(-1).set_title(page)

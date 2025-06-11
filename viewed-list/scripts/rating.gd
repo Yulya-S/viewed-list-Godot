@@ -15,6 +15,8 @@ func _input(event: InputEvent) -> void:
 			if "box" in TitleBox.scene_file_path:
 				TitleBox.save_rating(value)
 
+
+# Обработка наведения мыши на контейнер
 func _on_mouse_entered() -> void: state = States.HOVER
 
 func _on_mouse_exited() -> void: state = States.NORMAL
