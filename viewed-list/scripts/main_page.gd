@@ -14,7 +14,7 @@ var title = load("res://scenes/title_box.tscn")
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_main_page", Callable(self, "_on_filter_button_down"))
-	connecting_db("res://bases/base.db")
+	if not Global.db: connecting_db("res://bases/base.db")
 	Global.db.query("SELECT id, title FROM sections;")
 	for i in Global.db.query_result: FilterSection.add_item(i.title, i.id)
 	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
