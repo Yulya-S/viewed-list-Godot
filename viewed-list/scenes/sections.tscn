@@ -36,9 +36,9 @@ text = "Фрагмент названия"
 [node name="PartName" type="TextEdit" parent="Filters"]
 clip_contents = false
 layout_mode = 0
-offset_left = 776.5
+offset_left = 401.0
 offset_top = 31.0
-offset_right = 1126.5
+offset_right = 751.0
 offset_bottom = 62.0
 autowrap_mode = 1
 scroll_past_end_of_file = true
@@ -49,14 +49,14 @@ offset_top = -28.0
 offset_right = 350.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
-text = "Фрагмент названия Части"
+text = "Фрагмент названия Главы"
 
 [node name="ChapterName" type="TextEdit" parent="Filters"]
 clip_contents = false
 layout_mode = 0
-offset_left = 401.0
+offset_left = 776.5
 offset_top = 31.0
-offset_right = 751.0
+offset_right = 1126.5
 offset_bottom = 62.0
 autowrap_mode = 1
 scroll_past_end_of_file = true
@@ -67,7 +67,7 @@ offset_top = -28.0
 offset_right = 350.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
-text = "Фрагмент названия Главы"
+text = "Фрагмент названия Части"
 
 [node name="Count" type="TextEdit" parent="Filters"]
 clip_contents = false
@@ -127,3 +127,6 @@ offset_bottom = 645.0
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 custom_minimum_size = Vector2(971, 0)
 layout_mode = 2
+
+[connection signal="text_changed" from="Filters/Count" to="." method="_on_count_text_changed"]
+[connection signal="button_down" from="Filters/Button" to="." method="_on_filter_button_down"]
