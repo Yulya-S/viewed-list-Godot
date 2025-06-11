@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cur34nukuf05y" path="res://scripts/section_box.gd" id="1_5gdxs"]
 
-[node name="TextBox" type="Container"]
+[node name="SectionBox" type="Container"]
 custom_minimum_size = Vector2(1120, 50)
 offset_right = 900.0
 offset_bottom = 50.0
@@ -106,3 +106,6 @@ horizontal_alignment = 2
 vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
+
+[connection signal="mouse_entered" from="ColorRect" to="." method="_on_color_rect_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect" to="." method="_on_color_rect_mouse_exited"]
