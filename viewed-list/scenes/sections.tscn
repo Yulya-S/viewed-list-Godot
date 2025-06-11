@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://c28ptntbcroen"]
 
-[ext_resource type="Script" uid="uid://cakdv5mgy2wam" path="res://scripts/sections_page.gd" id="1_ut0cp"]
-[ext_resource type="PackedScene" uid="uid://b8yvxv50tufrh" path="res://scenes/head.tscn" id="2_u4i1b"]
+[ext_resource type="Script" uid="uid://cakdv5mgy2wam" path="res://scripts/sections.gd" id="1_os557"]
+[ext_resource type="PackedScene" uid="uid://b8yvxv50tufrh" path="res://scenes/head.tscn" id="2_3k0pw"]
 
 [node name="SectionsPage" type="Node2D"]
-script = ExtResource("1_ut0cp")
+script = ExtResource("1_os557")
 
-[node name="Head" parent="." instance=ExtResource("2_u4i1b")]
+[node name="Head" parent="." instance=ExtResource("2_3k0pw")]
 
 [node name="Filters" type="ColorRect" parent="."]
 offset_top = 59.0
@@ -32,24 +32,6 @@ offset_right = 350.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Фрагмент названия"
-
-[node name="Name" type="TextEdit" parent="Filters/Name"]
-clip_contents = false
-layout_mode = 0
-offset_left = 0.5
-offset_top = 62.0
-offset_right = 350.5
-offset_bottom = 93.0
-autowrap_mode = 1
-scroll_past_end_of_file = true
-
-[node name="Label" type="Label" parent="Filters/Name/Name"]
-layout_mode = 0
-offset_top = -28.0
-offset_right = 350.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
-text = "Количество тайтлов"
 
 [node name="PartName" type="TextEdit" parent="Filters"]
 clip_contents = false
@@ -86,6 +68,24 @@ offset_right = 350.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Фрагмент названия Главы"
+
+[node name="Count" type="TextEdit" parent="Filters"]
+clip_contents = false
+layout_mode = 0
+offset_left = 26.0
+offset_top = 93.0
+offset_right = 376.0
+offset_bottom = 124.0
+autowrap_mode = 1
+scroll_past_end_of_file = true
+
+[node name="Label" type="Label" parent="Filters/Count"]
+layout_mode = 0
+offset_top = -28.0
+offset_right = 350.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Количество тайтлов"
 
 [node name="Order" type="OptionButton" parent="Filters"]
 layout_mode = 0

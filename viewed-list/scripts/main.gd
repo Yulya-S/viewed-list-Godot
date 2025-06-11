@@ -27,7 +27,7 @@ func update_state():
 	match state:
 		States.REGISTRATION: pass
 		States.TITLE: add_child(load("res://scenes/main_page.tscn").instantiate())
-		States.SECTION: add_child(load("res://scenes/sections_page.tscn").instantiate())
+		States.SECTION: add_child(load("res://scenes/sections.tscn").instantiate())
 		States.RANDOM: pass
 		_: pass
 	
