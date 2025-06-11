@@ -1,6 +1,5 @@
 extends Container
 
-@onready var MainPage = get_parent().get_parent().get_parent()
 @onready var Box = $ColorRect
 @onready var Title = $ColorRect/Label
 @onready var Status = $ColorRect/Status
@@ -9,8 +8,10 @@ extends Container
 
 
 enum TitleStatus {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED}
-var id: int = 0
+enum BoxStatus {NORMAL, HOVER}
 
+var id: int = 0
+var box_state = BoxStatus.NORMAL
 
 # Привязка тайтла к контейнеру
 func set_title(data):
@@ -45,12 +46,24 @@ func add_rating(rating: int, text: String):
 
 # изменение значения рейтинга
 func save_rating(value: float):
-	MainPage.db.query("UPDATE `titles` SET rating = " + str(value) + " WHERE id = " + str(id) + ";")
+	Global.db.query("UPDATE `titles` SET rating = " + str(value) + " WHERE id = " + str(id) + ";")
 
 # изменение значения части
 func save_part(value: int):
-	MainPage.db.query("UPDATE `titles` SET part = " + str(value) + " WHERE id = " + str(id) + ";")
+	Global.db.query("UPDATE `titles` SET part = " + str(value) + " WHERE id = " + str(id) + ";")
 
 # изменение значения главы
 func save_chapter(value: int):
-	MainPage.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
+	Global.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
+
+
+# Обрабоотка нажатия клавишь мыши
+func _input(event: InputEvent) -> void:
+	if box_state == BoxStatus.NORMAL: return
+	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_title_page", self)
+
+
+# Обработка наведения мыши на контейнер
+func _on_color_rect_mouse_entered() -> void: box_state = BoxStatus.HOVER
+
+func _on_color_rect_mouse_exited() -> void: box_state = BoxStatus.NORMAL
