@@ -85,7 +85,3 @@ func _on_filter_button_down() -> void:
 				   "FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) "+\
 				   "AS j ON j.id = t.section_id "+ filter_text +" ORDER BY " + order + ";"
 	add_titles(request)
-
-
-# Обработка нажатия кнопки добавления нового тайтла
-func _on_add_button_down() -> void: Global.emit_signal("open_title_page")

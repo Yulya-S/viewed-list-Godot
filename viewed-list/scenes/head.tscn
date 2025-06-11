@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8yvxv50tufrh"]
+
+[ext_resource type="Script" uid="uid://b781sthsqkicc" path="res://scripts/head.gd" id="1_a7yy4"]
+[ext_resource type="Texture2D" uid="uid://bclgwquwbe685" path="res://img/gear.png" id="1_d75dd"]
+[ext_resource type="Texture2D" uid="uid://dyfovwtr0u2n5" path="res://img/question.png" id="2_a7yy4"]
+
+[node name="Head" type="ColorRect"]
+offset_right = 1152.0
+offset_bottom = 59.0
+color = Color(1, 0.619608, 0.427451, 1)
+script = ExtResource("1_a7yy4")
+
+[node name="Hints" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 148.0
+offset_bottom = 138.0
+scale = Vector2(0.31, 0.31)
+icon = ExtResource("2_a7yy4")
+
+[node name="Settings" type="Button" parent="."]
+offset_left = 79.68
+offset_top = 10.0
+offset_right = 207.68
+offset_bottom = 138.0
+scale = Vector2(0.31, 0.31)
+icon = ExtResource("1_d75dd")
+
+[node name="Sections" type="Button" parent="."]
+offset_left = 139.36
+offset_top = 10.0
+offset_right = 240.36
+offset_bottom = 50.0
+text = "К разделам"
+
+[node name="Add" type="Button" parent="."]
+offset_left = 260.36
+offset_top = 10.0
+offset_right = 398.36
+offset_bottom = 50.0
+text = "Добавить Тайтл"
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 1031.0
+offset_top = 10.0
+offset_right = 1132.0
+offset_bottom = 50.0
+text = "Выйти"
+
+[node name="UserName" type="Label" parent="Exit"]
+layout_mode = 0
+offset_left = -307.0
+offset_right = -10.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Имя пользователя"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="button_down" from="Add" to="." method="_on_add_button_down"]
