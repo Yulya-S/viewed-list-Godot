@@ -90,7 +90,7 @@ func _on_apply_button_down() -> void:
 						" VALUES (" + str(Section.selected + 1) + ', "' + Name.get_text() + '", ' + \
 						str(Status.selected) + ", " + Progress.Part.get_text() + ", " + Progress.Chapter.get_text() + \
 						', "' + Note.get_text() + '", ' + str(Rating.value)+ ");")
-	Global.emit_signal("update_main_page")
+	Global.emit_signal("update_page")
 	_on_close_button_down()
 
 # Обработка нажатия кнопки удаления
@@ -99,5 +99,5 @@ func _on_delete_button_down() -> void:
 	Global.db.query("DELETE FROM `titles` WHERE id = " + str(title.id) + ";")
 	Global.db.query('UPDATE `sqlite_sequence` SET seq = seq - 1 WHERE name = "titles";')
 	Global.db.query("UPDATE `titles` SET id = id - 1 WHERE id > " + str(save_id) + ";")
-	Global.emit_signal("update_main_page")
+	Global.emit_signal("update_page")
 	_on_close_button_down()

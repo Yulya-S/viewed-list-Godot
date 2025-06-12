@@ -56,8 +56,23 @@ func _on_close_button_down() -> void:
 	queue_free()
 	get_parent().remove_child(self)
 
-
 # Переключение отображения Части и Главы тайтла
 func _on_display_toggled(toggled_on: bool) -> void:
 	PartName.visible = toggled_on
 	ChapterName.visible = toggled_on
+
+# Обработка нажатия кнопки создания / изменения раздела
+func _on_apply_button_down() -> void:
+	if Error.visible: return
+	print(section)
+	if section:
+		Global.db.query('UPDATE `sections` SET title = "' + Name.get_text() + \
+						'", part_name = "' + PartName.get_text() + '", chapter_name = "' + ChapterName.get_text() + \
+						'", display = ' + str(int(Display.button_pressed)) + " WHERE id = " + str(section.id) + ";")
+	else:
+		print("hi")
+		Global.db.query("INSERT INTO `sections` (`title`, `part_name`, `chapter_name`, `display`)" + \
+						' VALUES ("' + Name.get_text() + '", "' + PartName.get_text() + '", "' + \
+						ChapterName.get_text() + '", ' + str(int(Display.button_pressed)) + ");")
+	Global.emit_signal("update_page")
+	_on_close_button_down()

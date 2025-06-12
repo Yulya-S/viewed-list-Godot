@@ -2,7 +2,7 @@ extends Node
 # Сигналы
 signal open_object_page(page)
 signal next_section()
-signal update_main_page()
+signal update_page()
 
 var db: SQLite = null
 
