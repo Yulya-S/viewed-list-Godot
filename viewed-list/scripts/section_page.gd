@@ -17,9 +17,9 @@ func _ready() -> void: Name.grab_focus()
 # Изменение данных на странице
 func set_section(new_section) -> void:
 	section = new_section
-	Global.db.query("SELECT s.*, j.titles_count FROM `sections` AS s INNER JOIN (SELECT t.section_id, " + \
-					"COUNT(t.section_id) AS titles_count FROM `titles` AS t GROUP BY t.section_id) AS j ON j.section_id = s.id WHERE s.id = " + \
-					str(section.id) + " ORDER BY s.title;")
+	Global.db.query("SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s " + \
+					"LEFT JOIN `titles` AS t ON t.section_id = s.id WHERE s.id = " + str(section.id) + \
+					" GROUP BY s.id ORDER BY s.title;")
 	var value = Global.db.query_result[0]
 	TitlesCount.set_text("Количество тайтлов относящихся к разделу: " + str(value.titles_count))
 	Name.set_text(value.title)

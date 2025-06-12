@@ -15,7 +15,7 @@ func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
 	$Head.SectionTitles.text = "К тайтлам"
 	$Head.Add.text = "Добавить Раздел"
-	add_sections("SELECT s.*, j.titles_count FROM `sections` AS s INNER JOIN (SELECT t.section_id, COUNT(t.section_id) AS titles_count FROM `titles` AS t GROUP BY t.section_id) AS j ON j.section_id = s.id ORDER BY s.title;")
+	add_sections("SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s LEFT JOIN `titles` AS t ON t.section_id = s.id GROUP BY s.id ORDER BY s.title;")
 
 
 # Заполнение страницы разделами
@@ -51,11 +51,10 @@ func _on_filter_button_down() -> void:
 	match FilterOrder.selected:
 		0: order = "s.id"
 		1: order = "s.title"
-		2: order = "j.titles_count DESC"
+		2: order = "titles_count DESC"
 		_: order = "s.id"
 	
 	# Сборка запроса
-	var request: String = "SELECT s.*, j.titles_count FROM `sections` AS s INNER JOIN " + \
-						  "(SELECT t.section_id, COUNT(t.section_id) AS titles_count FROM `titles` AS t GROUP BY t.section_id) " + \
-						  "AS j ON j.section_id = s.id " + filter_text + " ORDER BY " + order + ";"
+	var request: String = "SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s " + \
+						  " LEFT JOIN `titles` AS t ON t.section_id = s.id " + filter_text + " GROUP BY s.id ORDER BY " + order + ";"
 	add_sections(request)
