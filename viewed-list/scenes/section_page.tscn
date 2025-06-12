@@ -215,5 +215,6 @@ text = "X"
 [connection signal="toggled" from="Window/Display" to="." method="_on_display_toggled"]
 [connection signal="text_changed" from="Window/PartName" to="." method="_on_part_name_text_changed"]
 [connection signal="text_changed" from="Window/ChapterName" to="." method="_on_chapter_name_text_changed"]
+[connection signal="button_down" from="Window/Delete" to="." method="_on_delete_button_down"]
 [connection signal="button_down" from="Window/Apply" to="." method="_on_apply_button_down"]
 [connection signal="button_down" from="Close" to="." method="_on_close_button_down"]

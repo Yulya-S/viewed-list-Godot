@@ -64,15 +64,25 @@ func _on_display_toggled(toggled_on: bool) -> void:
 # Обработка нажатия кнопки создания / изменения раздела
 func _on_apply_button_down() -> void:
 	if Error.visible: return
-	print(section)
 	if section:
 		Global.db.query('UPDATE `sections` SET title = "' + Name.get_text() + \
 						'", part_name = "' + PartName.get_text() + '", chapter_name = "' + ChapterName.get_text() + \
 						'", display = ' + str(int(Display.button_pressed)) + " WHERE id = " + str(section.id) + ";")
 	else:
-		print("hi")
 		Global.db.query("INSERT INTO `sections` (`title`, `part_name`, `chapter_name`, `display`)" + \
 						' VALUES ("' + Name.get_text() + '", "' + PartName.get_text() + '", "' + \
 						ChapterName.get_text() + '", ' + str(int(Display.button_pressed)) + ");")
+	Global.emit_signal("update_page")
+	_on_close_button_down()
+
+# Обработка нажатия кнопки удаления раздела
+func _on_delete_button_down() -> void:
+	var save_id: int = section.id
+	Global.db.query("DELETE FROM `sections` WHERE id = " + str(section.id) + ";")
+	Global.db.query('UPDATE `sqlite_sequence` SET seq = seq - 1 WHERE name = "sections";')
+	Global.db.query("UPDATE `sections` SET id = id - 1 WHERE id > " + str(save_id) + ";")
+	Global.db.query("UPDATE `titles` SET section_id = section_id - 1 WHERE section_id > " + str(save_id) + ";")
+	
+	
 	Global.emit_signal("update_page")
 	_on_close_button_down()
