@@ -93,13 +93,12 @@ text = "Количество тайтлов относящихся к разде
 [node name="Error" type="Label" parent="Window"]
 visible = false
 layout_mode = 0
-offset_left = 256.0
+offset_left = 166.0
 offset_top = 73.0
-offset_right = 705.0
+offset_right = 778.0
 offset_bottom = 104.0
 theme_override_colors/font_color = Color(0.756863, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
-text = "раздел с таким именем уже существует"
 horizontal_alignment = 1
 
 [node name="Name" type="TextEdit" parent="Window"]
@@ -212,6 +211,7 @@ theme_override_font_sizes/font_size = 24
 text = "X"
 
 [connection signal="text_changed" from="Window/Name" to="." method="_on_name_text_changed"]
+[connection signal="text_set" from="Window/Name" to="." method="_on_name_text_set"]
 [connection signal="toggled" from="Window/Display" to="." method="_on_display_toggled"]
 [connection signal="text_changed" from="Window/PartName" to="." method="_on_part_name_text_changed"]
 [connection signal="text_changed" from="Window/ChapterName" to="." method="_on_chapter_name_text_changed"]
