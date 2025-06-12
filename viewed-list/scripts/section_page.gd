@@ -26,8 +26,7 @@ func set_section(new_section) -> void:
 	Display.button_pressed = bool(value.display)
 	PartName.set_text(value.part_name)
 	ChapterName.set_text(value.chapter_name)
-	PartName.visible = bool(value.display)
-	ChapterName.visible = bool(value.display)
+	_on_display_toggled(bool(value.display))
 	$Window/Delete.visible = true
 	
 	
@@ -56,3 +55,9 @@ func _on_chapter_name_text_changed() -> void:
 func _on_close_button_down() -> void:
 	queue_free()
 	get_parent().remove_child(self)
+
+
+# Переключение отображения Части и Главы тайтла
+func _on_display_toggled(toggled_on: bool) -> void:
+	PartName.visible = toggled_on
+	ChapterName.visible = toggled_on
