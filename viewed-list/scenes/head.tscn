@@ -11,6 +11,7 @@ color = Color(1, 0.619608, 0.427451, 1)
 script = ExtResource("1_a7yy4")
 
 [node name="Hints" type="Button" parent="."]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 10.0
 offset_right = 148.0
@@ -19,6 +20,7 @@ scale = Vector2(0.31, 0.31)
 icon = ExtResource("2_a7yy4")
 
 [node name="Settings" type="Button" parent="."]
+layout_mode = 0
 offset_left = 79.68
 offset_top = 10.0
 offset_right = 207.68
@@ -27,6 +29,7 @@ scale = Vector2(0.31, 0.31)
 icon = ExtResource("1_d75dd")
 
 [node name="SectionsTitles" type="Button" parent="."]
+layout_mode = 0
 offset_left = 139.36
 offset_top = 10.0
 offset_right = 240.36
@@ -34,6 +37,7 @@ offset_bottom = 50.0
 text = "К разделам"
 
 [node name="Add" type="Button" parent="."]
+layout_mode = 0
 offset_left = 260.36
 offset_top = 10.0
 offset_right = 408.36
@@ -41,6 +45,7 @@ offset_bottom = 50.0
 text = "Добавить Тайтл"
 
 [node name="Exit" type="Button" parent="."]
+layout_mode = 0
 offset_left = 1031.0
 offset_top = 10.0
 offset_right = 1132.0
@@ -56,6 +61,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Имя пользователя"
 horizontal_alignment = 2
 vertical_alignment = 1
+text_overrun_behavior = 3
 
 [connection signal="button_down" from="SectionsTitles" to="." method="_on_sections_titles_button_down"]
 [connection signal="button_down" from="Add" to="." method="_on_add_button_down"]

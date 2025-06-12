@@ -65,6 +65,7 @@ offset_left = 589.0
 offset_top = 31.0
 offset_right = 852.0
 offset_bottom = 62.0
+text_overrun_behavior = 3
 
 [node name="Label" type="Label" parent="Window/Section"]
 layout_mode = 0
