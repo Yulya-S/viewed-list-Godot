@@ -78,11 +78,16 @@ func _on_apply_button_down() -> void:
 # Обработка нажатия кнопки удаления раздела
 func _on_delete_button_down() -> void:
 	var save_id: int = section.id
+	
+	Global.db.query("Select id FROM `titles` WHERE section_id = " + str(section.id) + ";")
+	for i in Global.db.query_result:
+		Global.db.query("DELETE FROM `titles` WHERE id = " + str(i.id) + ";")
+		Global.db.query('UPDATE `sqlite_sequence` SET seq = seq - 1 WHERE name = "titles";')
+		Global.db.query("UPDATE `titles` SET id = id - 1 WHERE id > " + str(i.id) + ";")
+	
 	Global.db.query("DELETE FROM `sections` WHERE id = " + str(section.id) + ";")
 	Global.db.query('UPDATE `sqlite_sequence` SET seq = seq - 1 WHERE name = "sections";')
 	Global.db.query("UPDATE `sections` SET id = id - 1 WHERE id > " + str(save_id) + ";")
 	Global.db.query("UPDATE `titles` SET section_id = section_id - 1 WHERE section_id > " + str(save_id) + ";")
-	
-	
 	Global.emit_signal("update_page")
 	_on_close_button_down()
