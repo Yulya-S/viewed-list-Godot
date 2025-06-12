@@ -26,7 +26,7 @@ offset_bottom = 138.0
 scale = Vector2(0.31, 0.31)
 icon = ExtResource("1_d75dd")
 
-[node name="Sections" type="Button" parent="."]
+[node name="SectionsTitles" type="Button" parent="."]
 offset_left = 139.36
 offset_top = 10.0
 offset_right = 240.36
@@ -36,7 +36,7 @@ text = "К разделам"
 [node name="Add" type="Button" parent="."]
 offset_left = 260.36
 offset_top = 10.0
-offset_right = 398.36
+offset_right = 408.36
 offset_bottom = 50.0
 text = "Добавить Тайтл"
 
@@ -57,4 +57,5 @@ text = "Имя пользователя"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[connection signal="button_down" from="SectionsTitles" to="." method="_on_sections_titles_button_down"]
 [connection signal="button_down" from="Add" to="." method="_on_add_button_down"]

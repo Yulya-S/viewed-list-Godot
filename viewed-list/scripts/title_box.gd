@@ -60,7 +60,7 @@ func save_chapter(value: int):
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:
 	if box_state == BoxStatus.NORMAL: return
-	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_title_page", self)
+	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_object_page", self)
 
 
 # Обработка наведения мыши на контейнер
