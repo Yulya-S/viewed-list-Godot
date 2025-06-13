@@ -40,6 +40,7 @@ func check_title():
 	Error.visible = false
 	if not title and len(value) > 0: Error.visible = true
 	else: for i in value: if i.id != title.id: Error.visible = true
+	if Error.visible: Error.set_text("тайтл с таким именем в выбранном разделе уже существует")
 
 # Отображение процесса просмотра тайтла 
 func progress_display():
@@ -78,6 +79,9 @@ func _on_close_button_down() -> void:
 # Обработка нажатия кнопки сохранения
 func _on_apply_button_down() -> void:
 	_on_name_text_set()
+	if Name.get_text() == "":
+		Error.visible = true
+		Error.set_text("Поле названия должно быть не пустым")
 	if Error.visible: return
 	if title:
 		Global.db.query("UPDATE `titles` SET section_id = " + str(Section.selected + 1) + \
