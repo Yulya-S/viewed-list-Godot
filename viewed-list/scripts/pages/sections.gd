@@ -7,7 +7,7 @@ extends Node2D
 @onready var FilterCount = $Filters/Count
 @onready var FilterOrder = $Filters/Order
 
-var section = load("res://scenes/section_box.tscn")
+var section = load("res://scenes/fragments/section.tscn")
 
 
 # Создание страницы

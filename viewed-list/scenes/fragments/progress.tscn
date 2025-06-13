@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bfj0lx0yj4638"]
 
-[ext_resource type="Script" uid="uid://joplcs53wb7" path="res://scripts/progress.gd" id="1_f1jb4"]
+[ext_resource type="Script" uid="uid://joplcs53wb7" path="res://scripts/fragments/progress.gd" id="1_f1jb4"]
 
 [node name="Progress" type="Node2D"]
 position = Vector2(83, 0)

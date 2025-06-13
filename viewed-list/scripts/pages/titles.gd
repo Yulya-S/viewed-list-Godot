@@ -9,7 +9,7 @@ extends Node2D
 @onready var FilterPart = $Filters/Part
 @onready var FilterChapter = $Filters/Chapter
 
-var title = load("res://scenes/title_box.tscn")
+var title = load("res://scenes/fragments/title.tscn")
 
 # Создание страницы
 func _ready() -> void:

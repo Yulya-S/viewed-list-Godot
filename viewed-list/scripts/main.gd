@@ -16,8 +16,8 @@ func _ready() -> void:
 
 # Открытие страницы изменения тайтла
 func _open_object_page(page = null):
-	if state == States.TITLE: add_child(load("res://scenes/title_page.tscn").instantiate())
-	else: add_child(load("res://scenes/section_page.tscn").instantiate())
+	if state == States.TITLE: add_child(load("res://scenes/windows/title.tscn").instantiate())
+	else: add_child(load("res://scenes/windows/section.tscn").instantiate())
 	if page:
 		if state == States.TITLE: get_child(-1).set_title(page)
 		else: get_child(-1).set_section(page)
@@ -30,8 +30,8 @@ func update_state():
 	remove_child(get_child(0))
 	match state:
 		States.REGISTRATION: pass
-		States.TITLE: add_child(load("res://scenes/main_page.tscn").instantiate())
-		States.SECTION: add_child(load("res://scenes/sections.tscn").instantiate())
+		States.TITLE: add_child(load("res://scenes/pages/titles.tscn").instantiate())
+		States.SECTION: add_child(load("res://scenes/pages/sections.tscn").instantiate())
 		States.RANDOM: pass
 		_: pass
 	
