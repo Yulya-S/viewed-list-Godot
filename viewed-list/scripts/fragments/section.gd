@@ -28,6 +28,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_object_page", self)
 
 # Обработка наведения мыши на контейнер
-func _on_color_rect_mouse_entered() -> void: box_state = BoxStates.HOVER
+func _on_label_mouse_entered() -> void: box_state = BoxStates.HOVER
 
-func _on_color_rect_mouse_exited() -> void: box_state = BoxStates.NORMAL
+func _on_label_mouse_exited() -> void: box_state = BoxStates.NORMAL
