@@ -83,6 +83,8 @@ func _on_apply_button_down() -> void:
 		Error.visible = true
 		Error.set_text("Поле названия должно быть не пустым")
 	if Error.visible: return
+	if not Progress.Part.get_text(): Progress.Part.set_text("1")
+	if not Progress.Chapter.get_text(): Progress.Chapter.set_text("1")
 	if title:
 		Global.db.query("UPDATE `titles` SET section_id = " + str(Section.selected + 1) + \
 						', title = "' + Name.get_text() + '", status = ' + str(Status.selected) + \
