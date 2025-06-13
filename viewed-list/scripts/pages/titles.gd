@@ -104,6 +104,7 @@ func _on_filter_button_down() -> void:
 
 func _on_name_text_changed() -> void:
 	var text: String = FilterName.get_text()
+	FilterName.set_text(FilterName.get_text().replace("\t", ""))
 	if len(text) > 0 and "\n" in text:
 		FilterName.set_text(FilterName.get_text().replace("\n", ""))
 		FilterName.find_next_valid_focus().grab_focus()

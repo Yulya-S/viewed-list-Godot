@@ -44,6 +44,7 @@ func check_section():
 # Изменение названия раздела
 func _on_name_text_changed() -> void:
 	var text: String = Name.get_text()
+	Name.set_text(Name.get_text().replace("\t", ""))
 	if len(text) > 0 and "\n" in text:
 		Name.set_text(Name.get_text().replace("\n", ""))
 		check_section()
@@ -53,6 +54,7 @@ func _on_name_text_changed() -> void:
 # Изменение названия Части
 func _on_part_name_text_changed() -> void:
 	var text: String = PartName.get_text()
+	PartName.set_text(PartName.get_text().replace("\t", ""))
 	if len(text) > 0 and "\n" in text:
 		PartName.set_text(PartName.get_text().replace("\n", ""))
 		PartName.find_next_valid_focus().grab_focus()
@@ -60,6 +62,7 @@ func _on_part_name_text_changed() -> void:
 # Изменение названия Главы
 func _on_chapter_name_text_changed() -> void:
 	var text: String = ChapterName.get_text()
+	ChapterName.set_text(ChapterName.get_text().replace("\t", ""))
 	if len(text) > 0 and "\n" in text:
 		ChapterName.set_text(ChapterName.get_text().replace("\n", ""))
 		ChapterName.find_next_valid_focus().grab_focus()

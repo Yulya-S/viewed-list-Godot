@@ -55,6 +55,7 @@ func progress_display():
 # Изменение названия тайтла
 func _on_name_text_changed() -> void:
 	var text: String = Name.get_text()
+	Name.set_text(Name.get_text().replace("\t", ""))
 	if len(text) > 0 and "\n" in text:
 		Name.set_text(Name.get_text().replace("\n", ""))
 		check_title()
@@ -64,6 +65,7 @@ func _on_name_text_changed() -> void:
 # Изменение текста заметки о тайтле
 func _on_note_text_changed() -> void:
 	var text: String = Note.get_text()
+	Note.set_text(Note.get_text().replace("\t", ""))
 	if len(text) > 0 and "\n" in text:
 		Note.set_text(Note.get_text().replace("\n", ""))
 		Note.find_next_valid_focus().grab_focus()
