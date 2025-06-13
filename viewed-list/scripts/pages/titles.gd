@@ -44,13 +44,28 @@ func _notification(what):
 				
 
 # Изменение значения рейтинга
-func _on_filter_rating_text_changed() -> void: Global.valide_text(FilterRating)
+func _on_filter_rating_text_changed() -> void:
+	var text: String = FilterRating.get_text()
+	Global.valide_text(FilterRating)
+	if len(text) > 0 and "\n" in text:
+		FilterRating.set_text(FilterRating.get_text().replace("\n", ""))
+		FilterRating.find_next_valid_focus().grab_focus()
 		
 # Изменение значения части	
-func _on_filter_part_text_changed() -> void: Global.valide_text(FilterPart)
+func _on_filter_part_text_changed() -> void:
+	var text: String = FilterPart.get_text()
+	Global.valide_text(FilterPart)
+	if len(text) > 0 and "\n" in text:
+		FilterPart.set_text(FilterPart.get_text().replace("\n", ""))
+		FilterPart.find_next_valid_focus().grab_focus()
 
 # Изменение значения главы
-func _on_filter_chapter_text_changed() -> void: Global.valide_text(FilterChapter)
+func _on_filter_chapter_text_changed() -> void:
+	var text: String = FilterChapter.get_text()
+	Global.valide_text(FilterChapter)
+	if len(text) > 0 and "\n" in text:
+		FilterChapter.set_text(FilterChapter.get_text().replace("\n", ""))
+		FilterChapter.find_next_valid_focus().grab_focus()
 
 # Нажатие кнопки фильтра
 func _on_filter_button_down() -> void:
@@ -85,3 +100,10 @@ func _on_filter_button_down() -> void:
 				   "FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) "+\
 				   "AS j ON j.id = t.section_id "+ filter_text +" ORDER BY " + order + ";"
 	add_titles(request)
+
+
+func _on_name_text_changed() -> void:
+	var text: String = FilterName.get_text()
+	if len(text) > 0 and "\n" in text:
+		FilterName.set_text(FilterName.get_text().replace("\n", ""))
+		FilterName.find_next_valid_focus().grab_focus()

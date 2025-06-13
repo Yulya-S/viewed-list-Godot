@@ -46,9 +46,8 @@ func _on_name_text_changed() -> void:
 	var text: String = Name.get_text()
 	if len(text) > 0 and "\n" in text:
 		Name.set_text(Name.get_text().replace("\n", ""))
-		Name.release_focus()
-
-func _on_name_text_set() -> void: check_section()
+		check_section()
+		Name.find_next_valid_focus().grab_focus()
 
 
 # Изменение названия Части
@@ -56,14 +55,14 @@ func _on_part_name_text_changed() -> void:
 	var text: String = PartName.get_text()
 	if len(text) > 0 and "\n" in text:
 		PartName.set_text(PartName.get_text().replace("\n", ""))
-		PartName.release_focus()
+		PartName.find_next_valid_focus().grab_focus()
 	
 # Изменение названия Главы
 func _on_chapter_name_text_changed() -> void:
 	var text: String = ChapterName.get_text()
 	if len(text) > 0 and "\n" in text:
 		ChapterName.set_text(ChapterName.get_text().replace("\n", ""))
-		ChapterName.release_focus()
+		ChapterName.find_next_valid_focus().grab_focus()
 
 # Обработка нажатия кнопки отмены
 func _on_close_button_down() -> void:

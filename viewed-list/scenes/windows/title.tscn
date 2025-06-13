@@ -153,6 +153,7 @@ offset_left = 562.0
 offset_top = 478.0
 offset_right = 872.0
 offset_bottom = 520.0
+focus_next = NodePath("../../Close")
 theme_override_font_sizes/font_size = 24
 text = "Сохранить тайтл"
 
@@ -162,14 +163,16 @@ offset_top = 52.0
 offset_right = 1049.0
 offset_bottom = 94.0
 tooltip_text = "Отменить изменения"
+focus_next = NodePath("../Window/Name")
+focus_previous = NodePath("../Window/Apply")
 theme_override_constants/outline_size = 14
 theme_override_font_sizes/font_size = 24
 text = "X"
 
 [connection signal="text_changed" from="Window/Name" to="." method="_on_name_text_changed"]
-[connection signal="text_set" from="Window/Name" to="." method="_on_name_text_set"]
 [connection signal="item_selected" from="Window/Section" to="." method="_on_section_item_selected"]
 [connection signal="item_selected" from="Window/Status" to="." method="_on_status_item_selected"]
+[connection signal="text_changed" from="Window/Note" to="." method="_on_note_text_changed"]
 [connection signal="button_down" from="Window/Delete" to="." method="_on_delete_button_down"]
 [connection signal="button_down" from="Window/Apply" to="." method="_on_apply_button_down"]
 [connection signal="button_down" from="Close" to="." method="_on_close_button_down"]

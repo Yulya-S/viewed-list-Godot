@@ -7,6 +7,7 @@ extends Node2D
 @onready var Progress = $Window/Progress
 @onready var Rating = $Window/Rating
 @onready var Note = $Window/Note
+@onready var Delete = $Window/Delete
 
 var title = null
 
@@ -30,7 +31,7 @@ func set_title(new_title):
 	if value.rating: Rating.value = value.rating
 	Note.set_text(value.note)
 	_on_status_item_selected(Status.selected)
-	$Window/Delete.visible = true
+	Delete.visible = true
 
 
 # Отображение ошибки если тайтл уже есть в разделе
@@ -56,9 +57,17 @@ func _on_name_text_changed() -> void:
 	var text: String = Name.get_text()
 	if len(text) > 0 and "\n" in text:
 		Name.set_text(Name.get_text().replace("\n", ""))
-		Name.release_focus()
+		check_title()
+		Name.find_next_valid_focus().grab_focus()
 
-func _on_name_text_set() -> void: check_title()
+
+# Изменение текста заметки о тайтле
+func _on_note_text_changed() -> void:
+	var text: String = Note.get_text()
+	if len(text) > 0 and "\n" in text:
+		Note.set_text(Note.get_text().replace("\n", ""))
+		Note.find_next_valid_focus().grab_focus()
+
 
 # Изменение раздела
 func _on_section_item_selected(_index: int) -> void:
@@ -78,7 +87,7 @@ func _on_close_button_down() -> void:
 
 # Обработка нажатия кнопки сохранения
 func _on_apply_button_down() -> void:
-	_on_name_text_set()
+	check_title()
 	if Name.get_text() == "":
 		Error.visible = true
 		Error.set_text("Поле названия должно быть не пустым")

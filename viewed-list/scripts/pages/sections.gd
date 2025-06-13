@@ -30,7 +30,12 @@ func add_sections(request_text: String):
 
 
 # Изменение значения Количества тайтлов
-func _on_count_text_changed() -> void: Global.valide_text(FilterCount)
+func _on_count_text_changed() -> void:
+	var text: String = FilterCount.get_text()
+	Global.valide_text(FilterCount)
+	if len(text) > 0 and "\n" in text:
+		FilterCount.set_text(FilterCount.get_text().replace("\n", ""))
+		FilterCount.find_next_valid_focus().grab_focus()
 
 # Нажатие кнопки фильтра
 func _on_filter_button_down() -> void:
@@ -58,3 +63,24 @@ func _on_filter_button_down() -> void:
 	var request: String = "SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s " + \
 						  " LEFT JOIN `titles` AS t ON t.section_id = s.id " + filter_text + " GROUP BY s.id ORDER BY " + order + ";"
 	add_sections(request)
+
+
+func _on_name_text_changed() -> void:
+	var text: String = FilterName.get_text()
+	if len(text) > 0 and "\n" in text:
+		FilterName.set_text(FilterName.get_text().replace("\n", ""))
+		FilterName.find_next_valid_focus().grab_focus()
+
+
+func _on_part_name_text_changed() -> void:
+	var text: String = FilterPageName.get_text()
+	if len(text) > 0 and "\n" in text:
+		FilterPageName.set_text(FilterPageName.get_text().replace("\n", ""))
+		FilterPageName.find_next_valid_focus().grab_focus()
+
+
+func _on_chapter_name_text_changed() -> void:
+	var text: String = FilterChapterName.get_text()
+	if len(text) > 0 and "\n" in text:
+		FilterChapterName.set_text(FilterChapterName.get_text().replace("\n", ""))
+		FilterChapterName.find_next_valid_focus().grab_focus()
