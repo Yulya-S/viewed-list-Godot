@@ -18,6 +18,11 @@ func _ready() -> void:
 	# подключившись к базе данных соответствующего пользователя
 	# связь прирывать только после выхода из аккаунта
 	pass
+	
+
+# Закрытие БД во время закрытия приложения
+func _notification(what):
+	if Requests.db: if what == Window.NOTIFICATION_WM_CLOSE_REQUEST: Requests.db.close_db()
 
 
 # Открытие страницы изменения тайтла

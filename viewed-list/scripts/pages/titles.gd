@@ -28,11 +28,6 @@ func add_titles(request_text: String):
 	for i in Requests.db.query_result:
 		TitleContainer.add_child(title.instantiate())
 		TitleContainer.get_child(-1).set_title(i)
-
-
-# Закрытие БД во время закрытия приложения
-func _notification(what):
-	if Requests.db: if what == Window.NOTIFICATION_WM_CLOSE_REQUEST: Requests.db.close_db()
 				
 
 # Изменение значения рейтинга
