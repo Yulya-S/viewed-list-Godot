@@ -4,8 +4,6 @@ signal open_object_page(page)
 signal next_section()
 signal update_page()
 
-var db: SQLite = null
-
 # Проверка что текст это число
 func valide_text(text_container) -> void:
 	var text = text_container.get_text()

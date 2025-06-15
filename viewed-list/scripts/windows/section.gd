@@ -17,10 +17,10 @@ func _ready() -> void: Name.grab_focus()
 # Изменение данных на странице
 func set_section(new_section) -> void:
 	section = new_section
-	Global.db.query("SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s " + \
+	Requests.db.query("SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s " + \
 					"LEFT JOIN `titles` AS t ON t.section_id = s.id WHERE s.id = " + str(section.id) + \
 					" GROUP BY s.id ORDER BY s.title;")
-	var value = Global.db.query_result[0]
+	var value = Requests.db.query_result[0]
 	TitlesCount.set_text("Количество тайтлов относящихся к разделу: " + str(value.titles_count))
 	Name.set_text(value.title)
 	Display.button_pressed = bool(value.display)
@@ -33,8 +33,8 @@ func set_section(new_section) -> void:
 
 # Отображение ошибки если тайтл уже есть в разделе
 func check_section():
-	Global.db.query('SELECT id FROM `sections` WHERE title = "' + Name.get_text() + '";')
-	var value = Global.db.query_result
+	Requests.db.query('SELECT id FROM `sections` WHERE title = "' + Name.get_text() + '";')
+	var value = Requests.db.query_result
 	Error.visible = false
 	if not section and len(value) > 0: Error.visible = true
 	else: for i in value: if i.id != section.id: Error.visible = true
@@ -88,11 +88,11 @@ func _on_apply_button_down() -> void:
 	var values: Array = ['"'+Name.get_text()+'"','"'+PartName.get_text()+'"','"'+ChapterName.get_text()+'"',int(Display.button_pressed)]
 	if section: Requests.update_record(Requests.Tables.SECTIONS, section.id, values)
 	else: Requests.insert_record(Requests.Tables.SECTIONS, values)
-	Global.emit_signal("update_page")
+	Requests.emit_signal("update_page")
 	_on_close_button_down()
 
 # Обработка нажатия кнопки удаления раздела
 func _on_delete_button_down() -> void:
 	Requests.delete_records_related_tables(Requests.Tables.SECTIONS, Requests.Tables.TITLES, section.id, "section_id")
-	Global.emit_signal("update_page")
+	Requests.emit_signal("update_page")
 	_on_close_button_down()

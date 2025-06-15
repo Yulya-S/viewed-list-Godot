@@ -23,8 +23,8 @@ func add_sections(request_text: String):
 	for i in SectionContainer.get_children():
 		i.queue_free()
 		SectionContainer.remove_child(i)
-	Global.db.query(request_text)
-	for i in Global.db.query_result:
+	Requests.db.query(request_text)
+	for i in Requests.db.query_result:
 		SectionContainer.add_child(section.instantiate())
 		SectionContainer.get_child(-1).set_section(i)
 

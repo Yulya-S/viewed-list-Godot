@@ -1,5 +1,16 @@
 extends Node
 enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE}
+var db: SQLite = null # Подключенная база данных
+
+# открытие базы данных
+func _ready() -> void: if not db: connecting_db("res://bases/base.db")
+
+# Подключение БД
+func connecting_db(db_name: String):
+	db = SQLite.new()
+	db.path = db_name
+	db.open_db()
+
 
 # Добавление фрагмента текста в запрос
 func add_part_request(text: String, column: String, value, sep: String = " AND ",
@@ -21,16 +32,16 @@ func _get_table_name(table: Tables) -> String: return Tables.keys()[table].to_lo
 
 # Получить названия колонок
 func _get_columns(table: Tables) -> Array:
-	Global.db.query("PRAGMA table_info(`"+_get_table_name(table)+"`)")
+	db.query("PRAGMA table_info(`"+_get_table_name(table)+"`)")
 	var result: Array = []
-	for i in Global.db.query_result: result.append(i.name)
+	for i in db.query_result: result.append(i.name)
 	result.pop_front()
 	return result
 	
 
 # Отправка запроса на изменение записей в таблице
 func update(table: Tables, values: String, where: String) -> void:
-	Global.db.query("UPDATE `"+_get_table_name(table)+"` SET "+values+" WHERE "+where + ";")
+	db.query("UPDATE `"+_get_table_name(table)+"` SET "+values+" WHERE "+where + ";")
 
 # Изменение тайтла
 func update_record(table: Tables, id: int, values: Array) -> void:
@@ -40,7 +51,7 @@ func update_record(table: Tables, id: int, values: Array) -> void:
 
 # Отправка запроса на создание записи таблице
 func insert(table: Tables, columns: Array, values: Array) -> void:
-	Global.db.query("INSERT INTO `"+_get_table_name(table)+"` ("+",".join(columns)+") VALUES ("+",".join(values)+");")
+	db.query("INSERT INTO `"+_get_table_name(table)+"` ("+",".join(columns)+") VALUES ("+",".join(values)+");")
 
 # Добавление записи
 func insert_record(table: Tables, values: Array) -> void:
@@ -49,7 +60,7 @@ func insert_record(table: Tables, values: Array) -> void:
 
 # Отправка запроса на удаление записи таблице
 func _delete(table: Tables, where: String) -> void:
-	Global.db.query("DELETE FROM `" + _get_table_name(table) + "` WHERE " + where + ";")
+	db.query("DELETE FROM `" + _get_table_name(table) + "` WHERE " + where + ";")
 
 # Удаление записи
 func delete_record(table: Tables, id: int) -> void:
@@ -60,8 +71,8 @@ func delete_record(table: Tables, id: int) -> void:
 # Удаление 
 func delete_records_related_tables(table_1: Tables, table_2: Tables, id: int, general_column: String):
 	# Удаление связанных записей
-	Global.db.query("Select id FROM `"+_get_table_name(table_2)+"` WHERE "+general_column+ "="+str(id)+";")
-	var values: Array = Global.db.query_result
+	db.query("Select id FROM `"+_get_table_name(table_2)+"` WHERE "+general_column+ "="+str(id)+";")
+	var values: Array = db.query_result
 	for i in range(len(values)): Requests.delete_record(table_2, values[i].id-i)
 	# Удаление самого раздела
 	Requests.update(table_2, general_column+"="+general_column+"-1", general_column+">"+str(id))
