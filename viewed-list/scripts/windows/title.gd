@@ -96,25 +96,16 @@ func _on_apply_button_down() -> void:
 	if Error.visible: return
 	if not Progress.Part.get_text(): Progress.Part.set_text("1")
 	if not Progress.Chapter.get_text(): Progress.Chapter.set_text("1")
-	if title:
-		Global.db.query("UPDATE `titles` SET section_id = " + str(Section.selected + 1) + \
-						', title = "' + Name.get_text() + '", status = ' + str(Status.selected) + \
-						", part = " + Progress.Part.get_text() + ", chapter = " + Progress.Chapter.get_text() + \
-						', note = "' + Note.get_text() + '", rating = ' + str(Rating.value) + \
-						" WHERE id = " + str(title.id) + ";")
-	else:
-		Global.db.query("INSERT INTO `titles` (`section_id`, `title`, `status`, `part`, `chapter`, `note`, `rating`)" + \
-						" VALUES (" + str(Section.selected + 1) + ', "' + Name.get_text() + '", ' + \
-						str(Status.selected) + ", " + Progress.Part.get_text() + ", " + Progress.Chapter.get_text() + \
-						', "' + Note.get_text() + '", ' + str(Rating.value)+ ");")
+	
+	var values: Array = [Section.selected + 1, '"'+Name.get_text()+'"', Status.selected, Progress.Part.get_text(),
+						 Progress.Chapter.get_text(), '"'+Note.get_text()+'"', Rating.value]
+	if title: Requests.update_record(Requests.Tables.TITLES, title.id, values)
+	else: Requests.insert_record(Requests.Tables.TITLES, values)
 	Global.emit_signal("update_page")
 	_on_close_button_down()
 
 # Обработка нажатия кнопки удаления
 func _on_delete_button_down() -> void:
-	var save_id: int = title.id
-	Global.db.query("DELETE FROM `titles` WHERE id = " + str(title.id) + ";")
-	Global.db.query('UPDATE `sqlite_sequence` SET seq = seq - 1 WHERE name = "titles";')
-	Global.db.query("UPDATE `titles` SET id = id - 1 WHERE id > " + str(save_id) + ";")
+	Requests.delete_record(Requests.Tables.TITLES, title.id)
 	Global.emit_signal("update_page")
 	_on_close_button_down()

@@ -50,17 +50,13 @@ func add_rating(rating: int, text: String):
 
 
 # изменение значения рейтинга
-func save_rating(value: float):
-	Global.db.query("UPDATE `titles` SET rating = " + str(value) + " WHERE id = " + str(id) + ";")
+func save_rating(value: float):	Requests.update(Requests.Tables.TITLES, "rating="+str(value), "id="+str(id))
 
 # изменение значения части
-func save_part(value: int):
-	Global.db.query("UPDATE `titles` SET part = " + str(value) + " WHERE id = " + str(id) + ";")
+func save_part(value: int): Requests.update(Requests.Tables.TITLES, "part="+str(value), "id="+str(id))
 
 # изменение значения главы
-func save_chapter(value: int):
-	Global.db.query("UPDATE `titles` SET chapter = " + str(value) + " WHERE id = " + str(id) + ";")
-
+func save_chapter(value: int): Requests.update(Requests.Tables.TITLES, "chapter="+str(value), "id="+str(id))
 
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:

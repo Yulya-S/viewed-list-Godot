@@ -23,8 +23,8 @@ func _on_part_text_changed() -> void:
 	var text = Part.get_text()
 	if len(text) > 0 and "\n" in text: Part.release_focus()
 
-func _on_part_text_set() -> void:
-	if "box" in TitleBox.scene_file_path: TitleBox.save_part(int(Part.get_text()))
+func _on_part_focus_exited() -> void:
+	if "fragment" in TitleBox.scene_file_path: TitleBox.save_part(int(Part.get_text()))
 
 
 # Изменение значения главы
@@ -33,5 +33,5 @@ func _on_chapter_text_changed() -> void:
 	var text = Chapter.get_text()
 	if len(text) > 0 and "\n" in text: Chapter.release_focus()
 
-func _on_chapter_text_set() -> void:
-	if "box" in TitleBox.scene_file_path: TitleBox.save_chapter(int(Chapter.get_text()))
+func _on_chapter_focus_exited() -> void:
+	if "fragment" in TitleBox.scene_file_path: TitleBox.save_chapter(int(Chapter.get_text()))
