@@ -17,10 +17,7 @@ func _ready() -> void: Name.grab_focus()
 # Изменение данных на странице
 func set_section(new_section) -> void:
 	section = new_section
-	Requests.db.query("SELECT s.*, COALESCE(COUNT(t.id), 0) AS titles_count FROM `sections` AS s " + \
-					"LEFT JOIN `titles` AS t ON t.section_id = s.id WHERE s.id = " + str(section.id) + \
-					" GROUP BY s.id ORDER BY s.title;")
-	var value = Requests.db.query_result[0]
+	var value = Requests.select_sections("s.id="+str(section.id), "s.title")[0]
 	TitlesCount.set_text("Количество тайтлов относящихся к разделу: " + str(value.titles_count))
 	Name.set_text(value.title)
 	Display.button_pressed = bool(value.display)
@@ -33,8 +30,7 @@ func set_section(new_section) -> void:
 
 # Отображение ошибки если тайтл уже есть в разделе
 func check_section():
-	Requests.db.query('SELECT id FROM `sections` WHERE title = "' + Name.get_text() + '";')
-	var value = Requests.db.query_result
+	var value = Requests.select(Requests.Tables.SECTIONS, "id", 'title="'+Name.get_text()+'"')
 	Error.visible = false
 	if not section and len(value) > 0: Error.visible = true
 	else: for i in value: if i.id != section.id: Error.visible = true

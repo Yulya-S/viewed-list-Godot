@@ -14,16 +14,15 @@ var title = null
 
 # Заполнение списка разделов
 func _ready() -> void:
-	Requests.db.query("SELECT id, title FROM sections;")
-	for i in Requests.db.query_result: Section.add_item(i.title, i.id)
+	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"):
+		Section.add_item(i.title, i.id)
 	Name.grab_focus()
 
 
 # Изменение данных на странице
 func set_title(new_title):
 	title = new_title
-	Requests.db.query("SELECT * FROM titles WHERE id = " + str(title.id) + ";")
-	var value = Requests.db.query_result[0]
+	var value = Requests.select(Requests.Tables.TITLES, "*", "id="+str(title.id))[0]
 	Name.set_text(value.title)
 	Section.selected = value.section_id - 1
 	Status.selected = value.status
@@ -36,8 +35,7 @@ func set_title(new_title):
 
 # Отображение ошибки если тайтл уже есть в разделе
 func check_title():
-	Requests.db.query('SELECT id FROM titles WHERE title = "' + Name.get_text() + '" AND section_id = ' + str(Section.selected + 1)+ ";")
-	var value = Requests.db.query_result
+	var value = Requests.select(Requests.Tables.TITLES, "id", 'title="'+Name.get_text()+'" AND section_id='+str(Section.selected + 1))
 	Error.visible = false
 	if not title and len(value) > 0: Error.visible = true
 	else: for i in value: if i.id != title.id: Error.visible = true
@@ -45,8 +43,7 @@ func check_title():
 
 # Отображение процесса просмотра тайтла 
 func progress_display():
-	Requests.db.query('SELECT * FROM sections WHERE id = ' + str(Section.selected + 1)+ ";")
-	var value = Requests.db.query_result[0]
+	var value = Requests.select(Requests.Tables.SECTIONS, "*", "id="+str(Section.selected + 1))[0]
 	Progress.set_labels(value.part_name, value.chapter_name)
 	Progress.visible = false
 	if Status.selected > 0: Progress.visible = bool(value.display)

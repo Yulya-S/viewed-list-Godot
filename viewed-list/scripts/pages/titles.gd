@@ -14,18 +14,17 @@ var title = load("res://scenes/fragments/title.tscn")
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	Requests.db.query("SELECT id, title FROM sections;")
-	for i in Requests.db.query_result: FilterSection.add_item(i.title, i.id)
-	add_titles("SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) AS j ON j.id = t.section_id ORDER BY t.title;")
+	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"):
+		FilterSection.add_item(i.title, i.id)
+	add_titles(Requests.select_titles("", "t.title"))
 
 
 # Заполнение страницы тайтлами
-func add_titles(request_text: String):
+func add_titles(values: Array):
 	for i in TitleContainer.get_children():
 		i.queue_free()
 		TitleContainer.remove_child(i)
-	Requests.db.query(request_text)
-	for i in Requests.db.query_result:
+	for i in values:
 		TitleContainer.add_child(title.instantiate())
 		TitleContainer.get_child(-1).set_title(i)
 				
@@ -70,7 +69,6 @@ func _on_filter_button_down() -> void:
 		filter_text = Global.filter_text(filter_text, "t.part", FilterPart.get_text())
 	if FilterChapter.get_text() != "":
 		filter_text = Global.filter_text(filter_text, "t.chapter", FilterChapter.get_text())
-	if filter_text != "": filter_text = " WHERE " + filter_text + " "
 	
 	# Сортировка
 	var order: String = ""
@@ -81,12 +79,8 @@ func _on_filter_button_down() -> void:
 		3: order = "t.status"
 		4: order = "t.rating DESC"
 		5: order = "t.part DESC, t.chapter DESC"
-	
-	# Сборка запроса
-	var request = "SELECT t.id, t.title, t.status, t.part, t.chapter, t.rating, j.title AS section_title, j.part_name, j.chapter_name, j.display " + \
-				   "FROM `titles` t INNER JOIN ( SELECT s.id, s.title, s.part_name, s.chapter_name, s.display FROM `sections` s) "+\
-				   "AS j ON j.id = t.section_id "+ filter_text +" ORDER BY " + order + ";"
-	add_titles(request)
+		
+	add_titles(Requests.select_titles(filter_text, order))
 
 
 func _on_name_text_changed() -> void:

@@ -71,9 +71,33 @@ func delete_record(table: Tables, id: int) -> void:
 # Удаление 
 func delete_records_related_tables(table_1: Tables, table_2: Tables, id: int, general_column: String):
 	# Удаление связанных записей
-	db.query("Select id FROM `"+_get_table_name(table_2)+"` WHERE "+general_column+ "="+str(id)+";")
-	var values: Array = db.query_result
+	var values: Array = select(table_2, "id", general_column+"="+str(id))
 	for i in range(len(values)): Requests.delete_record(table_2, values[i].id-i)
 	# Удаление самого раздела
 	Requests.update(table_2, general_column+"="+general_column+"-1", general_column+">"+str(id))
 	Requests.delete_record(table_1, id)
+	
+
+# Простой запрос к базе данных
+func select(table: Tables, columns: String, where: String = "", order: String = "") -> Array:
+	if where: where = " WHERE "+where
+	if order: order = " ORDER BY "+order
+	db.query("SELECT "+columns+" FROM `"+_get_table_name(table)+"` "+where+order+";")
+	return db.query_result
+
+# Получение списка разделов
+func select_sections(filters: String = "", order: String = "") -> Array:
+	if filters: filters = " WHERE "+filters
+	if order: order = " ORDER BY "+order
+	db.query("SELECT s.*, COALESCE(COUNT(t.id), 0) titles_count FROM `sections` s "+\
+		"LEFT JOIN `titles` t ON t.section_id = s.id"+filters+" GROUP BY s.id"+order+";")
+	return db.query_result
+	
+# Получение списка тайтлов
+func select_titles(filters: String = "", order: String = "") -> Array:
+	if filters: filters = " WHERE "+filters
+	if order: order = " ORDER BY "+order
+	db.query("SELECT t.*, j.title section_title, j.part_name, j.chapter_name, j.display "+\
+		"FROM `titles` t INNER JOIN ( SELECT s.* FROM `sections` s) j ON "+\
+		"j.id = t.section_id"+filters+order+";")
+	return db.query_result
