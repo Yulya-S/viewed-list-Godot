@@ -26,7 +26,7 @@ func set_title(data):
 	Section.set_text(data.section_title)
 	
 	# Измение названия статуса
-	match TitleStatus.values()[data.status]:
+	match TitleStatus.values()[data.status - 1]:
 		TitleStatus.NONE: StatusLabel.set_text("Не начато")
 		TitleStatus.WAIT: add_rating(data.rating, "Ожидается продолжение")
 		TitleStatus.UNLIKE: StatusLabel.set_text("Не понравилось")

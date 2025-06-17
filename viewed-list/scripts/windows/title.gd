@@ -25,7 +25,7 @@ func set_title(new_title):
 	var value = Requests.select(Requests.Tables.TITLES, "*", "id="+str(title.id))[0]
 	Name.set_text(value.title)
 	Section.selected = value.section_id - 1
-	Status.selected = value.status
+	Status.selected = value.status - 1
 	Progress.set_values(value.part, value.chapter)
 	if value.rating: Rating.value = value.rating
 	Note.set_text(value.note)
