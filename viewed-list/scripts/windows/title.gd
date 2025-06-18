@@ -17,7 +17,7 @@ func _ready() -> void:
 	Name.grab_focus()
 
 # Изменение данных на странице
-func set_title(new_title) -> void:
+func set_window(new_title) -> void:
 	title = new_title
 	var value = Requests.select(Requests.Tables.TITLES, "*", "id="+str(title.id))[0]
 	Name.set_text(value.title)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c28ptntbcroen"]
 
-[ext_resource type="Script" uid="uid://cakdv5mgy2wam" path="res://scripts/pages/sections.gd" id="1_80yjq"]
+[ext_resource type="Script" uid="uid://cakdv5mgy2wam" path="res://scripts/pages/section.gd" id="1_80yjq"]
 [ext_resource type="PackedScene" uid="uid://b8yvxv50tufrh" path="res://scenes/fragments/head.tscn" id="2_npjb6"]
 
 [node name="SectionsPage" type="Node2D"]

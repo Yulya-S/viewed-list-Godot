@@ -14,7 +14,7 @@ var section = null # Выбранный для изменени я раздел
 func _ready() -> void: Name.grab_focus()
 
 # Изменение данных на странице
-func set_section(new_section) -> void:
+func set_window(new_section) -> void:
 	section = new_section
 	var value = Requests.select_sections("s.id="+str(section.id), "", "s.title")[0]
 	TitlesCount.set_text("Количество тайтлов относящихся к разделу: " + str(value.titles_count))
