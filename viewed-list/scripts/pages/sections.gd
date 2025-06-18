@@ -18,15 +18,8 @@ func _ready() -> void:
 	Head.Add.text = "Добавить Раздел"
 	add_sections(Requests.select_sections("", "", "s.title"))
 
-
 # Заполнение страницы разделами
-func add_sections(values: Array) -> void:
-	for i in SectionContainer.get_children():
-		i.queue_free()
-		SectionContainer.remove_child(i)
-	for i in values:
-		SectionContainer.add_child(section.instantiate())
-		SectionContainer.get_child(-1).set_section(i)
+func add_sections(values: Array) -> void: Global.filling_out_page(SectionContainer, section, values)
 
 # Изменение значения фильтра названия
 func _on_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)

@@ -19,7 +19,7 @@ var id: int = 0
 var box_state = BoxStatus.NORMAL
 
 # Привязка тайтла к контейнеру
-func set_title(data) -> void:
+func set_object(data: Dictionary) -> void:
 	id = data.id
 	Title.set_text(data.title)
 	Box.tooltip_text = data.title

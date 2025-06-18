@@ -17,15 +17,8 @@ func _ready() -> void:
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
 	add_titles(Requests.select_titles("", "t.title"))
 
-
 # Заполнение страницы тайтлами
-func add_titles(values: Array) -> void:
-	for i in TitleContainer.get_children():
-		i.queue_free()
-		TitleContainer.remove_child(i)
-	for i in values:
-		TitleContainer.add_child(title.instantiate())
-		TitleContainer.get_child(-1).set_title(i)
+func add_titles(values: Array) -> void: Global.filling_out_page(TitleContainer, title, values)
 
 # Изменение значение фильтра названия
 func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)			

@@ -24,3 +24,12 @@ func text_changed_TextEdit(container: TextEdit, is_numeric: bool = false) -> voi
 		container.set_text(container.get_text().replace("\t", ""))
 		if container.find_next_valid_focus():
 			container.find_next_valid_focus().grab_focus()
+			
+# Заполнение списка объектами
+func filling_out_page(container, object, values: Array) -> void:
+	for i in container.get_children():
+		i.queue_free()
+		container.remove_child(i)
+	for i in values:
+		container.add_child(object.instantiate())
+		container.get_child(-1).set_object(i)

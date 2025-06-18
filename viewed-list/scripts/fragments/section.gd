@@ -12,7 +12,7 @@ var box_state = BoxStates.NORMAL
 var id: int = 0 # Подключенный раздел
 
 # Привязка Раздела к контейнеру
-func set_section(data) -> void:
+func set_object(data: Dictionary) -> void:
 	id = data.id
 	Title.set_text(data.title)
 	Count.set_text(str(data.titles_count))
