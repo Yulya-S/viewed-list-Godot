@@ -13,18 +13,12 @@ func connecting_db(db_name: String):
 
 
 # Добавление фрагмента текста в запрос
-func add_part_request(text: String, column: String, value, sep: String = " AND ",
-					  operator: String = "=") -> String:
-	if value == null: return text
+func add_part_request(text: String, column: String, value, operator: String = "=",
+					  sep: String = " AND ") -> String:
+	if not value: return text
 	if text: text += sep 
 	if operator == "LIKE": value = '"%' + str(value) + '%"'
-	text += column + operator + str(value)
-	return text
-
-# Составление общего запроса из фрагментов
-func walk_through_columns(columns: Array, values: Array, sep: String = " AND ", operator: String = "=") -> String:
-	var text: String = ""
-	for i in len(values): text = add_part_request(text, columns[i], values[i], sep, operator)
+	text += column + " " + operator + " " + str(value)
 	return text
 
 # Получить название таблици из enum Tables
@@ -45,7 +39,9 @@ func update(table: Tables, values: String, where: String) -> void:
 
 # Изменение тайтла
 func update_record(table: Tables, id: int, values: Array) -> void:
-	var request_text = walk_through_columns(_get_columns(table), values, ", ")
+	var request_text: String = ""
+	var columns: Array = _get_columns(table)
+	for i in len(values): request_text = add_part_request(request_text, columns[i], values[i], "=", ", ")
 	update(table, request_text, "id=" + str(id))
 
 
@@ -86,11 +82,12 @@ func select(table: Tables, columns: String, where: String = "", order: String = 
 	return db.query_result
 
 # Получение списка разделов
-func select_sections(filters: String = "", order: String = "") -> Array:
+func select_sections(filters: String = "", having: String = "", order: String = "") -> Array:
 	if filters: filters = " WHERE "+filters
+	if having: having = " HAVING "+having
 	if order: order = " ORDER BY "+order
 	db.query("SELECT s.*, COALESCE(COUNT(t.id), 0) titles_count FROM `sections` s "+\
-		"LEFT JOIN `titles` t ON t.section_id = s.id"+filters+" GROUP BY s.id"+order+";")
+		"LEFT JOIN `titles` AS t ON t.section_id = s.id"+filters+" GROUP BY s.id"+having+order+";")
 	return db.query_result
 	
 # Получение списка тайтлов

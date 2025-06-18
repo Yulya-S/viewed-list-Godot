@@ -15,7 +15,7 @@ func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
 	$Head.SectionTitles.text = "К тайтлам"
 	$Head.Add.text = "Добавить Раздел"
-	add_sections(Requests.select_sections("", "s.title"))
+	add_sections(Requests.select_sections("", "", "s.title"))
 
 
 # Заполнение страницы разделами
@@ -39,25 +39,18 @@ func _on_count_text_changed() -> void:
 # Нажатие кнопки фильтра
 func _on_filter_button_down() -> void:
 	# Фильтры
-	var filter_text: String = ""
-	if FilterName.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "s.title", FilterName.get_text(), "LIKE")
-	if FilterPageName.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "s.part_name", FilterPageName.get_text(), "LIKE")
-	if FilterChapterName.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "s.chapter_name", FilterChapterName.get_text(), "LIKE")
-	if FilterCount.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "j.titles_count", FilterCount.get_text(), ">=")
+	var filter_text: String = Requests.add_part_request("", "s.title", FilterName.get_text(), "LIKE")
+	filter_text = Requests.add_part_request(filter_text, "s.part_name", FilterPageName.get_text(), "LIKE")
+	filter_text = Requests.add_part_request(filter_text, "s.chapter_name", FilterChapterName.get_text(), "LIKE")
+	var having: String = Requests.add_part_request(filter_text, "titles_count", FilterCount.get_text(), ">=")
 	
 	# Сортировка
 	var order: String = ""
 	match FilterOrder.selected:
-		0: order = "s.id"
 		1: order = "s.title"
 		2: order = "titles_count DESC"
 		_: order = "s.id"
-	
-	add_sections(Requests.select_sections(filter_text, order))
+	add_sections(Requests.select_sections(filter_text, having, order))
 
 
 func _on_name_text_changed() -> void:

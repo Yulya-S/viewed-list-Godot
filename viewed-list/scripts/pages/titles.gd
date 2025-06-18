@@ -56,30 +56,22 @@ func _on_filter_chapter_text_changed() -> void:
 # Нажатие кнопки фильтра
 func _on_filter_button_down() -> void:
 	# Фильтры
-	var filter_text: String = ""
-	if FilterSection.selected > 0:
-		filter_text = Global.filter_text(filter_text, "t.section_id", str(FilterSection.selected))
-	if FilterName.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "t.title", FilterName.get_text(), "LIKE")
-	if FilterStatus.selected > 0:
-		filter_text = Global.filter_text(filter_text, "t.status", str(FilterStatus.selected - 1))
-	if FilterRating.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "t.rating", FilterRating.get_text())
-	if FilterPart.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "t.part", FilterPart.get_text())
-	if FilterChapter.get_text() != "":
-		filter_text = Global.filter_text(filter_text, "t.chapter", FilterChapter.get_text())
+	var filter_text: String = Requests.add_part_request("", "t.title", FilterName.get_text(), "LIKE")
+	filter_text = Requests.add_part_request(filter_text, "t.section_id", FilterSection.selected)
+	filter_text = Requests.add_part_request(filter_text, "t.status", FilterStatus.selected)
+	filter_text = Requests.add_part_request(filter_text, "t.part", FilterPart.get_text())
+	filter_text = Requests.add_part_request(filter_text, "t.chapter", FilterChapter.get_text())
+	filter_text = Requests.add_part_request(filter_text, "t.rating", FilterRating.get_text())
 	
 	# Сортировка
 	var order: String = ""
 	match FilterOrder.selected:
-		0: order = "t.id"
 		1: order = "t.section_id"
 		2: order = "t.title"
 		3: order = "t.status"
 		4: order = "t.rating DESC"
 		5: order = "t.part DESC, t.chapter DESC"
-		
+		_: order = "t.id"
 	add_titles(Requests.select_titles(filter_text, order))
 
 
