@@ -21,11 +21,11 @@ func set_values(part_value: int, chapter_value: int) -> void:
 func _on_part_text_changed() -> void: Global.text_changed_TextEdit(Part, true)
 
 func _on_part_focus_exited() -> void:
-	if "fragment" in TitleBox.scene_file_path: TitleBox.save_part(int(Part.get_text()))
+	if Global.container_in_fragments(TitleBox): TitleBox.save_part(int(Part.get_text()))
 
 
 # Изменение значения главы
 func _on_chapter_text_changed() -> void: Global.text_changed_TextEdit(Chapter, true)
 
 func _on_chapter_focus_exited() -> void:
-	if "fragment" in TitleBox.scene_file_path: TitleBox.save_chapter(int(Chapter.get_text()))
+	if Global.container_in_fragments(TitleBox): TitleBox.save_chapter(int(Chapter.get_text()))

@@ -12,8 +12,7 @@ func _input(event: InputEvent) -> void:
 	if pos.x > 0 and pos.x < size.x and pos.y > 0 and pos.y < size.y:
 		if event.is_action("click") and event.is_pressed():
 			value = floor(pos.x / (size.x / max_value)) + 1
-			if "fragment" in TitleBox.scene_file_path:
-				TitleBox.save_rating(value)
+			if Global.container_in_fragments(TitleBox): TitleBox.save_rating(value)
 
 
 # Обработка наведения мыши на контейнер
