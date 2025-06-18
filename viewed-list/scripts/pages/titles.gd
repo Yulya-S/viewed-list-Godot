@@ -27,31 +27,18 @@ func add_titles(values: Array):
 	for i in values:
 		TitleContainer.add_child(title.instantiate())
 		TitleContainer.get_child(-1).set_title(i)
-				
+
+# Изменение значение фильтра названия
+func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)			
 
 # Изменение значения рейтинга
-func _on_filter_rating_text_changed() -> void:
-	var text: String = FilterRating.get_text()
-	Global.valide_text(FilterRating)
-	if len(text) > 0 and "\n" in text:
-		FilterRating.set_text(FilterRating.get_text().replace("\n", ""))
-		FilterRating.find_next_valid_focus().grab_focus()
+func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)
 		
 # Изменение значения части	
-func _on_filter_part_text_changed() -> void:
-	var text: String = FilterPart.get_text()
-	Global.valide_text(FilterPart)
-	if len(text) > 0 and "\n" in text:
-		FilterPart.set_text(FilterPart.get_text().replace("\n", ""))
-		FilterPart.find_next_valid_focus().grab_focus()
+func _on_filter_part_text_changed() -> void: Global.text_changed_TextEdit(FilterPart, true)
 
 # Изменение значения главы
-func _on_filter_chapter_text_changed() -> void:
-	var text: String = FilterChapter.get_text()
-	Global.valide_text(FilterChapter)
-	if len(text) > 0 and "\n" in text:
-		FilterChapter.set_text(FilterChapter.get_text().replace("\n", ""))
-		FilterChapter.find_next_valid_focus().grab_focus()
+func _on_filter_chapter_text_changed() -> void: Global.text_changed_TextEdit(FilterChapter, true)
 
 # Нажатие кнопки фильтра
 func _on_filter_button_down() -> void:
@@ -73,11 +60,3 @@ func _on_filter_button_down() -> void:
 		5: order = "t.part DESC, t.chapter DESC"
 		_: order = "t.id"
 	add_titles(Requests.select_titles(filter_text, order))
-
-
-func _on_name_text_changed() -> void:
-	var text: String = FilterName.get_text()
-	FilterName.set_text(FilterName.get_text().replace("\t", ""))
-	if len(text) > 0 and "\n" in text:
-		FilterName.set_text(FilterName.get_text().replace("\n", ""))
-		FilterName.find_next_valid_focus().grab_focus()

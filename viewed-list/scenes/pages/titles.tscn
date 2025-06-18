@@ -181,7 +181,7 @@ offset_bottom = 645.0
 custom_minimum_size = Vector2(971, 0)
 layout_mode = 2
 
-[connection signal="text_changed" from="Filters/Name" to="." method="_on_name_text_changed"]
+[connection signal="text_changed" from="Filters/Name" to="." method="_on_filter_name_text_changed"]
 [connection signal="text_changed" from="Filters/Rating" to="." method="_on_filter_rating_text_changed"]
 [connection signal="text_changed" from="Filters/Part" to="." method="_on_filter_part_text_changed"]
 [connection signal="text_changed" from="Filters/Chapter" to="." method="_on_filter_chapter_text_changed"]
