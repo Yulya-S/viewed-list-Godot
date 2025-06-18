@@ -14,8 +14,6 @@ var section = load("res://scenes/fragments/section.tscn")
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	Head.SectionTitles.text = "К тайтлам"
-	Head.Add.text = "Добавить Раздел"
 	add_sections(Requests.select_sections("", "", "s.title"))
 
 # Заполнение страницы разделами

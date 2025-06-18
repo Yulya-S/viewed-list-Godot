@@ -1,8 +1,20 @@
 extends Node
 # Сигналы
 signal open_object_page(page)
-signal next_section()
+signal change_program_mod(new_mod: ProgramModes)
 signal update_page()
+
+
+# Перечисление
+enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM}
+
+
+# Параметры
+var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
+
+
+# Получить название текущей страницы
+func program_mod_text() -> String: return ProgramModes.keys()[program_mod].to_lower()
 
 # Проверка что контейнер находится в сцене из папки fragments
 func container_in_fragments(parent) -> bool: return "fragment" in parent.scene_file_path
