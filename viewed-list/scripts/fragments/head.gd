@@ -1,5 +1,5 @@
 extends ColorRect
-
+# Подключение путей к объектам в сцене
 @onready var SectionTitles = $SectionsTitles
 @onready var Add = $Add
 

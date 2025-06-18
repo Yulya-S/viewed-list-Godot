@@ -1,5 +1,5 @@
 extends Node2D
-
+# Подключение путей к объектам в сцене
 @onready var TitleBox = get_parent().get_parent().get_parent()
 @onready var Part = $Part
 @onready var Chapter = $Chapter
@@ -9,7 +9,6 @@ extends Node2D
 func set_labels(part_name: String, chapter_name: String) -> void:
 	Part.get_child(0).set_text(part_name)
 	Chapter.get_child(0).set_text(chapter_name)
-
 
 # Изменение значений разделов
 func set_values(part_value: int, chapter_value: int) -> void:

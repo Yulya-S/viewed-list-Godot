@@ -19,7 +19,7 @@ var id: int = 0
 var box_state = BoxStatus.NORMAL
 
 # Привязка тайтла к контейнеру
-func set_title(data):
+func set_title(data) -> void:
 	id = data.id
 	Title.set_text(data.title)
 	Box.tooltip_text = data.title
@@ -42,7 +42,7 @@ func set_title(data):
 
 
 # Добавление рейтинга
-func add_rating(rating: int, text: String):
+func add_rating(rating: int, text: String) -> void:
 	Status.add_child(load(FragmentsRating).instantiate())
 	Status.get_child(-1).position = Vector2(220, 0)
 	Status.get_child(-1).value = rating
@@ -50,13 +50,13 @@ func add_rating(rating: int, text: String):
 
 
 # изменение значения рейтинга
-func save_rating(value: float):	Requests.update(Requests.Tables.TITLES, "rating="+str(value), "id="+str(id))
+func save_rating(value: float) -> void:	Requests.update(Requests.Tables.TITLES, "rating="+str(value), "id="+str(id))
 
 # изменение значения части
-func save_part(value: int): Requests.update(Requests.Tables.TITLES, "part="+str(value), "id="+str(id))
+func save_part(value: int) -> void: Requests.update(Requests.Tables.TITLES, "part="+str(value), "id="+str(id))
 
 # изменение значения главы
-func save_chapter(value: int): Requests.update(Requests.Tables.TITLES, "chapter="+str(value), "id="+str(id))
+func save_chapter(value: int) -> void: Requests.update(Requests.Tables.TITLES, "chapter="+str(value), "id="+str(id))
 
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:

@@ -1,35 +1,34 @@
 extends Node2D
-
+# Подключение путей к объектам в сцене
 @onready var TitlesCount = $Window/TitlesCount
 @onready var Error = $Window/Error
 @onready var Name = $Window/Name
 @onready var Display = $Window/Display
 @onready var PartName = $Window/PartName
 @onready var ChapterName = $Window/ChapterName
+@onready var Delete = $Window/Delete
 
-var section = null
-
+var section = null # Выбранный для изменени я раздел
 
 # Фокусировка на названии раздела
 func _ready() -> void: Name.grab_focus()
-
 
 # Изменение данных на странице
 func set_section(new_section) -> void:
 	section = new_section
 	var value = Requests.select_sections("s.id="+str(section.id), "", "s.title")[0]
 	TitlesCount.set_text("Количество тайтлов относящихся к разделу: " + str(value.titles_count))
+	TitlesCount.visible = true
+	Delete.visible = true
 	Name.set_text(value.title)
 	Display.button_pressed = bool(value.display)
 	PartName.set_text(value.part_name)
 	ChapterName.set_text(value.chapter_name)
 	_on_display_toggled(bool(value.display))
-	$Window/Delete.visible = true
-	$Window/TitlesCount.visible = true
 
 
 # Отображение ошибки если тайтл уже есть в разделе
-func check_section():
+func check_section() -> void:
 	var value = Requests.select(Requests.Tables.SECTIONS, "id", 'title="'+Name.get_text()+'"')
 	Error.visible = false
 	if not section and len(value) > 0: Error.visible = true

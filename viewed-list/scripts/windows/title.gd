@@ -1,5 +1,5 @@
 extends Node2D
-
+# Подключение путей к объектам в сцене
 @onready var Error = $Window/Error
 @onready var Name = $Window/Name
 @onready var Section = $Window/Section
@@ -9,18 +9,15 @@ extends Node2D
 @onready var Note = $Window/Note
 @onready var Delete = $Window/Delete
 
-var title = null
-
+var title = null # Выбранный для изменения тайтл
 
 # Заполнение списка разделов
 func _ready() -> void:
-	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"):
-		Section.add_item(i.title, i.id)
+	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): Section.add_item(i.title, i.id)
 	Name.grab_focus()
 
-
 # Изменение данных на странице
-func set_title(new_title):
+func set_title(new_title) -> void:
 	title = new_title
 	var value = Requests.select(Requests.Tables.TITLES, "*", "id="+str(title.id))[0]
 	Name.set_text(value.title)
@@ -34,7 +31,7 @@ func set_title(new_title):
 
 
 # Отображение ошибки если тайтл уже есть в разделе
-func check_title():
+func check_title() -> void:
 	var value = Requests.select(Requests.Tables.TITLES, "id", 'title="'+Name.get_text()+'" AND section_id='+str(Section.selected + 1))
 	Error.visible = false
 	if not title and len(value) > 0: Error.visible = true
@@ -42,7 +39,7 @@ func check_title():
 	if Error.visible: Error.set_text("тайтл с таким именем в выбранном разделе уже существует")
 
 # Отображение процесса просмотра тайтла 
-func progress_display():
+func progress_display() -> void:
 	var value = Requests.select(Requests.Tables.SECTIONS, "*", "id="+str(Section.selected + 1))[0]
 	Progress.set_labels(value.part_name, value.chapter_name)
 	Progress.visible = false

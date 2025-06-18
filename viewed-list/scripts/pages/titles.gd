@@ -1,5 +1,5 @@
 extends Node2D
-
+# Подключение путей к объектам в сцене
 @onready var TitleContainer = $ScrollContainer/VBoxContainer
 @onready var FilterSection = $Filters/Section
 @onready var FilterName = $Filters/Name
@@ -14,13 +14,12 @@ var title = load("res://scenes/fragments/title.tscn")
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"):
-		FilterSection.add_item(i.title, i.id)
+	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
 	add_titles(Requests.select_titles("", "t.title"))
 
 
 # Заполнение страницы тайтлами
-func add_titles(values: Array):
+func add_titles(values: Array) -> void:
 	for i in TitleContainer.get_children():
 		i.queue_free()
 		TitleContainer.remove_child(i)

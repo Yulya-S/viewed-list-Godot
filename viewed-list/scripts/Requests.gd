@@ -1,12 +1,12 @@
 extends Node
-enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE}
+enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE} # Таблицы в базе данных
 var db: SQLite = null # Подключенная база данных
 
 # открытие базы данных
 func _ready() -> void: if not db: connecting_db("res://bases/base.db")
 
 # Подключение БД
-func connecting_db(db_name: String):
+func connecting_db(db_name: String) -> void:
 	db = SQLite.new()
 	db.path = db_name
 	db.open_db()
@@ -65,7 +65,7 @@ func delete_record(table: Tables, id: int) -> void:
 	Requests.update(table, "id=id-1", "id>"+str(id))
 
 # Удаление 
-func delete_records_related_tables(table_1: Tables, table_2: Tables, id: int, general_column: String):
+func delete_records_related_tables(table_1: Tables, table_2: Tables, id: int, general_column: String) -> void:
 	# Удаление связанных записей
 	var values: Array = select(table_2, "id", general_column+"="+str(id))
 	for i in range(len(values)): Requests.delete_record(table_2, values[i].id-i)

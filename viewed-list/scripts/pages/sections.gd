@@ -1,5 +1,6 @@
 extends Node2D
-
+# Подключение путей к объектам в сцене
+@onready var Head = $Head
 @onready var SectionContainer = $ScrollContainer/VBoxContainer
 @onready var FilterName = $Filters/Name
 @onready var FilterPageName = $Filters/PartName
@@ -13,13 +14,13 @@ var section = load("res://scenes/fragments/section.tscn")
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	$Head.SectionTitles.text = "К тайтлам"
-	$Head.Add.text = "Добавить Раздел"
+	Head.SectionTitles.text = "К тайтлам"
+	Head.Add.text = "Добавить Раздел"
 	add_sections(Requests.select_sections("", "", "s.title"))
 
 
 # Заполнение страницы разделами
-func add_sections(values: Array):
+func add_sections(values: Array) -> void:
 	for i in SectionContainer.get_children():
 		i.queue_free()
 		SectionContainer.remove_child(i)

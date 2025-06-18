@@ -1,18 +1,18 @@
 extends Container
-
+# Подключение путей к объектам в сцене
 @onready var Title = $ColorRect/Label
 @onready var Part = $ColorRect/Status/Part
 @onready var Chapter = $ColorRect/Status/Chapter
 @onready var Count = $ColorRect/Status/Count
 
-enum BoxStates {NORMAL, HOVER}
-
-var id: int = 0
+# Состояние объекта
+enum BoxStates {NORMAL, HOVER} 
 var box_state = BoxStates.NORMAL
 
+var id: int = 0 # Подключенный раздел
 
 # Привязка Раздела к контейнеру
-func set_section(data):
+func set_section(data) -> void:
 	id = data.id
 	Title.set_text(data.title)
 	Count.set_text(str(data.titles_count))
@@ -20,7 +20,6 @@ func set_section(data):
 	Chapter.set_text(data.chapter_name)
 	Part.visible = data.display	
 	Chapter.visible = data.display	
-
 
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:
