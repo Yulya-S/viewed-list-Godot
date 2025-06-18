@@ -12,11 +12,10 @@ const FragmentsProgress: String = "res://scenes/fragments/progress.tscn"
 
 # Состояния
 enum TitleStatus {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния тайтла
-enum BoxStatus {NORMAL, HOVER} # Состояние контейнера
 
 # Параметры
-var id: int = 0
-var box_state = BoxStatus.NORMAL
+var state = Global.MouseOver.NORMAL # Текущее состояние объекта
+var id: int = 0 # Подключенный раздел
 
 # Привязка тайтла к контейнеру
 func set_object(data: Dictionary) -> void:
@@ -50,10 +49,10 @@ func add_rating(rating: int, text: String) -> void:
 
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:
-	if box_state == BoxStatus.NORMAL: return
+	if state == Global.MouseOver.NORMAL: return
 	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_object_page", self)
 
 # Обработка наведения мыши на контейнер
-func _on_label_mouse_entered() -> void: box_state = BoxStatus.HOVER
+func _on_label_mouse_entered() -> void: state = Global.MouseOver.HOVER
 
-func _on_label_mouse_exited() -> void: box_state = BoxStatus.NORMAL
+func _on_label_mouse_exited() -> void: state = Global.MouseOver.NORMAL

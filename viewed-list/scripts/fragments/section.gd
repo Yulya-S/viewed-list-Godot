@@ -5,10 +5,8 @@ extends Container
 @onready var Chapter = $ColorRect/Status/Chapter
 @onready var Count = $ColorRect/Status/Count
 
-# Состояние объекта
-enum BoxStates {NORMAL, HOVER} 
-var box_state = BoxStates.NORMAL
-
+# Переменные
+var state = Global.MouseOver.NORMAL # Текущее состояние объекта
 var id: int = 0 # Подключенный раздел
 
 # Привязка Раздела к контейнеру
@@ -23,10 +21,10 @@ func set_object(data: Dictionary) -> void:
 
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:
-	if box_state == BoxStates.NORMAL: return
+	if state == Global.MouseOver.NORMAL: return
 	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_object_page", self)
 
 # Обработка наведения мыши на контейнер
-func _on_label_mouse_entered() -> void: box_state = BoxStates.HOVER
+func _on_label_mouse_entered() -> void: state = Global.MouseOver.HOVER
 
-func _on_label_mouse_exited() -> void: box_state = BoxStates.NORMAL
+func _on_label_mouse_exited() -> void: state = Global.MouseOver.NORMAL
