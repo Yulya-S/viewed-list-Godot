@@ -1,6 +1,5 @@
 extends Node2D
 # Подключение путей к объектам в сцене
-@onready var Head = $Head
 @onready var SectionContainer = $ScrollContainer/VBoxContainer
 @onready var FilterName = $Filters/Name
 @onready var FilterPageName = $Filters/PartName

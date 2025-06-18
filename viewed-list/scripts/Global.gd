@@ -6,7 +6,8 @@ signal update_page()
 
 
 # Перечисление
-enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM}
+enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM} # Страницы в приложении
+enum TitleParameters {PART, CHAPTER, RATING} # Числовые параметры для Тайтлов
 
 
 # Параметры
@@ -15,9 +16,6 @@ var program_mod: ProgramModes = ProgramModes.TITLE # текущая страни
 
 # Получить название текущей страницы
 func program_mod_text() -> String: return ProgramModes.keys()[program_mod].to_lower()
-
-# Проверка что контейнер находится в сцене из папки fragments
-func container_in_fragments(parent) -> bool: return "fragment" in parent.scene_file_path
 
 # Проверка что текст это число
 func valide_numeric_text(text_container: TextEdit) -> void:
@@ -45,3 +43,8 @@ func filling_out_page(container, object, values: Array) -> void:
 	for i in values:
 		container.add_child(object.instantiate())
 		container.get_child(-1).set_object(i)
+		
+# Изменение значений процесса и рейтинга в базе данных
+func save_title_data(container, parameter: TitleParameters, value) -> void:
+	if not "fragment" in container.scene_file_path: return
+	Requests.update(Requests.Tables.TITLES, TitleParameters.keys()[parameter].to_lower()+"="+str(value), "id="+str(container.id))

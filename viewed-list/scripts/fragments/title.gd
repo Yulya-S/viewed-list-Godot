@@ -48,16 +48,6 @@ func add_rating(rating: int, text: String) -> void:
 	Status.get_child(-1).value = rating
 	StatusLabel.set_text(text)
 
-
-# изменение значения рейтинга
-func save_rating(value: float) -> void:	Requests.update(Requests.Tables.TITLES, "rating="+str(value), "id="+str(id))
-
-# изменение значения части
-func save_part(value: int) -> void: Requests.update(Requests.Tables.TITLES, "part="+str(value), "id="+str(id))
-
-# изменение значения главы
-func save_chapter(value: int) -> void: Requests.update(Requests.Tables.TITLES, "chapter="+str(value), "id="+str(id))
-
 # Обрабоотка нажатия клавишь мыши
 func _input(event: InputEvent) -> void:
 	if box_state == BoxStatus.NORMAL: return
