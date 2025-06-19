@@ -3,14 +3,23 @@ enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE} # Таблицы в ба�
 var db: SQLite = null # Подключенная база данных
 
 # открытие базы данных
-func _ready() -> void: if not db: connecting_db("res://bases/base.db")
+func _ready() -> void:
+	if not db:
+		connecting_db("res://bases/users.db")
+		create_users_db()
+
+# Создание таблицы пользователей
+func create_users_db() -> void:
+	db.query("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		nickname VARCHAR(255), password VARCHAR(255), base VARCHAR(255), order_by INTEGER
+		color_1 VARCHAR(255), color_2 VARCHAR(255), color_3 VARCHAR(255),
+		color_4 VARCHAR(255), text_color VARCHAR(255));""")
 
 # Подключение БД
 func connecting_db(db_name: String) -> void:
 	db = SQLite.new()
 	db.path = db_name
 	db.open_db()
-
 
 # Добавление фрагмента текста в запрос
 func add_part_request(text: String, column: String, value, operator: String = "=",
