@@ -47,6 +47,11 @@ func filling_out_page(container, values: Array) -> void:
 	for i in values:
 		container.add_child(object.instantiate())
 		container.get_child(-1).set_object(i)
+
+# Изменение текста ошибки	
+func set_error(container: Label, text: String) -> void:
+	container.visible = true
+	container.set_text(text)
 		
 # Изменение значений процесса и рейтинга в базе данных
 func save_title_data(container, parameter: TitleParameters, value) -> void:

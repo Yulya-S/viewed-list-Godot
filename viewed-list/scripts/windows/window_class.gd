@@ -28,12 +28,8 @@ func get_similar() -> Array: return []
 func check_name() -> void:
 	var value = get_similar()
 	Error.visible = false
-	for i in value: if not object or i.id != object.id:
-		Error.visible = true
-		Error.set_text("Такой объект уже существует")
-	if Name.get_text() == "":
-		Error.visible = true
-		Error.set_text("Поле названия должно быть не пустым")
+	for i in value: if not object or i.id != object.id: Global.set_error(Error, "Такой объект уже существует")
+	if Name.get_text() == "": Global.set_error(Error, "Поле названия должно быть не пустым")
 		
 # Изменение названия тайтла
 func _on_name_text_changed() -> void:
