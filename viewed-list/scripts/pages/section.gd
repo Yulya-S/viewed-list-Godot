@@ -7,7 +7,6 @@ extends Node2D
 @onready var FilterCount = $Filters/Count
 @onready var FilterOrder = $Filters/Order
 
-
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
