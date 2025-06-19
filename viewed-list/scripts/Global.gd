@@ -4,16 +4,17 @@ signal open_object_page(page)
 signal change_program_mod(new_mod: ProgramModes)
 signal update_page()
 
-
 # Перечисление
 enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM} # Страницы в приложении
 enum TitleParameters {PART, CHAPTER, RATING} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
 
-
 # Параметры
 var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
+
+# Константы
+const FragmentsDir = "res://scenes/fragments/"
 
 
 # Получить название текущей страницы
@@ -38,15 +39,16 @@ func text_changed_TextEdit(container: TextEdit, is_numeric: bool = false) -> voi
 			container.find_next_valid_focus().grab_focus()
 			
 # Заполнение списка объектами
-func filling_out_page(container, object, values: Array) -> void:
+func filling_out_page(container, values: Array) -> void:
 	for i in container.get_children():
 		i.queue_free()
 		container.remove_child(i)
+	var object = load(FragmentsDir+program_mod_text()+".tscn")
 	for i in values:
 		container.add_child(object.instantiate())
 		container.get_child(-1).set_object(i)
 		
 # Изменение значений процесса и рейтинга в базе данных
 func save_title_data(container, parameter: TitleParameters, value) -> void:
-	if not "fragment" in container.scene_file_path: return
+	if not FragmentsDir in container.scene_file_path: return
 	Requests.update(Requests.Tables.TITLES, TitleParameters.keys()[parameter].to_lower()+"="+str(value), "id="+str(container.id))

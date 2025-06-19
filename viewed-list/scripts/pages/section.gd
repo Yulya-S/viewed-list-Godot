@@ -7,8 +7,6 @@ extends Node2D
 @onready var FilterCount = $Filters/Count
 @onready var FilterOrder = $Filters/Order
 
-var section = load("res://scenes/fragments/section.tscn")
-
 
 # Создание страницы
 func _ready() -> void:
@@ -16,7 +14,7 @@ func _ready() -> void:
 	add_sections(Requests.select_sections("", "", "s.title"))
 
 # Заполнение страницы разделами
-func add_sections(values: Array) -> void: Global.filling_out_page(SectionContainer, section, values)
+func add_sections(values: Array) -> void: Global.filling_out_page(SectionContainer, values)
 
 # Изменение значения фильтра названия
 func _on_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)

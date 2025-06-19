@@ -9,8 +9,6 @@ extends Node2D
 @onready var FilterPart = $Filters/Part
 @onready var FilterChapter = $Filters/Chapter
 
-var title = load("res://scenes/fragments/title.tscn")
-
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
@@ -18,7 +16,7 @@ func _ready() -> void:
 	add_titles(Requests.select_titles("", "t.title"))
 
 # Заполнение страницы тайтлами
-func add_titles(values: Array) -> void: Global.filling_out_page(TitleContainer, title, values)
+func add_titles(values: Array) -> void: Global.filling_out_page(TitleContainer, values)
 
 # Изменение значение фильтра названия
 func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)			
