@@ -1,22 +1,54 @@
 extends Node
 # Сигналы
 signal open_object_page(page)
-signal next_section()
+signal change_program_mod(new_mod: ProgramModes)
 signal update_page()
 
-var db: SQLite = null
+# Перечисление
+enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM} # Страницы в приложении
+enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
+enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
+enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
+
+# Параметры
+var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
+
+# Константы
+const FragmentsDir: String = "res://scenes/fragments/"
+
+# Получить название текущей страницы
+func program_mod_text() -> String: return ProgramModes.keys()[program_mod].to_lower()
 
 # Проверка что текст это число
-func valide_text(text_container) -> void:
+func valide_numeric_text(text_container: TextEdit) -> void:
 	var text = text_container.get_text()
 	if len(text) > 0:
 		var filtered_text = ""
 		for i in text: if i.is_valid_int(): filtered_text += i
-		if filtered_text != text: text_container.set_text(filtered_text)	
+		if filtered_text != text:
+			text_container.set_text(filtered_text)
+		
+# Изменение текста в TextEdit
+func text_changed_TextEdit(container: TextEdit, is_numeric: bool = false) -> void:
+	var text = container.get_text()
+	if is_numeric: Global.valide_numeric_text(container)
+	if len(text) > 0 and "\t" in text:
+		container.set_text(container.get_text().replace("\t", ""))
+		if container.find_next_valid_focus():
+			container.find_next_valid_focus().grab_focus()
+			
+# Заполнение списка объектами
+func clear_page(container: VBoxContainer) -> void:
+	for i in container.get_children():
+		i.queue_free()
+		container.remove_child(i)
 
-# Сборка текста для фильтра
-func filter_text(text: String, column: String, value: String, sep: String = "=") -> String:
-	if text != "": text += " AND "
-	if sep == "LIKE": value = '"%' + value + '%"'
-	text += column + " " + sep + " " + value
-	return text
+# Изменение текста ошибки	
+func set_error(container: Label, text: String) -> void:
+	container.visible = true
+	container.set_text(text)
+		
+# Изменение значений процесса и рейтинга в базе данных
+func save_title_data(container, parameter: TitleParameters, value) -> void:
+	if not FragmentsDir in container.scene_file_path: return
+	Requests.update(Requests.Tables.TITLES, TitleParameters.keys()[parameter].to_lower()+"="+str(value), "id="+str(container.id))

@@ -1,43 +1,31 @@
 extends Node2D
-
-enum States {REGISTRATION, TITLE, SECTION, RANDOM}
-var state: States = States.TITLE
+# Пути к подгружаемым сценам
+const WindowsDir: String = "res://scenes/windows/"
+const PagesDir: String = "res://scenes/pages/"
 
 
 func _ready() -> void:
 	Global.connect("open_object_page", Callable(self, "_open_object_page"))
-	Global.connect("next_section", Callable(self, "_next_section"))
+	Global.connect("change_program_mod", Callable(self, "_change_program_mod"))
 	# здесь нужно открывать список пользователей из таблицы users
 	# после этого если пароль совпадает с введенным войти в аккаунт
 	# подключившись к базе данных соответствующего пользователя
 	# связь прирывать только после выхода из аккаунта
 	pass
+	
 
+# Закрытие БД во время закрытия приложения
+func _notification(what) -> void:
+	if Requests.db: if what == Window.NOTIFICATION_WM_CLOSE_REQUEST: Requests.db.close_db()
 
 # Открытие страницы изменения тайтла
-func _open_object_page(page = null):
-	if state == States.TITLE: add_child(load("res://scenes/title_page.tscn").instantiate())
-	else: add_child(load("res://scenes/section_page.tscn").instantiate())
-	if page:
-		if state == States.TITLE: get_child(-1).set_title(page)
-		else: get_child(-1).set_section(page)
-		
-	
-	
+func _open_object_page(page = null) -> void:
+	add_child(load(WindowsDir+Global.program_mod_text()+".tscn").instantiate())
+	if page: get_child(-1).set_window(page)
+
 # Открытие новой страницы
-func update_state():
+func _change_program_mod(new_mod: Global.ProgramModes) -> void:
 	get_child(0).queue_free()
 	remove_child(get_child(0))
-	match state:
-		States.REGISTRATION: pass
-		States.TITLE: add_child(load("res://scenes/main_page.tscn").instantiate())
-		States.SECTION: add_child(load("res://scenes/sections.tscn").instantiate())
-		States.RANDOM: pass
-		_: pass
-	
-
-# Открытие страницы с разделами / тайтлами
-func _next_section():
-	if state == States.TITLE: state = States.SECTION
-	else: state = States.TITLE
-	update_state()
+	Global.program_mod = new_mod
+	add_child(load(PagesDir+Global.program_mod_text()+".tscn").instantiate())

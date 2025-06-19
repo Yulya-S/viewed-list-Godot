@@ -1,17 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://byeecahjptc1t"]
 
-[ext_resource type="Script" uid="uid://cur34nukuf05y" path="res://scripts/section_box.gd" id="1_5gdxs"]
+[ext_resource type="Script" uid="uid://cur34nukuf05y" path="res://scripts/fragments/section.gd" id="1_vyf2h"]
 
 [node name="SectionBox" type="Container"]
 custom_minimum_size = Vector2(1120, 50)
 offset_right = 900.0
 offset_bottom = 50.0
-script = ExtResource("1_5gdxs")
+script = ExtResource("1_vyf2h")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
-mouse_default_cursor_shape = 2
+mouse_filter = 1
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
@@ -21,6 +21,8 @@ offset_left = 5.0
 offset_right = 385.0
 offset_bottom = 50.0
 size_flags_horizontal = 0
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = -8
 text = "Название раздела"
@@ -107,5 +109,5 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[connection signal="mouse_entered" from="ColorRect" to="." method="_on_color_rect_mouse_entered"]
-[connection signal="mouse_exited" from="ColorRect" to="." method="_on_color_rect_mouse_exited"]
+[connection signal="mouse_entered" from="ColorRect/Label" to="." method="_on_label_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect/Label" to="." method="_on_label_mouse_exited"]

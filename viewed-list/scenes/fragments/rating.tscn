@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://rto86v8d4ma" path="res://img/silver_star.png" id="1_janua"]
 [ext_resource type="Texture2D" uid="uid://dd0dmf7fg7ivf" path="res://img/golden_star.png" id="2_vcmc1"]
-[ext_resource type="Script" uid="uid://70hg0jb3xyrl" path="res://scripts/rating.gd" id="3_55a0e"]
+[ext_resource type="Script" uid="uid://70hg0jb3xyrl" path="res://scripts/fragments/rating.gd" id="3_55a0e"]
 
 [node name="Rating" type="TextureProgressBar"]
 offset_right = 500.0

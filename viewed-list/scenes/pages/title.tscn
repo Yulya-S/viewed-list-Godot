@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://gfasxd6ic3rm"]
 
-[ext_resource type="Script" uid="uid://bcq4qduq8tguw" path="res://scripts/main_page.gd" id="1_i1i83"]
-[ext_resource type="PackedScene" uid="uid://b8yvxv50tufrh" path="res://scenes/head.tscn" id="2_cod0d"]
+[ext_resource type="Script" uid="uid://bcq4qduq8tguw" path="res://scripts/pages/title.gd" id="1_i1i83"]
+[ext_resource type="PackedScene" uid="uid://b8yvxv50tufrh" path="res://scenes/fragments/head.tscn" id="2_cod0d"]
 
 [node name="MainPage" type="Node2D"]
 script = ExtResource("1_i1i83")
@@ -181,6 +181,7 @@ offset_bottom = 645.0
 custom_minimum_size = Vector2(971, 0)
 layout_mode = 2
 
+[connection signal="text_changed" from="Filters/Name" to="." method="_on_filter_name_text_changed"]
 [connection signal="text_changed" from="Filters/Rating" to="." method="_on_filter_rating_text_changed"]
 [connection signal="text_changed" from="Filters/Part" to="." method="_on_filter_part_text_changed"]
 [connection signal="text_changed" from="Filters/Chapter" to="." method="_on_filter_chapter_text_changed"]
