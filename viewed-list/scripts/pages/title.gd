@@ -1,6 +1,5 @@
-extends Node2D
+extends page_class
 # Подключение путей к объектам в сцене
-@onready var TitleContainer = $ScrollContainer/VBoxContainer
 @onready var FilterSection = $Filters/Section
 @onready var FilterName = $Filters/Name
 @onready var FilterStatus = $Filters/Status
@@ -13,10 +12,7 @@ extends Node2D
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
-	add_titles(Requests.select_titles("", "t.title"))
-
-# Заполнение страницы тайтлами
-func add_titles(values: Array) -> void: Global.filling_out_page(TitleContainer, values)
+	add_objects(Requests.select_titles("", "t.title"))
 
 # Изменение значение фильтра названия
 func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)			
@@ -49,4 +45,4 @@ func _on_filter_button_down() -> void:
 		4: order = "t.rating DESC"
 		5: order = "t.part DESC, t.chapter DESC"
 		_: order = "t.id"
-	add_titles(Requests.select_titles(filter_text, order))
+	add_objects(Requests.select_titles(filter_text, order))

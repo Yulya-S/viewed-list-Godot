@@ -39,14 +39,10 @@ func text_changed_TextEdit(container: TextEdit, is_numeric: bool = false) -> voi
 			container.find_next_valid_focus().grab_focus()
 			
 # Заполнение списка объектами
-func filling_out_page(container, values: Array) -> void:
+func clear_page(container: VBoxContainer) -> void:
 	for i in container.get_children():
 		i.queue_free()
 		container.remove_child(i)
-	var object = load(FragmentsDir+program_mod_text()+".tscn")
-	for i in values:
-		container.add_child(object.instantiate())
-		container.get_child(-1).set_object(i)
 
 # Изменение текста ошибки	
 func set_error(container: Label, text: String) -> void:

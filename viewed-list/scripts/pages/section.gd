@@ -1,6 +1,5 @@
-extends Node2D
+extends page_class
 # Подключение путей к объектам в сцене
-@onready var SectionContainer = $ScrollContainer/VBoxContainer
 @onready var FilterName = $Filters/Name
 @onready var FilterPageName = $Filters/PartName
 @onready var FilterChapterName = $Filters/ChapterName
@@ -10,10 +9,7 @@ extends Node2D
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	add_sections(Requests.select_sections("", "", "s.title"))
-
-# Заполнение страницы разделами
-func add_sections(values: Array) -> void: Global.filling_out_page(SectionContainer, values)
+	add_objects(Requests.select_sections("", "", "s.title"))
 
 # Изменение значения фильтра названия
 func _on_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)
@@ -41,4 +37,4 @@ func _on_filter_button_down() -> void:
 		1: order = "s.title"
 		2: order = "titles_count DESC"
 		_: order = "s.id"
-	add_sections(Requests.select_sections(filter_text, having, order))
+	add_objects(Requests.select_sections(filter_text, having, order))
