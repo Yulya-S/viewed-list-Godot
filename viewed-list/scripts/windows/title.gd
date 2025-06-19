@@ -26,7 +26,7 @@ func get_object_data(id: int) -> Dictionary:
 func get_values() -> Array:
 	if not Progress.Part.get_text(): Progress.Part.set_text("1")
 	if not Progress.Chapter.get_text(): Progress.Chapter.set_text("1")
-	return [Section.selected + 1, '"'+Name.get_text()+'"', Status.selected, Progress.Part.get_text(),
+	return [Section.selected+1, '"'+Name.get_text()+'"', Status.selected+1, Progress.Part.get_text(),
 			Progress.Chapter.get_text(), '"'+Note.get_text()+'"', Rating.value]
 
 # Получение списка похожих знаечний в базе данных

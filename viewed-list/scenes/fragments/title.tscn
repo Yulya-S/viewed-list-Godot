@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu56e3w7f6ufn"]
+[gd_scene load_steps=4 format=3 uid="uid://cu56e3w7f6ufn"]
 
 [ext_resource type="Script" uid="uid://d0y0ucuheyjmx" path="res://scripts/fragments/title.gd" id="1_6mhst"]
+[ext_resource type="PackedScene" uid="uid://clp3ctkvawra" path="res://scenes/fragments/rating.tscn" id="2_2wxex"]
+[ext_resource type="PackedScene" uid="uid://bfj0lx0yj4638" path="res://scenes/fragments/progress.tscn" id="3_cg57w"]
 
 [node name="TextBox" type="Container"]
 custom_minimum_size = Vector2(1120, 50)
@@ -9,16 +11,16 @@ offset_bottom = 50.0
 script = ExtResource("1_6mhst")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(400, 50)
+custom_minimum_size = Vector2(330, 50)
 layout_mode = 2
 mouse_filter = 1
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
-custom_minimum_size = Vector2(380, 50)
+custom_minimum_size = Vector2(310, 50)
 layout_mode = 2
 offset_left = 5.0
-offset_right = 385.0
+offset_right = 315.0
 offset_bottom = 50.0
 size_flags_horizontal = 0
 mouse_filter = 1
@@ -33,34 +35,31 @@ clip_text = true
 [node name="Status" type="ColorRect" parent="ColorRect"]
 custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
-offset_left = 400.0
+offset_left = 330.0
 offset_right = 1120.0
 offset_bottom = 50.0
 size_flags_horizontal = 8
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
-[node name="Status" type="Label" parent="ColorRect/Status"]
-custom_minimum_size = Vector2(250, 50)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -25.0
-offset_right = -10.0
-offset_bottom = 25.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = -8
-text = "Не начато"
-horizontal_alignment = 2
-vertical_alignment = 1
-autowrap_mode = 3
-clip_text = true
+[node name="Status" type="OptionButton" parent="ColorRect/Status"]
+layout_mode = 0
+offset_left = 549.0
+offset_top = 9.0
+offset_right = 787.0
+offset_bottom = 40.0
+alignment = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Не начато"
+popup/item_0/id = 0
+popup/item_1/text = "В процессе"
+popup/item_1/id = 1
+popup/item_2/text = "Ожидается продолжение"
+popup/item_2/id = 2
+popup/item_3/text = "Не понравилось"
+popup/item_3/id = 3
+popup/item_4/text = "Завершено"
+popup/item_4/id = 4
 
 [node name="Section" type="Label" parent="ColorRect/Status"]
 custom_minimum_size = Vector2(200, 50)
@@ -70,9 +69,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -720.0
+offset_left = -790.0
 offset_top = -25.0
-offset_right = -520.0
+offset_right = -590.0
 offset_bottom = 25.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -85,5 +84,18 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
+[node name="Rating" parent="ColorRect/Status" instance=ExtResource("2_2wxex")]
+visible = false
+layout_mode = 0
+offset_left = 220.0
+offset_top = 1.0
+offset_right = 740.0
+offset_bottom = 121.0
+
+[node name="Progress" parent="ColorRect/Status" instance=ExtResource("3_cg57w")]
+visible = false
+position = Vector2(300, 9)
+
 [connection signal="mouse_entered" from="ColorRect/Label" to="." method="_on_label_mouse_entered"]
 [connection signal="mouse_exited" from="ColorRect/Label" to="." method="_on_label_mouse_exited"]
+[connection signal="item_selected" from="ColorRect/Status/Status" to="." method="_on_status_item_selected"]
