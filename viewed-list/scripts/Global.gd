@@ -14,8 +14,7 @@ enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния 
 var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
 
 # Константы
-const FragmentsDir = "res://scenes/fragments/"
-
+const FragmentsDir: String = "res://scenes/fragments/"
 
 # Получить название текущей страницы
 func program_mod_text() -> String: return ProgramModes.keys()[program_mod].to_lower()

@@ -2,6 +2,7 @@ extends Node2D
 class_name page_class
 # Подключение путей к объектам в сцене
 @onready var ObjectsContainer = $ScrollContainer/VBoxContainer
+@onready var FilterName = $Filters/Name
 
 # Переменные
 var object_idx: int = 0 # Индекс последнего добаленного объекта
@@ -20,3 +21,6 @@ func add_objects(values: Array) -> void:
 	Global.clear_page(ObjectsContainer)
 	object_idx = 0
 	objects = values
+
+# Изменение значения фильтра названия
+func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)

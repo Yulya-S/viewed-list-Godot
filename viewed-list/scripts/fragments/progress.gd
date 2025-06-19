@@ -4,7 +4,6 @@ extends Node2D
 @onready var Part = $Part
 @onready var Chapter = $Chapter
 
-
 # Изменение наименований разделов
 func set_labels(part_name: String, chapter_name: String) -> void:
 	Part.get_child(0).set_text(part_name)

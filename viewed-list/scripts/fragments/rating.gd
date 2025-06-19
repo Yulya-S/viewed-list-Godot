@@ -1,6 +1,6 @@
 extends TextureProgressBar
 @onready var TitleBox = get_parent().get_parent().get_parent() # Путь к сцене родителю
-var state = Global.MouseOver.NORMAL # Текущее состояние объекта
+var state: Global.MouseOver = Global.MouseOver.NORMAL # Текущее состояние объекта
 
 # Обработка нажатия мыши
 func _input(event: InputEvent) -> void:

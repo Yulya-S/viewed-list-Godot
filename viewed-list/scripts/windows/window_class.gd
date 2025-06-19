@@ -9,7 +9,7 @@ class_name window_class
 var object = null # Выбранный для изменения объект
 
 # Получение данных об объекте
-func get_object_data(id: int) -> Dictionary: return {}
+func get_object_data(_id: int) -> Dictionary: return {}
 
 # Изменение данных на странице
 func set_window(new_object) -> void:

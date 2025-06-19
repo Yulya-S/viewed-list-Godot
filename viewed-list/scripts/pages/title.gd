@@ -1,7 +1,6 @@
 extends page_class
 # Подключение путей к объектам в сцене
 @onready var FilterSection = $Filters/Section
-@onready var FilterName = $Filters/Name
 @onready var FilterStatus = $Filters/Status
 @onready var FilterOrder = $Filters/Order
 @onready var FilterRating = $Filters/Rating
@@ -12,10 +11,7 @@ extends page_class
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
-	add_objects(Requests.select_titles("", "t.title"))
-
-# Изменение значение фильтра названия
-func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)			
+	add_objects(Requests.select_titles("", "t.title"))		
 
 # Изменение значения рейтинга
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)

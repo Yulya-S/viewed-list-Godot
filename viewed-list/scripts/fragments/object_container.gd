@@ -6,7 +6,7 @@ class_name object_container
 @onready var Title = $ColorRect/Label
 
 # Переменные
-var state = Global.MouseOver.NORMAL # Текущее состояние объекта
+var state: Global.MouseOver = Global.MouseOver.NORMAL # Текущее состояние объекта
 var id: int = 0 # Подключенный раздел
 
 # Привязка объщих данных к контейнеру
