@@ -1,7 +1,5 @@
-extends Container
+extends object_container
 # Подключение путей к объектам в сцене
-@onready var Box = $ColorRect
-@onready var Title = $ColorRect/Label
 @onready var Status = $ColorRect/Status
 @onready var StatusLabel = $ColorRect/Status/Status
 @onready var Section = $ColorRect/Status/Section
@@ -13,17 +11,11 @@ const FragmentsProgress: String = "res://scenes/fragments/progress.tscn"
 # Состояния
 enum TitleStatus {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния тайтла
 
-# Параметры
-var state = Global.MouseOver.NORMAL # Текущее состояние объекта
-var id: int = 0 # Подключенный раздел
 
 # Привязка тайтла к контейнеру
 func set_object(data: Dictionary) -> void:
-	id = data.id
-	Title.set_text(data.title)
-	Box.tooltip_text = data.title
+	set_title(data.id, data.title)
 	Section.set_text(data.section_title)
-	
 	# Измение названия статуса
 	match TitleStatus.values()[data.status - 1]:
 		TitleStatus.NONE: StatusLabel.set_text("Не начато")
@@ -46,13 +38,3 @@ func add_rating(rating: int, text: String) -> void:
 	Status.get_child(-1).position = Vector2(220, 0)
 	Status.get_child(-1).value = rating
 	StatusLabel.set_text(text)
-
-# Обрабоотка нажатия клавишь мыши
-func _input(event: InputEvent) -> void:
-	if state == Global.MouseOver.NORMAL: return
-	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_object_page", self)
-
-# Обработка наведения мыши на контейнер
-func _on_label_mouse_entered() -> void: state = Global.MouseOver.HOVER
-
-func _on_label_mouse_exited() -> void: state = Global.MouseOver.NORMAL
