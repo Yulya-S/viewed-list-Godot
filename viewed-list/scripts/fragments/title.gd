@@ -8,21 +8,17 @@ extends object_container
 const FragmentsRating: String = "res://scenes/fragments/rating.tscn"
 const FragmentsProgress: String = "res://scenes/fragments/progress.tscn"
 
-# Состояния
-enum TitleStatus {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния тайтла
-
-
 # Привязка тайтла к контейнеру
 func set_object(data: Dictionary) -> void:
 	set_title(data.id, data.title)
 	Section.set_text(data.section_title)
 	# Измение названия статуса
-	match TitleStatus.values()[data.status - 1]:
-		TitleStatus.NONE: StatusLabel.set_text("Не начато")
-		TitleStatus.WAIT: add_rating(data.rating, "Ожидается продолжение")
-		TitleStatus.UNLIKE: StatusLabel.set_text("Не понравилось")
-		TitleStatus.COMPLETED:  add_rating(data.rating, "Завершено")
-		TitleStatus.PROGRESS:
+	match Global.TitleStates.values()[data.status - 1]:
+		Global.TitleStates.NONE: StatusLabel.set_text("Не начато")
+		Global.TitleStates.WAIT: add_rating(data.rating, "Ожидается продолжение")
+		Global.TitleStates.UNLIKE: StatusLabel.set_text("Не понравилось")
+		Global.TitleStates.COMPLETED:  add_rating(data.rating, "Завершено")
+		Global.TitleStates.PROGRESS:
 			if data.display:
 				Status.add_child(load(FragmentsProgress).instantiate())
 				Status.get_child(-1).position = Vector2(300, 8)

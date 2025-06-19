@@ -9,6 +9,7 @@ signal update_page()
 enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM} # Страницы в приложении
 enum TitleParameters {PART, CHAPTER, RATING} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
+enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
 
 
 # Параметры
