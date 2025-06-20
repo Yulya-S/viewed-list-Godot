@@ -13,7 +13,8 @@ func _ready() -> void:
 		Add.text = "Добавить Раздел"
 	
 # Обработка нажатия кнопки добавления нового раздела / тайтла
-func _on_add_button_down() -> void: Global.emit_signal("open_object_page")
+func _on_add_button_down() -> void:
+	if int(not mode) or len(Requests.select_sections()) > 0: Global.emit_signal("open_object_page")
 
 # Обработка нажатия кнопки перехода к разделам / тайтлам
 func _on_sections_titles_button_down() -> void: Global.emit_signal("change_program_mod", int(not mode))
