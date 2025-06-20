@@ -12,8 +12,13 @@ func _ready() -> void:
 		SectionTitles.text = "К тайтлам"
 		Add.text = "Добавить Раздел"
 	
-# Обработка нажатия кнопки добавления нового тайтла
+# Обработка нажатия кнопки добавления нового раздела / тайтла
 func _on_add_button_down() -> void: Global.emit_signal("open_object_page")
 
 # Обработка нажатия кнопки перехода к разделам / тайтлам
 func _on_sections_titles_button_down() -> void: Global.emit_signal("change_program_mod", int(not mode))
+
+# Обоработка нажатия кнопки выхода из аккаунта
+func _on_exit_button_down() -> void:
+	Requests.connecting_users_db()
+	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)

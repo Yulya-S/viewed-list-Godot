@@ -3,23 +3,35 @@ enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE} # Таблицы в ба�
 var db: SQLite = null # Подключенная база данных
 
 # открытие базы данных
-func _ready() -> void:
-	if not db:
-		connecting_db("res://bases/users.db")
-		create_users_db()
+func _ready() -> void: if not db: connecting_users_db()
 
 # Создание таблицы пользователей
 func create_users_db() -> void:
 	db.query("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
-		nickname VARCHAR(255), password VARCHAR(255), base VARCHAR(255), order_by INTEGER
-		color_1 VARCHAR(255), color_2 VARCHAR(255), color_3 VARCHAR(255),
-		color_4 VARCHAR(255), text_color VARCHAR(255));""")
+		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255), display BOOLEAN);""")
 
-# Подключение БД
-func connecting_db(db_name: String) -> void:
+func create_title_db() -> void:
+	db.query("""CREATE TABLE IF NOT EXISTS sections (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		title VARCHAR(255), part_name VARCHAR(255), chapter_name VARCHAR(255), display BOOLEAN);""")
+	db.query("""CREATE TABLE IF NOT EXISTS titles (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		section_id INT, title VARCHAR(255), status INT(4), part INT, chapter INT,
+		note VARCHAR(255), rating INT, FOREIGN KEY (`section_id`) REFERENCES `sections`(`id`));""")
+
+# Подключение базы данных
+func _open_db(db_name: String) -> void:
 	db = SQLite.new()
 	db.path = db_name
 	db.open_db()
+
+# Подключение базы данных пользователей
+func connecting_users_db() -> void:
+	_open_db("res://bases/users.db")
+	create_users_db()
+
+# Подключение базы данных тайтлов
+func connecting_db(db_name: String) -> void:
+	_open_db(db_name)
+	create_title_db()
 
 # Добавление фрагмента текста в запрос
 func add_part_request(text: String, column: String, value, operator: String = "=",
@@ -88,6 +100,11 @@ func select(table: Tables, columns: String, where: String = "", order: String = 
 	if where: where = " WHERE "+where
 	if order: order = " ORDER BY "+order
 	db.query("SELECT "+columns+" FROM `"+_get_table_name(table)+"` "+where+order+";")
+	return db.query_result
+
+# Получение данных пользователя
+func select_user(login: String = "", password: String = "") -> Array:
+	db.query('SELECT * FROM `users` WHERE login="'+login+'" AND password="'+password+'";')
 	return db.query_result
 
 # Получение списка разделов

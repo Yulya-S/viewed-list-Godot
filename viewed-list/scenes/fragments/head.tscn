@@ -65,3 +65,4 @@ text_overrun_behavior = 3
 
 [connection signal="button_down" from="SectionsTitles" to="." method="_on_sections_titles_button_down"]
 [connection signal="button_down" from="Add" to="." method="_on_add_button_down"]
+[connection signal="button_down" from="Exit" to="." method="_on_exit_button_down"]
