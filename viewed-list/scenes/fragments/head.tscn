@@ -52,12 +52,14 @@ offset_right = 1132.0
 offset_bottom = 50.0
 text = "Выйти"
 
-[node name="UserName" type="Label" parent="Exit"]
+[node name="UserName" type="Label" parent="."]
 layout_mode = 0
-offset_left = -307.0
-offset_right = -10.0
-offset_bottom = 40.0
+offset_left = 633.0
+offset_top = 10.0
+offset_right = 1021.0
+offset_bottom = 50.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 text = "Имя пользователя"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -65,3 +67,4 @@ text_overrun_behavior = 3
 
 [connection signal="button_down" from="SectionsTitles" to="." method="_on_sections_titles_button_down"]
 [connection signal="button_down" from="Add" to="." method="_on_add_button_down"]
+[connection signal="button_down" from="Exit" to="." method="_on_exit_button_down"]

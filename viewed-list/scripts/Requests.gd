@@ -2,15 +2,43 @@ extends Node
 enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE} # Таблицы в базе данных
 var db: SQLite = null # Подключенная база данных
 
-# открытие базы данных
-func _ready() -> void: if not db: connecting_db("res://bases/base.db")
+# Открытие базы данных
+func _ready() -> void: if not db: connecting_users_db()
 
-# Подключение БД
-func connecting_db(db_name: String) -> void:
+# Генерация названия базы данных
+func generate_db_name() -> String:
+	var base_name: String = ""
+	const chars: String = 'abcdefghijklmnopqrstuvwxyz1234567890'
+	for i in range(10): base_name += chars[randi()%len(chars)]
+	return base_name
+
+# Создание таблицы пользователей
+func create_users_db() -> void:
+	db.query("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255), color_scheme INT, order_by BOOLEAN);""")
+
+func create_title_db() -> void:
+	db.query("""CREATE TABLE IF NOT EXISTS sections (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		title VARCHAR(255), part_name VARCHAR(255), chapter_name VARCHAR(255), display BOOLEAN);""")
+	db.query("""CREATE TABLE IF NOT EXISTS titles (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		section_id INT, title VARCHAR(255), status INT(4), part INT, chapter INT,
+		note VARCHAR(255), rating INT, FOREIGN KEY (`section_id`) REFERENCES `sections`(`id`));""")
+
+# Подключение базы данных
+func _open_db(db_name: String) -> void:
 	db = SQLite.new()
 	db.path = db_name
 	db.open_db()
 
+# Подключение базы данных пользователей
+func connecting_users_db() -> void:
+	_open_db("res://bases/users.db")
+	create_users_db()
+
+# Подключение базы данных тайтлов
+func connecting_db(db_name: String) -> void:
+	_open_db(db_name)
+	create_title_db()
 
 # Добавление фрагмента текста в запрос
 func add_part_request(text: String, column: String, value, operator: String = "=",
@@ -81,6 +109,11 @@ func select(table: Tables, columns: String, where: String = "", order: String = 
 	db.query("SELECT "+columns+" FROM `"+_get_table_name(table)+"` "+where+order+";")
 	return db.query_result
 
+# Получение данных пользователя
+func select_user(login: String = "", password: String = "") -> Array:
+	db.query('SELECT * FROM `users` WHERE login="'+login+'" AND password="'+password+'";')
+	return db.query_result
+
 # Получение списка разделов
 func select_sections(filters: String = "", having: String = "", order: String = "") -> Array:
 	if filters: filters = " WHERE "+filters
@@ -98,3 +131,38 @@ func select_titles(filters: String = "", order: String = "") -> Array:
 		"FROM `titles` t INNER JOIN ( SELECT s.* FROM `sections` s) j ON "+\
 		"j.id = t.section_id"+filters+order+";")
 	return db.query_result
+
+# Получение данных всех данных из таблицы
+func _get_data_from_table(table: Tables) -> Array:
+	Requests.db.query("SELECT * FROM `"+_get_table_name(table)+"`;")
+	return Requests.db.query_result
+
+# Загрузка данных из старой базы данных
+func select_old_db(old_db: String) -> void:
+	var existing_users: Array = []
+	for i in select(Tables.USERS, "*"): existing_users.append(i.login)
+	Requests.connecting_db(old_db)
+	var users: Array = _get_data_from_table(Tables.USERS)
+	var sections: Dictionary = {}
+	for i in _get_data_from_table(Tables.SECTIONS): sections[i.id] = i
+	var titles: Array = _get_data_from_table(Tables.TITLES)
+	# Заполнение таблицы пользователей
+	for i in users:
+		if i.nickname in existing_users: continue
+		connecting_users_db()
+		var sections_ids: Array = []
+		var password: String = ""
+		for l in i.password: password += char(l)
+		var base_name: String = Requests.generate_db_name()
+		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Marshalls.utf8_to_base64(base_name)+'"', 0, i.order_by])
+		connecting_db("res://bases/"+base_name)
+		for l in titles: if i.id == l.user_id:
+			# Заполнение таблицы разделов
+			if l.section_id not in sections_ids:
+				sections_ids.append(l.section_id)
+				var data: Dictionary = sections[l.section_id]
+				insert_record(Tables.SECTIONS, ['"'+data.title+'"', '"'+data.bloc_name+'"', '"'+data.chapter_name+'"', data.display])
+			# Заполнение таблицы тайтлов
+			insert_record(Tables.TITLES, [sections_ids.find(l.section_id)+1, "'"+l.title+"'",
+				l.status+1, l.bloc, l.chapter, '"'+l.note+'"', l.stars+1])				
+	connecting_users_db()

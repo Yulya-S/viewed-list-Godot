@@ -8,7 +8,8 @@ extends page_class
 # Создание страницы
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	add_objects(Requests.select_sections("", "", "s.title"))
+	FilterOrder.selected = int(not bool(Global.config.order_by))
+	_on_filter_button_down()
 
 # Изменение значения фильтра названия части
 func _on_part_name_text_changed() -> void: Global.text_changed_TextEdit(FilterPageName)
