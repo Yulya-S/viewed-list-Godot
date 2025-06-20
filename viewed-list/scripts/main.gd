@@ -7,12 +7,6 @@ const PagesDir: String = "res://scenes/pages/"
 func _ready() -> void:
 	Global.connect("open_object_page", Callable(self, "_open_object_page"))
 	Global.connect("change_program_mod", Callable(self, "_change_program_mod"))
-	# здесь нужно открывать список пользователей из таблицы users
-	# после этого если пароль совпадает с введенным войти в аккаунт
-	# подключившись к базе данных соответствующего пользователя
-	# связь прирывать только после выхода из аккаунта
-	pass
-	
 
 # Закрытие БД во время закрытия приложения
 func _notification(what) -> void:

@@ -22,4 +22,5 @@ func _on_sections_titles_button_down() -> void: Global.emit_signal("change_progr
 # Обоработка нажатия кнопки выхода из аккаунта
 func _on_exit_button_down() -> void:
 	Requests.connecting_users_db()
+	Global.config = {"login"="", "password"="", "enter"=false}
 	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)

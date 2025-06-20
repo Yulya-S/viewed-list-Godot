@@ -5,6 +5,9 @@ extends Control
 @onready var Show = $Password/Show
 @onready var Remember = $Remember
 
+# Автоматический вход в программу
+func _process(_delta: float) -> void: if Global.config.enter: _entrance(Global.config.login, Global.config.password)
+
 # Изменение значения логина
 func _on_login_text_changed() -> void: Global.text_changed_TextEdit(Login)
 
@@ -25,10 +28,17 @@ func _on_registration_button_down() -> void:
 		'"'+Marshalls.utf8_to_base64(Password.get_text())+'"',
 		'"'+Marshalls.utf8_to_base64(base_name)+'"', 0])
 	_on_enter_button_down()
-	
-# Нажатие кнопки входа в программу
-func _on_enter_button_down() -> void:
-	var users: Array = Requests.select_user(Login.get_text(), Marshalls.utf8_to_base64(Password.get_text()))
+
+# Вход в программу
+func _entrance(user_login: String, user_password: String) -> void:
+	var users: Array = Requests.select_user(user_login, user_password)
 	if len(users) > 0:
 		Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
 		Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
+	
+# Нажатие кнопки входа в программу
+func _on_enter_button_down() -> void:
+	if Remember.button_pressed:
+		Global.config = {"login"=Login.get_text(), "password"=Marshalls.utf8_to_base64(Password.get_text()), "enter"=true}
+		Global.update_config()
+	_entrance(Login.get_text(), Marshalls.utf8_to_base64(Password.get_text()))

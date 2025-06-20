@@ -98,6 +98,7 @@ theme_override_font_sizes/font_size = 24
 text = "Вход"
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 589.0
 offset_right = 133.0
