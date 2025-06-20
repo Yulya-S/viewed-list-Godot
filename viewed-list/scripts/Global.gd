@@ -26,7 +26,10 @@ func valide_numeric_text(text_container: TextEdit) -> void:
 		var filtered_text = ""
 		for i in text: if i.is_valid_int(): filtered_text += i
 		if filtered_text != text:
+			var caret = text_container.get_caret_column()
 			text_container.set_text(filtered_text)
+			text_container.set_caret_column(caret - (len(text) - len(filtered_text)))
+		
 		
 # Изменение текста в TextEdit
 func text_changed_TextEdit(container: TextEdit, is_numeric: bool = false) -> void:
