@@ -71,6 +71,7 @@ func create_config() -> void:
 func update_config() -> void:
 	var file = FileAccess.open(ConfigFilePath, FileAccess.WRITE)
 	file.store_line(JSON.stringify(config))
+	file.close()
 	
 # Загрузка настроек
 func read_config():

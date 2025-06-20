@@ -11,8 +11,8 @@ extends page_class
 func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
-	add_objects(Requests.select_titles("", "t.title"))
 	FilterOrder.selected = int(not bool(Global.config.order_by))
+	_on_filter_button_down()
 
 # Изменение значения рейтинга
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)
