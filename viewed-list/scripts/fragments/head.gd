@@ -2,11 +2,13 @@ extends ColorRect
 # Подключение путей к объектам в сцене
 @onready var SectionTitles = $SectionsTitles
 @onready var Add = $Add
+@onready var User = $UserName
 
 var mode: bool = false # false -> страница разделов, true -> страница тайтлов
 
 # Изменение шапки в зависимости от страницы
 func _ready() -> void:
+	User.set_text(Global.config.login)
 	mode = bool(Global.program_mod)
 	if not mode:
 		SectionTitles.text = "К тайтлам"
@@ -23,4 +25,5 @@ func _on_sections_titles_button_down() -> void: Global.emit_signal("change_progr
 func _on_exit_button_down() -> void:
 	Requests.connecting_users_db()
 	Global.config = {"login"="", "password"="", "enter"=false}
+	Global.update_config()
 	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)

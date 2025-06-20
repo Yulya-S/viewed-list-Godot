@@ -8,7 +8,10 @@ extends Control
 @onready var Error = $Error
 
 # Автоматический вход в программу
-func _process(_delta: float) -> void: if Global.config.enter: _entrance(Global.config.login, Global.config.password)
+func _process(_delta: float) -> void:
+	if Global.config.enter and Requests.db:
+		Error.visible = false
+		_entrance(Global.config.login, Global.config.password)
 
 # Проверка верности заполнения текстовых полей
 func check_text() -> void:
@@ -42,8 +45,9 @@ func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
 	if len(users) == 0: Global.set_error(Error, "Неверный логин или пароль")
 	if Error.visible: return
+	Global.config = {"login":users[0].login, "password":users[0].password, "color_scheme":users[0].color_scheme, "order_by":users[0].order_by}
 	if Remember.button_pressed:
-		Global.config = {"login"=Login.get_text(), "password"=Marshalls.utf8_to_base64(Password.get_text()), "enter"=true}
+		Global.config["enter"] = true
 		Global.update_config()
 	Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
