@@ -5,9 +5,15 @@ extends Control
 @onready var Show = $Password/Show
 @onready var Remember = $Remember
 @onready var Background = $Background
+@onready var Error = $Error
 
 # Автоматический вход в программу
 func _process(_delta: float) -> void: if Global.config.enter: _entrance(Global.config.login, Global.config.password)
+
+# Проверка верности заполнения текстовых полей
+func check_text() -> void:
+	Error.visible = false
+	if not Login.get_text() or not Password.get_text(): Global.set_error(Error, "Все поля должны быть заполнены")
 
 # Изменение значения логина
 func _on_login_text_changed() -> void: Global.text_changed_TextEdit(Login)
@@ -22,23 +28,30 @@ func _on_show_toggled(_toggled_on: bool) -> void:
 
 # Обработка нажатия кнопки создания нового пользоавтеля
 func _on_registration_button_down() -> void:
+	check_text()
+	var users: Array = Requests.select(Requests.Tables.USERS, "*", 'login="'+Login.get_text()+'"')
+	if len(users) > 0: Global.set_error(Error, "Имя аккаунта занято")
+	if Error.visible: return
 	Requests.insert_record(Requests.Tables.USERS, ['"'+Login.get_text()+'"',
 		'"'+Marshalls.utf8_to_base64(Password.get_text())+'"',
-		'"'+Marshalls.utf8_to_base64(Requests.generate_db_name())+'"', 0])
+		'"'+Marshalls.utf8_to_base64(Requests.generate_db_name())+'"', 0, 0])
 	_on_enter_button_down()
 
 # Вход в программу
 func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
-	if len(users) > 0:
-		Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
-		Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
-	
-# Обработка нажатия кнопки входа в программу
-func _on_enter_button_down() -> void:
+	if len(users) == 0: Global.set_error(Error, "Неверный логин или пароль")
+	if Error.visible: return
 	if Remember.button_pressed:
 		Global.config = {"login"=Login.get_text(), "password"=Marshalls.utf8_to_base64(Password.get_text()), "enter"=true}
 		Global.update_config()
+	Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
+	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
+	
+# Обработка нажатия кнопки входа в программу
+func _on_enter_button_down() -> void:
+	check_text()
+	if Error.visible: return
 	_entrance(Login.get_text(), Marshalls.utf8_to_base64(Password.get_text()))
 
 # Обработка нажатия кнопки загрузки старой базы данных

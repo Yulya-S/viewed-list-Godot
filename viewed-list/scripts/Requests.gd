@@ -138,7 +138,7 @@ func _get_data_from_table(table: Tables) -> Array:
 	return Requests.db.query_result
 
 # Загрузка данных из старой базы данных
-func select_old_db(old_db: String):
+func select_old_db(old_db: String) -> void:
 	var existing_users: Array = []
 	for i in select(Tables.USERS, "*"): existing_users.append(i.login)
 	Requests.connecting_db(old_db)
