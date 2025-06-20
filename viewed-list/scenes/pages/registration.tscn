@@ -97,6 +97,14 @@ offset_bottom = 442.0
 theme_override_font_sizes/font_size = 24
 text = "Вход"
 
+[node name="Load" type="Button" parent="."]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 10.0
+offset_right = 1142.0
+offset_bottom = 41.0
+text = "Загрузить базу данных из старой версии"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 10.0
@@ -108,14 +116,25 @@ text = "Версия: 2.0
 Автор: Yunabi"
 autowrap_mode = 3
 
-[node name="FileDialog" type="FileDialog" parent="."]
-title = "Open a File"
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.501961)
+
+[node name="FileDialog" type="FileDialog" parent="Background"]
+title = "Выбрать файл для считывания данных"
+initial_position = 1
 ok_button_text = "Open"
 file_mode = 0
 access = 2
+filters = PackedStringArray("*.db")
 
 [connection signal="text_changed" from="Login" to="." method="_on_login_text_changed"]
 [connection signal="text_changed" from="Password" to="." method="_on_password_text_changed"]
 [connection signal="toggled" from="Password/Show" to="." method="_on_show_toggled"]
 [connection signal="button_down" from="Registration" to="." method="_on_registration_button_down"]
 [connection signal="button_down" from="Enter" to="." method="_on_enter_button_down"]
+[connection signal="button_down" from="Load" to="." method="_on_load_button_down"]
+[connection signal="canceled" from="Background/FileDialog" to="." method="_on_file_dialog_canceled"]
+[connection signal="file_selected" from="Background/FileDialog" to="." method="_on_file_dialog_file_selected"]
