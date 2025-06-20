@@ -36,6 +36,8 @@ offset_left = 365.5
 offset_top = 281.0
 offset_right = 786.5
 offset_bottom = 312.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+text = "ЯЧЯЧ"
 autowrap_mode = 1
 scroll_past_end_of_file = true
 
@@ -48,6 +50,20 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Пароль:"
 horizontal_alignment = 2
+
+[node name="Show" type="CheckBox" parent="Password"]
+layout_mode = 2
+offset_left = 426.5
+offset_top = -1.0
+offset_right = 605.5
+offset_bottom = 33.0
+theme_override_colors/font_hover_pressed_color = Color(0.364706, 0.364706, 0.364706, 1)
+theme_override_colors/font_hover_color = Color(0.364706, 0.364706, 0.364706, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Показать пароль"
 
 [node name="Remember" type="CheckBox" parent="."]
 layout_mode = 2
@@ -94,3 +110,4 @@ autowrap_mode = 3
 
 [connection signal="text_changed" from="Login" to="." method="_on_login_text_changed"]
 [connection signal="text_changed" from="Password" to="." method="_on_password_text_changed"]
+[connection signal="toggled" from="Password/Show" to="." method="_on_show_toggled"]
