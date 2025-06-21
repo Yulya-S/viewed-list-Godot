@@ -5,7 +5,7 @@ signal change_program_mod(new_mod: ProgramModes)
 signal update_page()
 
 # Перечисление
-enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM} # Страницы в приложении
+enum ProgramModes {SECTION, TITLE, REGISTRATION, SETTING, RANDOM} # Страницы в приложении
 enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
