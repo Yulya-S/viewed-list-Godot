@@ -4,12 +4,18 @@ extends window_class
 @onready var Status = $Window/Status
 @onready var Progress = $Window/Progress
 @onready var Rating = $Window/Rating
+@onready var NoteLabel = $Window/Label
 @onready var Note = $Window/Note
 
 # Заполнение списка разделов
 func _ready() -> void:
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): Section.add_item(i.title, i.id)
 	Name.grab_focus()
+	# Замена цвета
+	Border.color = ColorScheme.get_color(Global.Colors.COLOR1)
+	WindowBox.color = ColorScheme.get_color(Global.Colors.COLOR3)
+	ColorScheme.set_color_to_objects([Error, NoteLabel], Global.Colors.FONT_COLOR)
+	for i in [Name, Section, Status]: ColorScheme.set_font_color(i.get_child(-1))
 
 # Получение данных о тайтле
 func get_object_data(id: int) -> Dictionary:

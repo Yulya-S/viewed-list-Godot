@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://clp3ctkvawra" path="res://scenes/fragments/rating.tscn" id="2_2wxex"]
 [ext_resource type="PackedScene" uid="uid://bfj0lx0yj4638" path="res://scenes/fragments/progress.tscn" id="3_cg57w"]
 
-[node name="TextBox" type="Container"]
+[node name="Title" type="Container"]
 custom_minimum_size = Vector2(1120, 50)
 offset_right = 900.0
 offset_bottom = 50.0

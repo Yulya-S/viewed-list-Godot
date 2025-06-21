@@ -45,7 +45,7 @@ func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
 	if len(users) == 0: Global.set_error(Error, "Неверный логин или пароль")
 	if Error.visible: return
-	Global.color_palette = Global.return_color_palette(users[0].color_scheme, users[0].dark_theme)
+	Global.color_palette = ColorScheme.return_color_palette(users[0].color_scheme, users[0].dark_theme)
 	Global.config = users[0]
 	if Remember.button_pressed:
 		Global.config["enter"] = true

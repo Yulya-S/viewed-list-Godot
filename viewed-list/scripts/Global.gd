@@ -9,6 +9,7 @@ enum ProgramModes {SECTION, TITLE, REGISTRATION, SETTING, RANDOM} # Страни
 enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
+enum Colors {FONT_COLOR, COLOR1, COLOR2, COLOR3, COLOR4} # Объекты в цветовой палитре
 
 # Параметры
 var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
@@ -75,26 +76,9 @@ func update_config() -> void:
 	file.close()
 	
 # Загрузка настроек
-func read_config():
+func read_config() -> void:
 	var data = FileAccess.open(ConfigFilePath, FileAccess.READ).get_line()
 	var json = JSON.new()
 	if not json.parse(data) == OK: return
 	data = json.data
 	for i in data.keys(): config[i] = data[i]
-
-# Получение цветовой палитры по индексу
-func return_color_palette(idx: int, dark: bool = false) -> Dictionary:
-	if dark: return _return_color_palette_dark(idx)
-	return _return_color_palette_light(idx)
-
-# Получение цветовой палитры по индексу светлая тема
-func _return_color_palette_light(idx: int) -> Dictionary:
-	match idx:
-		1: return {"font_color"=Color.BLACK, "color1"=Color.html("#BF5930"), "color2"=Color.html("#FF7640"), "color3"=Color.html("#FF9B73"), "color4"=Color.WHITE}
-		_: return {"font_color"=Color.BLACK, "color1"=Color.html("#BF3030"), "color2"=Color.html("#FF4040"), "color3"=Color.html("#FF7373"), "color4"=Color.WHITE}
-	
-# Получение цветовой палитры по индексу темная тема
-func _return_color_palette_dark(idx: int) -> Dictionary:
-	match idx:
-		1: return {"font_color"=Color.WHITE, "color1"=Color.html("#BF5930"), "color2"=Color.html("#A62F00"), "color3"=Color.html("#FF7640"), "color4"=Color.BLACK}
-		_: return {"font_color"=Color.WHITE, "color1"=Color.html("#BF3030"), "color2"=Color.html("#A60000"), "color3"=Color.html("#FF4040"), "color4"=Color.BLACK}

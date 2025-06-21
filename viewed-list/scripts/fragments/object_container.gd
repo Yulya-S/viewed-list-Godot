@@ -4,6 +4,7 @@ class_name object_container
 # Подключение путей к объектам в сцене
 @onready var Box = $ColorRect
 @onready var Title = $ColorRect/Label
+@onready var Status = $ColorRect/Status
 
 # Переменные
 var state: Global.MouseOver = Global.MouseOver.NORMAL # Текущее состояние объекта

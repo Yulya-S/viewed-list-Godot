@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cur34nukuf05y" path="res://scripts/fragments/section.gd" id="1_vyf2h"]
 
-[node name="SectionBox" type="Container"]
+[node name="Section" type="Container"]
 custom_minimum_size = Vector2(1120, 50)
 offset_right = 900.0
 offset_bottom = 50.0

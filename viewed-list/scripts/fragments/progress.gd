@@ -4,6 +4,9 @@ extends Node2D
 @onready var Part = $Part
 @onready var Chapter = $Chapter
 
+# Замена цвета
+func _ready() -> void: for i in [Part, Chapter]: ColorScheme.set_font_color(i.get_child(-1))
+
 # Изменение наименований разделов
 func set_labels(part_name: String, chapter_name: String) -> void:
 	Part.get_child(0).set_text(part_name)

@@ -13,6 +13,9 @@ func _ready() -> void:
 	if not mode:
 		SectionTitles.text = "К тайтлам"
 		Add.text = "Добавить Раздел"
+	# Замена цвета
+	color = ColorScheme.get_color(Global.Colors.COLOR1)
+	ColorScheme.set_font_color(User)
 	
 # Обработка нажатия кнопки добавления нового раздела / тайтла
 func _on_add_button_down() -> void:

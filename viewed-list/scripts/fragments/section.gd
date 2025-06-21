@@ -4,6 +4,11 @@ extends object_container
 @onready var Chapter = $ColorRect/Status/Chapter
 @onready var Count = $ColorRect/Status/Count
 
+# Замена цвета
+func _ready() -> void:
+	ColorScheme.set_color_to_objects([Box, Status], Global.Colors.COLOR3)
+	ColorScheme.set_color_to_objects([Title, Part, Chapter, Count], Global.Colors.FONT_COLOR)
+	
 # Привязка Раздела к контейнеру
 func set_object(data: Dictionary) -> void:
 	set_title(data.id, data.title)

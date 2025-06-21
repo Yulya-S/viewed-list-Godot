@@ -10,6 +10,12 @@ func _ready() -> void:
 	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
 	FilterOrder.selected = int(not bool(Global.config.order_by))
 	_on_filter_button_down()
+	# Замена цвета
+	FilterBox.color = ColorScheme.get_color(Global.Colors.COLOR2)
+	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
+	for i in [FilterName, FilterPageName, FilterChapterName, FilterCount, FilterOrder]:
+		ColorScheme.set_font_color(i.get_child(-1))
+	
 
 # Изменение значения фильтра названия части
 func _on_part_name_text_changed() -> void: Global.text_changed_TextEdit(FilterPageName)

@@ -147,7 +147,7 @@ theme_override_font_sizes/font_size = 20
 text = "Цветовое оформление:"
 horizontal_alignment = 2
 
-[node name="Display" type="CheckButton" parent="."]
+[node name="Dark" type="CheckButton" parent="."]
 layout_mode = 0
 offset_left = 684.0
 offset_top = 154.0
@@ -311,6 +311,7 @@ theme_override_font_sizes/font_size = 20
 text = "Пример текста"
 
 [connection signal="item_selected" from="Palette" to="." method="_on_palette_item_selected"]
-[connection signal="toggled" from="Display" to="." method="_on_display_toggled"]
+[connection signal="toggled" from="Dark" to="." method="_on_display_toggled"]
 [connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
 [connection signal="button_down" from="Delete" to="." method="_on_delete_button_down"]
+[connection signal="button_down" from="Apply" to="." method="_on_apply_button_down"]
