@@ -1,5 +1,5 @@
 extends Node
-enum Tables {USERS, SECTIONS, TITLES, SQLITE_SEQUENCE} # Таблицы в базе данных
+enum Tables {USERS, SECTIONS, TITLES, SETTINGS, SQLITE_SEQUENCE} # Таблицы в базе данных
 var db: SQLite = null # Подключенная база данных
 
 # Открытие базы данных
@@ -15,9 +15,11 @@ func generate_db_name() -> String:
 # Создание таблицы пользователей
 func create_users_db() -> void:
 	db.query("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
-		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255), color_scheme INT, dark_theme BOOLEAN, order_by BOOLEAN);""")
+		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255));""")
 
 func create_title_db() -> void:
+	db.query("""CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		color_scheme INT, dark_theme BOOLEAN, order_by BOOLEAN);""")
 	db.query("""CREATE TABLE IF NOT EXISTS sections (id INTEGER PRIMARY KEY AUTOINCREMENT,
 		title VARCHAR(255), part_name VARCHAR(255), chapter_name VARCHAR(255), display BOOLEAN);""")
 	db.query("""CREATE TABLE IF NOT EXISTS titles (id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,13 +67,16 @@ func _get_columns(table: Tables) -> Array:
 func update(table: Tables, values: String, where: String) -> void:
 	db.query("UPDATE `"+_get_table_name(table)+"` SET "+values+" WHERE "+where + ";")
 
-# Изменение тайтла
+# Изменение записи
 func update_record(table: Tables, id: int, values: Array) -> void:
 	var request_text: String = ""
 	var columns: Array = _get_columns(table)
 	for i in len(values): request_text = add_part_request(request_text, columns[i], values[i], "=", ", ")
 	update(table, request_text, "id=" + str(id))
-
+	
+# Изменение настроек программы
+func update_settings(values: Array) -> void:
+	update(Tables.SETTINGS, "color_scheme="+str(values[0])+",dark_theme="+str(values[1])+",order_by="+str(values[2]), "id=1")
 
 # Отправка запроса на создание записи таблице
 func insert(table: Tables, columns: Array, values: Array) -> void:
@@ -154,8 +159,9 @@ func select_old_db(old_db: String) -> void:
 		var password: String = ""
 		for l in i.password: password += char(l)
 		var base_name: String = Requests.generate_db_name()
-		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Marshalls.utf8_to_base64(base_name)+'"', 0, 0, i.order_by])
+		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Marshalls.utf8_to_base64(base_name)+'"'])
 		connecting_db("res://bases/"+base_name)
+		insert_record(Requests.Tables.SETTINGS, [0, 0, i.order_by])
 		for l in titles: if i.id == l.user_id:
 			# Заполнение таблицы разделов
 			if l.section_id not in sections_ids:

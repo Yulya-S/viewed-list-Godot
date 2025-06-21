@@ -43,12 +43,8 @@ func _on_delete_button_down() -> void:
 
 # Применение новых настроек
 func _on_apply_button_down() -> void:
-	Requests.connecting_users_db()
-	Requests.update_record(Requests.Tables.USERS, Global.config.id, ['"'+Global.config.login+'"',
-		'"'+Global.config.password+'"', '"'+Global.config.base+'"',
-		Palette.selected, int(Dark.button_pressed), int(not bool(Order.selected))])
+	Requests.update_settings([Palette.selected, int(Dark.button_pressed), int(not bool(Order.selected))])
 	Global.config.order_by = int(not bool(Order.selected))
 	Global.config.color_scheme = Palette.selected
 	Global.config.dark_theme = Dark.button_pressed
-	Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(Global.config.base)+".db")
 	_on_close_button_down()

@@ -26,5 +26,5 @@ func _return_color_palette_light(idx: int) -> Dictionary:
 # Получение цветовой палитры по индексу темная тема
 func _return_color_palette_dark(idx: int) -> Dictionary:
 	match idx:
-		1: return {"font_color"=Color.WHITE, "color1"=Color.html("#BF5930"), "color2"=Color.html("#A62F00"), "color3"=Color.html("#FF7640"), "color4"=Color.BLACK}
-		_: return {"font_color"=Color.WHITE, "color1"=Color.html("#BF3030"), "color2"=Color.html("#A60000"), "color3"=Color.html("#FF4040"), "color4"=Color.BLACK}
+		1: return {"font_color"=Color.WHITE, "color1"=Color.html("#BF5930"), "color2"=Color.html("#A62F00"), "color3"=Color.html("#E56A39"), "color4"=Color.BLACK}
+		_: return {"font_color"=Color.WHITE, "color1"=Color.html("#BF3030"), "color2"=Color.html("#A60000"), "color3"=Color.html("#E53939"), "color4"=Color.BLACK}

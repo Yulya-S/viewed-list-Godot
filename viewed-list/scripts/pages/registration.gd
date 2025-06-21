@@ -37,20 +37,26 @@ func _on_registration_button_down() -> void:
 	if Error.visible: return
 	Requests.insert_record(Requests.Tables.USERS, ['"'+Login.get_text()+'"',
 		'"'+Marshalls.utf8_to_base64(Password.get_text())+'"',
-		'"'+Marshalls.utf8_to_base64(Requests.generate_db_name())+'"', 0, 0, 0])
+		'"'+Marshalls.utf8_to_base64(Requests.generate_db_name())+'"'])
 	_on_enter_button_down()
+	
 
 # Вход в программу
 func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
 	if len(users) == 0: Global.set_error(Error, "Неверный логин или пароль")
 	if Error.visible: return
-	Global.color_palette = ColorScheme.return_color_palette(users[0].color_scheme, users[0].dark_theme)
 	Global.config = users[0]
 	if Remember.button_pressed:
 		Global.config["enter"] = true
 		Global.update_config()
 	Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
+	var color_scheme: Array = Requests.select(Requests.Tables.SETTINGS, "*")
+	if len(color_scheme) == 0:
+		Requests.insert_record(Requests.Tables.SETTINGS, [0, 0, 0])
+		color_scheme = [{"color_scheme"=0, "dark_theme"=0, "order_by"=0}]
+	for i in color_scheme[0].keys(): Global.config[i] = color_scheme[0][i]
+	Global.color_palette = ColorScheme.return_color_palette(users[0].color_scheme, users[0].dark_theme)
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
 	
 # Обработка нажатия кнопки входа в программу
