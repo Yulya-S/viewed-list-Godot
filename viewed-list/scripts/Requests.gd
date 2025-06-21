@@ -15,7 +15,7 @@ func generate_db_name() -> String:
 # Создание таблицы пользователей
 func create_users_db() -> void:
 	db.query("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
-		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255), color_scheme INT, order_by BOOLEAN);""")
+		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255), color_scheme INT, dark_theme BOOLEAN, order_by BOOLEAN);""")
 
 func create_title_db() -> void:
 	db.query("""CREATE TABLE IF NOT EXISTS sections (id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -154,7 +154,7 @@ func select_old_db(old_db: String) -> void:
 		var password: String = ""
 		for l in i.password: password += char(l)
 		var base_name: String = Requests.generate_db_name()
-		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Marshalls.utf8_to_base64(base_name)+'"', 0, i.order_by])
+		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Marshalls.utf8_to_base64(base_name)+'"', 0, 0, i.order_by])
 		connecting_db("res://bases/"+base_name)
 		for l in titles: if i.id == l.user_id:
 			# Заполнение таблицы разделов

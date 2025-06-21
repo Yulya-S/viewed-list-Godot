@@ -27,3 +27,6 @@ func _on_exit_button_down() -> void:
 	Global.config = {"login"="", "password"="", "enter"=false}
 	Global.update_config()
 	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)
+
+# Обработка нажатия кнопки настроек
+func _on_settings_button_down() -> void: Global.emit_signal("change_program_mod", Global.ProgramModes.SETTING)
