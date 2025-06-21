@@ -13,7 +13,7 @@ func _ready() -> void:
 	Name.grab_focus()
 	# Замена цвета
 	Border.color = ColorScheme.get_color(Global.Colors.COLOR1)
-	WindowBox.color = ColorScheme.get_color(Global.Colors.COLOR3)
+	WindowBox.color = ColorScheme.get_color(Global.Colors.COLOR4)
 	ColorScheme.set_color_to_objects([Error, NoteLabel], Global.Colors.FONT_COLOR)
 	for i in [Name, Section, Status]: ColorScheme.set_font_color(i.get_child(-1))
 

@@ -10,7 +10,7 @@ func _ready() -> void:
 	Name.grab_focus()
 	# Замена цвета
 	Border.color = ColorScheme.get_color(Global.Colors.COLOR1)
-	WindowBox.color = ColorScheme.get_color(Global.Colors.COLOR3)
+	WindowBox.color = ColorScheme.get_color(Global.Colors.COLOR4)
 	ColorScheme.set_color_to_objects([TitlesCount, Error], Global.Colors.FONT_COLOR)
 	Display.add_theme_color_override("font_color", ColorScheme.get_color(Global.Colors.FONT_COLOR))
 	Display.add_theme_color_override("font_focus_color", ColorScheme.get_color(Global.Colors.FONT_COLOR))
