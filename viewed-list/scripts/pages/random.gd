@@ -16,7 +16,7 @@ var titles: Array = [] # Индексты тайтлов которые могу
 
 # Создание страницы
 func _ready() -> void:
-	_on_filter_button_down() # Получение списка тайтлов
+	_set_filter() # Получение списка тайтлов
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
 	# Скрытие полей
 	Head.Add.visible = false
@@ -33,9 +33,17 @@ func hide_labels() -> void:
 	for i in [Name, State, Section, Note]: i.set_text("")
 	Rating.visible = false
 
+# Применение фильтра после снятия фокуса с контейнеров фильтрации
+func _on_section_focus_exited() -> void: _set_filter()
+
+func _on_status_focus_exited() -> void: _set_filter()
+
+func _on_rating_focus_exited() -> void: _set_filter()
+
+
 # Обработка нажатия кнопки фильтрации
-func _on_filter_button_down() -> void:
-	var filter_text: String = Requests.add_part_request("", "section", FilterSection.selected)
+func _set_filter() -> void:
+	var filter_text: String = Requests.add_part_request("", "section_id", FilterSection.selected)
 	filter_text = Requests.add_part_request(filter_text, "status", FilterStatus.selected)
 	filter_text = Requests.add_part_request(filter_text, "rating", FilterRating.get_text())
 	titles = []
