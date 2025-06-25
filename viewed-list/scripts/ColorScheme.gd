@@ -46,10 +46,7 @@ func _return_color_palette_light(idx: int) -> Dictionary:
 		18: return create_dictionary("E1809E", "E198AE", "B9E198")
 		19: return create_dictionary("DF8662", "72C8A3", "f1c4b3")
 		20: return create_dictionary("AA76C6", "DFDF62", "EEEEA0")
-		
 		21: return create_dictionary("954747", "ACA6A6", "F2E9E9")
-		
-		
 		_: return create_dictionary("DF6262", "EE8888", "F19F9F")
 	
 # Получение цветовой палитры по индексу темная тема
