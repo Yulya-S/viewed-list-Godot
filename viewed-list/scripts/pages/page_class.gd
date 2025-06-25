@@ -11,6 +11,11 @@ var object_idx: int = 0 # Индекс последнего добаленног
 var objects: Array = [] # Объекты которые будут добавлены
 var object_dir = load(Global.FragmentsDir+Global.program_mod_text()+".tscn") # Объект который будет добавлен
 
+# Установка цветов на фон
+func set_colors() -> void:
+	FilterBox.color = ColorScheme.get_color(Global.Colors.COLOR2)
+	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
+
 # Динамическое добаление объектов списка
 func _process(_delta: float) -> void:
 	if object_idx != len(objects):

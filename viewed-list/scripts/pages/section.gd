@@ -11,8 +11,7 @@ func _ready() -> void:
 	FilterOrder.selected = int(not bool(Global.config.order_by))
 	_on_filter_button_down()
 	# Замена цвета
-	FilterBox.color = ColorScheme.get_color(Global.Colors.COLOR2)
-	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
+	set_colors()
 	for i in [FilterName, FilterPageName, FilterChapterName, FilterCount, FilterOrder]:
 		ColorScheme.set_font_color(i.get_child(-1))
 	
