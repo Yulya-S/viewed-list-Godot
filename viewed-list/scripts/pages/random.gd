@@ -6,6 +6,7 @@ extends Node2D
 @onready var FilterStatus = $Filters/Status
 @onready var FilterRating = $Filters/Rating
 @onready var Background = $Background
+@onready var State = $Background/State
 @onready var Name = $Background/Name
 @onready var Section = $Background/Section
 @onready var Note = $Background/Note
@@ -24,11 +25,11 @@ func _ready() -> void:
 	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
 	for i in [FilterSection, FilterStatus, FilterRating]:
 		ColorScheme.set_font_color(i.get_child(-1))
-	for i in range(3): ColorScheme.set_font_color(Background.get_child(i))
+	for i in range(4): ColorScheme.set_font_color(Background.get_child(i))
 
 # Скрытие контейнеров о рандомном тайтле
 func hide_labels() -> void:
-	for i in [Name, Section, Note]: i.set_text("")
+	for i in [Name, State, Section, Note]: i.set_text("")
 	Rating.visible = false
 
 # Обработка нажатия кнопки фильтрации
@@ -45,7 +46,14 @@ func _on_filter_button_down() -> void:
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)
 
 # Замена значений контейнеров информации о тайтлах
-func set_title(id: int) -> void: pass
+func set_title(idx: int) -> void:
+	var data: Dictionary = Requests.select_titles("t.id="+str(titles[idx]))[0]
+	Name.set_text(data.title)
+	State.set_text(FilterStatus.get_item_text(data.status))
+	Section.set_text(data.section_title)
+	Note.set_text(data.note)
+	Rating.value = data.rating
+	Rating.visible = data.status-1 in [Global.TitleStates.WAIT, Global.TitleStates.COMPLETED]
 
 # Обработка нажатия кнопки получения рандомного тайтла
-func _on_random_button_down() -> void: pass
+func _on_random_button_down() -> void: if len(titles) > 0: set_title(randi()%len(titles))

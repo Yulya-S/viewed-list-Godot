@@ -9,8 +9,8 @@ var mode: bool = false # false -> страница разделов, true -> с�
 # Изменение шапки в зависимости от страницы
 func _ready() -> void:
 	User.set_text(Global.config.login)
-	mode = bool(Global.program_mod)
-	if not mode:
+	mode = bool(Global.program_mod - 1)
+	if mode:
 		SectionTitles.text = "К тайтлам"
 		Add.text = "Добавить Раздел"
 	# Замена цвета
@@ -19,10 +19,10 @@ func _ready() -> void:
 	
 # Обработка нажатия кнопки добавления нового раздела / тайтла
 func _on_add_button_down() -> void:
-	if int(not mode) or len(Requests.select_sections()) > 0: Global.emit_signal("open_object_page")
+	if int(mode) or len(Requests.select_sections()) > 0: Global.emit_signal("open_object_page")
 
 # Обработка нажатия кнопки перехода к разделам / тайтлам
-func _on_sections_titles_button_down() -> void: Global.emit_signal("change_program_mod", int(not mode))
+func _on_sections_titles_button_down() -> void: Global.emit_signal("change_program_mod", int(mode))
 
 # Обоработка нажатия кнопки выхода из аккаунта
 func _on_exit_button_down() -> void:
