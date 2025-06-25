@@ -10,6 +10,7 @@ extends Node2D
 @onready var Name = $Background/Name
 @onready var Section = $Background/Section
 @onready var Note = $Background/Note
+@onready var Count = $Background/Count
 @onready var Rating = $Background/Rating
 
 var titles: Array = [] # Индексты тайтлов которые могут быть получены
@@ -50,6 +51,7 @@ func _set_filter() -> void:
 	for i in Requests.select(Requests.Tables.TITLES, "id", filter_text): titles.append(i.id)
 	hide_labels()
 	if len(titles) == 0: Name.set_text("Отсутствуют тайтлы подходящие по выбранным фильтрам")
+	Count.set_text("Количество тайтлов подходящих по фильтрам: "+str(len(titles)))
 
 # Изменение значения рейтинга
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)
