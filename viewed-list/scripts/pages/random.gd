@@ -27,7 +27,7 @@ func _ready() -> void:
 	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
 	for i in [FilterSection, FilterStatus, FilterRating]:
 		ColorScheme.set_font_color(i.get_child(-1))
-	for i in range(4): ColorScheme.set_font_color(Background.get_child(i))
+	for i in range(5): ColorScheme.set_font_color(Background.get_child(i))
 
 # Скрытие контейнеров о рандомном тайтле
 func hide_labels() -> void:
