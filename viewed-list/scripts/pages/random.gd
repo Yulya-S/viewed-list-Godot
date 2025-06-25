@@ -17,6 +17,7 @@ var titles: Array = [] # Индексты тайтлов которые могу
 # Создание страницы
 func _ready() -> void:
 	_on_filter_button_down() # Получение списка тайтлов
+	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
 	# Скрытие полей
 	Head.Add.visible = false
 	hide_labels()
