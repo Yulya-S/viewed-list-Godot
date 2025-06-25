@@ -5,14 +5,16 @@ signal change_program_mod(new_mod: ProgramModes)
 signal update_page()
 
 # Перечисление
-enum ProgramModes {SECTION, TITLE, REGISTRATION, RANDOM} # Страницы в приложении
+enum ProgramModes {SECTION, TITLE, REGISTRATION, SETTING, RANDOM} # Страницы в приложении
 enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
+enum Colors {FONT_COLOR, COLOR1, COLOR2, COLOR3, COLOR4} # Объекты в цветовой палитре
 
 # Параметры
 var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
 var config: Dictionary = {"login" = "", "password" = "", "enter" = false} # Настройки программы
+var color_palette: Dictionary = {"font_color"="", "color1"="", "color2"="", "color3"="", "color4"=""}
 
 # Константы
 const FragmentsDir: String = "res://scenes/fragments/"
@@ -74,7 +76,7 @@ func update_config() -> void:
 	file.close()
 	
 # Загрузка настроек
-func read_config():
+func read_config() -> void:
 	var data = FileAccess.open(ConfigFilePath, FileAccess.READ).get_line()
 	var json = JSON.new()
 	if not json.parse(data) == OK: return

@@ -13,6 +13,9 @@ func _ready() -> void:
 	if not mode:
 		SectionTitles.text = "К тайтлам"
 		Add.text = "Добавить Раздел"
+	# Замена цвета
+	color = ColorScheme.get_color(Global.Colors.COLOR1)
+	ColorScheme.set_font_color(User)
 	
 # Обработка нажатия кнопки добавления нового раздела / тайтла
 func _on_add_button_down() -> void:
@@ -27,3 +30,6 @@ func _on_exit_button_down() -> void:
 	Global.config = {"login"="", "password"="", "enter"=false}
 	Global.update_config()
 	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)
+
+# Обработка нажатия кнопки настроек
+func _on_settings_button_down() -> void: Global.emit_signal("change_program_mod", Global.ProgramModes.SETTING)

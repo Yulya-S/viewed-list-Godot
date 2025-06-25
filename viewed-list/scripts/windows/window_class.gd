@@ -2,6 +2,8 @@ extends Node
 class_name window_class
 
 # Подключение путей к объектам в сцене
+@onready var Border = $Background/Border
+@onready var WindowBox = $Window
 @onready var Error = $Window/Error
 @onready var Name = $Window/Name
 @onready var Delete = $Window/Delete

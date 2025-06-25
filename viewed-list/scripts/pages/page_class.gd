@@ -1,8 +1,10 @@
 extends Node2D
 class_name page_class
 # Подключение путей к объектам в сцене
-@onready var ObjectsContainer = $ScrollContainer/VBoxContainer
+@onready var FilterBox = $Filters
 @onready var FilterName = $Filters/Name
+@onready var Background = $Background
+@onready var ObjectsContainer = $ScrollContainer/VBoxContainer
 
 # Переменные
 var object_idx: int = 0 # Индекс последнего добаленного объекта
