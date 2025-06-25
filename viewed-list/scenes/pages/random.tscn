@@ -157,4 +157,6 @@ offset_bottom = 428.0
 theme_override_font_sizes/font_size = 24
 text = "Получить тайтл"
 
+[connection signal="text_changed" from="Filters/Rating" to="." method="_on_filter_rating_text_changed"]
 [connection signal="button_down" from="Filters/Button" to="." method="_on_filter_button_down"]
+[connection signal="button_down" from="Background/Button" to="." method="_on_random_button_down"]
