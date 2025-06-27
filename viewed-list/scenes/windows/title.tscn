@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://k5grnx8v2qnt"]
+[gd_scene load_steps=5 format=3 uid="uid://k5grnx8v2qnt"]
 
 [ext_resource type="Script" uid="uid://cvko0s3jdxe14" path="res://scripts/windows/title.gd" id="1_60jin"]
 [ext_resource type="PackedScene" uid="uid://bfj0lx0yj4638" path="res://scenes/fragments/progress.tscn" id="2_s12f7"]
 [ext_resource type="PackedScene" uid="uid://clp3ctkvawra" path="res://scenes/fragments/rating.tscn" id="3_lhka1"]
+[ext_resource type="PackedScene" uid="uid://cn2ul1amy0ap8" path="res://scenes/fragments/selection_window.tscn" id="4_s12f7"]
 
 [node name="Title" type="Node2D"]
 script = ExtResource("1_60jin")
@@ -168,6 +169,8 @@ focus_previous = NodePath("../Window/Apply")
 theme_override_constants/outline_size = 14
 theme_override_font_sizes/font_size = 24
 text = "X"
+
+[node name="SelectionWindow" parent="." instance=ExtResource("4_s12f7")]
 
 [connection signal="text_changed" from="Window/Name" to="." method="_on_name_text_changed"]
 [connection signal="item_selected" from="Window/Section" to="." method="_on_section_item_selected"]

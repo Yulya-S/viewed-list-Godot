@@ -59,7 +59,7 @@ func _on_status_item_selected(_index: int) -> void:
 	progress_display()
 	Rating.visible = Status.selected > 1 and Status.selected != 3
 
-# Обработка нажатия кнопки удаления
-func _on_delete_button_down() -> void:
+# Удаление тайтла
+func delete_object():
 	Requests.delete_record(Requests.Tables.TITLES, object.id)
 	apply_changes()

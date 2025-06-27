@@ -7,6 +7,7 @@ class_name window_class
 @onready var Error = $Window/Error
 @onready var Name = $Window/Name
 @onready var Delete = $Window/Delete
+@onready var Dialog = $SelectionWindow
 
 var object = null # Выбранный для изменения объект
 
@@ -56,4 +57,10 @@ func _on_close_button_down() -> void:
 func apply_changes() -> void:
 	Global.emit_signal("update_page")
 	_on_close_button_down()
+
+# Удаление объекта
+func delete_object(): pass
+
+# Обработка нажатия кнопки удаления
+func _on_delete_button_down() -> void: Dialog.show_window()
 	

@@ -3,6 +3,7 @@ extends Control
 @onready var Order = $Order
 @onready var Palette = $Palette
 @onready var Dark = $Dark
+@onready var Dialog = $SelectionWindow
 @onready var Color1 = $Border/ColorRect1
 @onready var Color2 = $Border/ColorRect2
 @onready var Color3 = $Border/ColorRect3
@@ -32,14 +33,17 @@ func _on_close_button_down() -> void:
 # Изменение темы между светлой и темной
 func _on_display_toggled(_toggled_on: bool) -> void: _on_palette_item_selected(Palette.selected)
 
-# Обработка нажатия кнопки удаления пользователя
-func _on_delete_button_down() -> void:
+# Удаление пользователя
+func delete_object() -> void:
 	Requests.connecting_users_db()
 	DirAccess.remove_absolute("res://bases/"+Marshalls.base64_to_utf8(Global.config.base)+".db")
-	Requests.delete_record(Requests.Tables.USERS, Global.config.id)
+	Requests.delete_record(Requests.Tables.USERS, Requests.select_user(Global.config.login, Global.config.password)[0].id)
 	Global.config = {"login"="", "password"="", "enter"=false}
 	Global.update_config()
 	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)
+	
+# Обработка нажатия кнопки удаления пользователя
+func _on_delete_button_down() -> void: Dialog.show_window()
 
 # Применение новых настроек
 func _on_apply_button_down() -> void:

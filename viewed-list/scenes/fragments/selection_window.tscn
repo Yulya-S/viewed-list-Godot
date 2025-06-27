@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn2ul1amy0ap8"]
+
+[ext_resource type="Script" uid="uid://cce5lqaw3d637" path="res://scripts/fragments/selection_window.gd" id="1_v3cvw"]
+
+[node name="SelectionWindow" type="ColorRect"]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.501961)
+script = ExtResource("1_v3cvw")
+
+[node name="SelectionWindow" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+title = "Подтверждение"
+initial_position = 3
+size = Vector2i(208, 100)
+current_screen = 0
+ok_button_text = "Да"
+dialog_text = "Удалить безвозвратно?"
+cancel_button_text = "Нет"
+
+[connection signal="canceled" from="SelectionWindow" to="." method="_on_canceled"]
+[connection signal="confirmed" from="SelectionWindow" to="." method="_on_confirmed"]

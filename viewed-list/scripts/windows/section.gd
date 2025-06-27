@@ -47,7 +47,7 @@ func _on_display_toggled(toggled_on: bool) -> void:
 	PartName.visible = toggled_on
 	ChapterName.visible = toggled_on
 
-# Обработка нажатия кнопки удаления раздела
-func _on_delete_button_down() -> void:
+# Удаление раздела
+func delete_object():
 	Requests.delete_records_related_tables(Requests.Tables.SECTIONS, Requests.Tables.TITLES, object.id, "section_id")
 	apply_changes()

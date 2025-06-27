@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://oyccckewlctk"]
+[gd_scene load_steps=13 format=3 uid="uid://oyccckewlctk"]
 
 [ext_resource type="Script" uid="uid://bay5sre6pwjos" path="res://scripts/pages/setting.gd" id="1_i48yy"]
 [ext_resource type="PackedScene" uid="uid://clp3ctkvawra" path="res://scenes/fragments/rating.tscn" id="2_g048b"]
+[ext_resource type="PackedScene" uid="uid://cn2ul1amy0ap8" path="res://scenes/fragments/selection_window.tscn" id="3_g048b"]
 
 [sub_resource type="Image" id="Image_i48yy"]
 data = {
@@ -313,6 +314,9 @@ offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Пример текста"
+
+[node name="SelectionWindow" parent="." instance=ExtResource("3_g048b")]
+layout_mode = 0
 
 [connection signal="item_selected" from="Palette" to="." method="_on_palette_item_selected"]
 [connection signal="toggled" from="Dark" to="." method="_on_display_toggled"]
