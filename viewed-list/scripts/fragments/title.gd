@@ -21,14 +21,14 @@ func set_object(data: Dictionary) -> void:
 	set_title(data.id, data.title)
 	Section.set_text(data.section_title)
 	StatusName.selected = data.status-1
-	_on_status_item_selected(StatusName.selected)
+	_on_status_item_selected(StatusName.selected, false)
 	display_progress = data.display
 	Progress.set_values(data.part, data.chapter)
 	Progress.set_labels(data.part_name, data.chapter_name)
 	Rating.value = data.rating
 
 # Изменение статуса тайтла
-func _on_status_item_selected(index: int) -> void:
+func _on_status_item_selected(index: int, save: bool = true) -> void:
 	Rating.visible = index in [Global.TitleStates.WAIT, Global.TitleStates.COMPLETED]
 	Progress.visible = display_progress and index == Global.TitleStates.PROGRESS
-	Global.save_title_data(self, Global.TitleParameters.STATUS, index+1)
+	if save: Global.save_title_data(self, Global.TitleParameters.STATUS, index+1)
