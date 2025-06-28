@@ -36,3 +36,6 @@ func _on_settings_button_down() -> void: Global.emit_signal("change_program_mod"
 
 # Обработка нажатия кнопки получения рандомно тайтла
 func _on_random_button_down() -> void: Global.emit_signal("change_program_mod", Global.ProgramModes.RANDOM)
+
+# Обработка нажатия кнопки чтения подсказок
+func _on_hints_button_down() -> void: Global.emit_signal("change_program_mod", Global.ProgramModes.HINTS)
