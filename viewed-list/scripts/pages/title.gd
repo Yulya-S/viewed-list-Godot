@@ -11,7 +11,7 @@ func _ready() -> void:
 	super._ready()
 	Global.filling_out_sections(FilterSection)
 	
-# Изменение значений текстовых контейнеров
+# Изменение значений фильтров
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)
 		
 func _on_filter_part_text_changed() -> void: Global.text_changed_TextEdit(FilterPart, true)

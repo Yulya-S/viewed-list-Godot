@@ -31,5 +31,4 @@ func add_objects(values: Array) -> void:
 # Изменение значения фильтра названия
 func _on_filter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterName)
 
-# Обработка нажатие кнопки фильтра
-func _on_filter_button_down() -> void: pass
+func _on_filter_button_down() -> void: pass # Обработка нажатие кнопки фильтра

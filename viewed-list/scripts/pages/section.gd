@@ -4,13 +4,11 @@ extends ListPage
 @onready var FilterChapterName = $Filters/ChapterName
 @onready var FilterCount = $Filters/Count
 
-# Изменение значения фильтра названия части
+# Изменение значения фильтров
 func _on_part_name_text_changed() -> void: Global.text_changed_TextEdit(FilterPageName)
 
-# Изменение значения фильтра названия главы
 func _on_chapter_name_text_changed() -> void: Global.text_changed_TextEdit(FilterChapterName)
 
-# Изменение значения количества тайтлов
 func _on_count_text_changed() -> void: Global.text_changed_TextEdit(FilterCount, true)
 
 # Нажатие кнопки фильтра
