@@ -11,6 +11,11 @@ class_name window_class
 
 var object = null # Выбранный для изменения объект
 
+# Открытие окна
+func _ready() -> void:
+	Name.grab_focus()
+	ColorScheme.set_color(self) # Замена цвета
+
 # Получение данных об объекте
 func get_object_data(_id: int) -> Dictionary: return {}
 

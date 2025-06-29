@@ -1,20 +1,13 @@
 extends Node2D
 class_name page_class
 # Подключение путей к объектам в сцене
-@onready var FilterBox = $Filters
 @onready var FilterName = $Filters/Name
-@onready var Background = $Background
 @onready var ObjectsContainer = $ScrollContainer/VBoxContainer
 
 # Переменные
 var object_idx: int = 0 # Индекс последнего добавленного объекта
 var objects: Array = [] # Объекты, которые будут добавлены
 var object_dir = load(Global.FragmentsDir+Global.program_mod_text()+".tscn") # Путь к сцене объекта
-
-# Установка цветов на фон
-func set_colors() -> void:
-	FilterBox.color = ColorScheme.get_color(Global.Colors.COLOR2)
-	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
 
 # Динамическое добавление объектов списка
 func _process(_delta: float) -> void:

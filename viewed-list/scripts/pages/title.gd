@@ -13,10 +13,7 @@ func _ready() -> void:
 	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
 	FilterOrder.selected = int(not bool(Global.config.order_by))
 	_on_filter_button_down()
-	# Замена цвета
-	set_colors()
-	for i in [FilterName, FilterSection, FilterStatus, FilterOrder, FilterRating, FilterPart, FilterChapter]:
-		ColorScheme.set_font_color(i.get_child(-1))
+	ColorScheme.set_color(self) # Замена цвета
 
 # Изменение значения рейтинга
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)

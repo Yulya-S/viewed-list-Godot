@@ -2,13 +2,15 @@ extends Container
 class_name object_container
 
 # Подключение путей к объектам в сцене
-@onready var Box = $ColorRect
-@onready var Title = $ColorRect/Label
-@onready var Status = $ColorRect/Status
+@onready var Box = $Object
+@onready var Title = $Object/Label
 
 # Переменные
 var state: Global.MouseOver = Global.MouseOver.NORMAL # Текущее состояние объекта
 var id: int = 0 # Подключенный раздел
+
+# Замена цвета
+func _ready() -> void: ColorScheme.set_color(self)
 
 # Привязка общих данных к контейнеру
 func set_title(new_id: int, title: String) -> void:

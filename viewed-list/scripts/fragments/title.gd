@@ -1,20 +1,15 @@
 extends object_container
 # Подключение путей к объектам в сцене
-@onready var StatusName = $ColorRect/Status/Status
-@onready var Section = $ColorRect/Status/Section
-@onready var Rating = $ColorRect/Status/Rating
-@onready var Progress = $ColorRect/Status/Progress
+@onready var StatusName = $Object/Object/Status
+@onready var Section = $Object/Object/Section
+@onready var Rating = $Object/Object/Rating
+@onready var Progress = $Object/Object/Progress
 
 # Пути к подгружаемым сценам
 const FragmentsRating: String = "res://scenes/fragments/rating.tscn"
 const FragmentsProgress: String = "res://scenes/fragments/progress.tscn"
 
 var display_progress: bool = true # Параметр отображения прогресса
-
-# Замена цвета
-func _ready() -> void:
-	ColorScheme.set_color_to_objects([Box, Status], Global.Colors.COLOR3)
-	ColorScheme.set_color_to_objects([Title, Section], Global.Colors.FONT_COLOR)
 	
 # Привязка тайтла к контейнеру
 func set_object(data: Dictionary) -> void:

@@ -4,10 +4,7 @@ extends Control
 @onready var Palette = $Palette
 @onready var Dark = $Dark
 @onready var Dialog = $SelectionWindow
-@onready var Color1 = $Border/ColorRect1
-@onready var Color2 = $Border/ColorRect2
-@onready var Color3 = $Border/ColorRect3
-@onready var Color4 = $Border/Background
+@onready var Example = $Example
 
 # Получение настроек
 func _ready() -> void:
@@ -17,13 +14,7 @@ func _ready() -> void:
 	_on_palette_item_selected(Palette.selected)
 
 # Смена выбранной цветовой темы
-func _on_palette_item_selected(index: int) -> void:
-	var palette: Dictionary = ColorScheme.return_color_palette(index, Dark.button_pressed)
-	Color1.color = palette.color1
-	Color2.color = palette.color2
-	Color3.color = palette.color3
-	Color4.color = palette.color4
-	for i in [Color1, Color2, Color3]: i.get_child(-1).add_theme_color_override("font_color", palette.font_color)
+func _on_palette_item_selected(index: int) -> void: ColorScheme.set_color(Example, ColorScheme.return_color_palette(index, Dark.button_pressed))
 
 # Обработка нажатия кнопки отмены
 func _on_close_button_down() -> void:

@@ -1,13 +1,8 @@
 extends object_container
 # Подключение путей к объектам в сцене
-@onready var Part = $ColorRect/Status/Part
-@onready var Chapter = $ColorRect/Status/Chapter
-@onready var Count = $ColorRect/Status/Count
-
-# Замена цвета
-func _ready() -> void:
-	ColorScheme.set_color_to_objects([Box, Status], Global.Colors.COLOR3)
-	ColorScheme.set_color_to_objects([Title, Part, Chapter, Count], Global.Colors.FONT_COLOR)
+@onready var Part = $Object/Object/Part
+@onready var Chapter = $Object/Object/Chapter
+@onready var Count = $Object/Object/Count
 	
 # Привязка Раздела к контейнеру
 func set_object(data: Dictionary) -> void:

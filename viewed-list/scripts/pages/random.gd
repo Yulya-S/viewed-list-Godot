@@ -1,17 +1,15 @@
 extends Node2D
 # Подключение путей к объектам в сцене
 @onready var Head = $Head
-@onready var FilterBox = $Filters
 @onready var FilterSection = $Filters/Section
 @onready var FilterStatus = $Filters/Status
 @onready var FilterRating = $Filters/Rating
-@onready var Background = $Background
-@onready var State = $Background/State
-@onready var Name = $Background/Name
-@onready var Section = $Background/Section
-@onready var Note = $Background/Note
-@onready var Count = $Background/Count
-@onready var Rating = $Background/Rating
+@onready var State = $Window/State
+@onready var Name = $Window/Name
+@onready var Section = $Window/Section
+@onready var Note = $Window/Note
+@onready var Count = $Window/Count
+@onready var Rating = $Window/Rating
 
 var titles: Array = [] # Индексы тайтлов, которые могут быть получены
 
@@ -22,12 +20,7 @@ func _ready() -> void:
 	# Скрытие полей
 	Head.Add.visible = false
 	hide_labels()
-	# Замена цвета
-	FilterBox.color = ColorScheme.get_color(Global.Colors.COLOR2)
-	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
-	for i in [FilterSection, FilterStatus, FilterRating]:
-		ColorScheme.set_font_color(i.get_child(-1))
-	for i in range(5): ColorScheme.set_font_color(Background.get_child(i))
+	ColorScheme.set_color(self) # Замена цвета
 
 # Скрытие контейнеров о рандомном тайтле
 func hide_labels() -> void:

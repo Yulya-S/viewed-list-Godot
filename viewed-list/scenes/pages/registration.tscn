@@ -133,7 +133,7 @@ offset_bottom = 648.0
 color = Color(0, 0, 0, 0.501961)
 
 [node name="FileDialog" type="FileDialog" parent="Background"]
-title = "Выбрать файл для считывания данных"
+title = "Open a File"
 initial_position = 1
 ok_button_text = "Open"
 file_mode = 0

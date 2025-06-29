@@ -1,16 +1,27 @@
 extends Node
 
 # Получить цвет по имени
-func get_color(color_state: Global.Colors) -> Color: return Global.color_palette[Global.Colors.keys()[color_state].to_lower()]
+func get_color(color_state: Global.Colors, palette: Dictionary = Global.color_palette) -> Color:
+	return palette[Global.Colors.keys()[color_state].to_lower()]
 
 # Замена цвета текста
-func set_font_color(object: Label) -> void: object.add_theme_color_override("font_color", get_color(Global.Colors.FONT_COLOR))
-
-# Замена цвета на объектах в списке
-func set_color_to_objects(objects: Array, color_state: Global.Colors) -> void:
-	for i in objects:
-		if color_state == Global.Colors.FONT_COLOR: set_font_color(i)
-		else: i.color = get_color(color_state)
+func set_font_color(object, palette: Dictionary = Global.color_palette, column: String = "font_color") -> void:
+	object.add_theme_color_override(column, get_color(Global.Colors.FONT_COLOR, palette))
+		
+# Изменение цветов в сцене
+func set_color(scene, palette: Dictionary = Global.color_palette) -> void:
+	for i in scene.get_children(): set_color(i, palette)
+	match scene.get_name():
+		"Head": scene.color = get_color(Global.Colors.COLOR1, palette)
+		"Border": scene.color = get_color(Global.Colors.COLOR1, palette)
+		"Filters": scene.color = get_color(Global.Colors.COLOR2, palette)
+		"Object": scene.color = get_color(Global.Colors.COLOR3, palette)
+		"Window": scene.color = get_color(Global.Colors.COLOR4, palette)
+	if scene is Label: set_font_color(scene, palette)
+	elif scene is CheckButton:
+		set_font_color(scene, palette)
+		set_font_color(scene, palette, "font_focus_color")
+		set_font_color(scene, palette, "font_pressed_color")
 
 # Получение цветовой палитры по индексу
 func return_color_palette(idx: int, dark: bool = false) -> Dictionary:

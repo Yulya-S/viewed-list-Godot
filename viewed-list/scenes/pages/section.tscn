@@ -118,7 +118,7 @@ offset_right = 1127.0
 offset_bottom = 124.0
 text = "Применить"
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Window" type="ColorRect" parent="."]
 offset_top = 200.0
 offset_right = 1152.0
 offset_bottom = 648.0

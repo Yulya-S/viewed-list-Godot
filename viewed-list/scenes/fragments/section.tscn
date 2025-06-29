@@ -8,13 +8,13 @@ offset_right = 900.0
 offset_bottom = 50.0
 script = ExtResource("1_vyf2h")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Object" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 mouse_filter = 1
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="Label" type="Label" parent="Object"]
 custom_minimum_size = Vector2(380, 50)
 layout_mode = 2
 offset_left = 5.0
@@ -30,7 +30,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[node name="Status" type="ColorRect" parent="ColorRect"]
+[node name="Object" type="ColorRect" parent="Object"]
 custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
 offset_left = 400.0
@@ -40,7 +40,7 @@ size_flags_horizontal = 8
 mouse_filter = 2
 color = Color(0.94902, 0.858824, 0.815686, 1)
 
-[node name="Part" type="Label" parent="ColorRect/Status"]
+[node name="Part" type="Label" parent="Object/Object"]
 custom_minimum_size = Vector2(251, 50)
 layout_mode = 1
 anchors_preset = 6
@@ -63,7 +63,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[node name="Chapter" type="Label" parent="ColorRect/Status"]
+[node name="Chapter" type="Label" parent="Object/Object"]
 custom_minimum_size = Vector2(251, 50)
 layout_mode = 1
 anchors_preset = 6
@@ -86,7 +86,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[node name="Count" type="Label" parent="ColorRect/Status"]
+[node name="Count" type="Label" parent="Object/Object"]
 custom_minimum_size = Vector2(164, 50)
 layout_mode = 1
 anchors_preset = 6
@@ -109,5 +109,5 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[connection signal="mouse_entered" from="ColorRect/Label" to="." method="_on_label_mouse_entered"]
-[connection signal="mouse_exited" from="ColorRect/Label" to="." method="_on_label_mouse_exited"]
+[connection signal="mouse_entered" from="Object/Label" to="." method="_on_label_mouse_entered"]
+[connection signal="mouse_exited" from="Object/Label" to="." method="_on_label_mouse_exited"]
