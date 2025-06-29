@@ -7,12 +7,12 @@ signal update_page()
 # Перечисления
 enum ProgramModes {SECTION, TITLE, REGISTRATION, SETTING, RANDOM, HINTS} # Страницы в приложении
 enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
-enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния изучения Тайтла
+enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 
 # Параметры
 var program_mod: ProgramModes = ProgramModes.TITLE # Текущая страница
-var config: Dictionary = {"login" = "", "password" = "", "enter" = false} # Настройки программы
+var config: Dictionary = {"enter": false} # Настройки программы
 
 # Константы
 const FragmentsDir: String = "res://scenes/fragments/"
@@ -80,8 +80,8 @@ func update_config() -> void:
 	
 # Загрузка настроек
 func read_config() -> void:
-	var data = FileAccess.open(ConfigFilePath, FileAccess.READ).get_line()
+	var file = FileAccess.open(ConfigFilePath, FileAccess.READ)
 	var json = JSON.new()
-	if not json.parse(data) == OK: return
-	data = json.data
-	for i in data.keys(): config[i] = data[i]
+	if not json.parse(file.get_line()) == OK: return
+	config = json.data
+	file.close()
