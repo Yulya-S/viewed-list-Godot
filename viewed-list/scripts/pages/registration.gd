@@ -9,19 +9,19 @@ extends Control
 
 # Автоматический вход в программу
 func _process(_delta: float) -> void:
-	if Global.config.enter and Requests.db:
-		Error.visible = false
-		_entrance(Global.config.login, Global.config.password)
+	if Global.config.enter and Requests.db:	_entrance(Global.config.login, Global.config.password)
 
-# Проверка верности заполнения текстовых полей
-func check_text() -> void:
-	Error.visible = false
-	if not Login.get_text() or not Password.get_text(): Global.set_error(Error, "Все поля должны быть заполнены")
+# Замена текста ошибки
+func errors(enter: bool, users: Array = [""]) -> bool:
+	if not Global.config.enter and (not Login.get_text() or not Password.get_text()):
+		return Global.set_error(Error, "Все поля должны быть заполнены")
+	if enter and len(users) == 0: return Global.set_error(Error, "Неверный логин или пароль")
+	if not enter and len(users) > 0: return Global.set_error(Error, "Имя аккаунта занято") 
+	return true
 
-# Изменение значения логина
+# Изменение значений
 func _on_login_text_changed() -> void: Global.text_changed_TextEdit(Login)
 
-# Изменение значения пароля
 func _on_password_text_changed() -> void: Global.text_changed_TextEdit(Password)
 
 # Переключение видимости пароля
@@ -31,38 +31,29 @@ func _on_show_toggled(_toggled_on: bool) -> void:
 
 # Обработка нажатия кнопки создания нового пользователя
 func _on_registration_button_down() -> void:
-	check_text()
 	var users: Array = Requests.select(Requests.Tables.USERS, "*", 'login="'+Login.get_text()+'"')
-	if len(users) > 0: Global.set_error(Error, "Имя аккаунта занято")
-	if Error.visible: return
+	if not errors(false, users): return
 	Requests.insert_record(Requests.Tables.USERS, ['"'+Login.get_text()+'"',
-		'"'+Marshalls.utf8_to_base64(Password.get_text())+'"',
-		'"'+Marshalls.utf8_to_base64(Requests.generate_db_name())+'"'])
+		'"'+Global.hide_data(Password.get_text())+'"', '"'+Global.hide_data(Requests.generate_db_name())+'"'])
 	_on_enter_button_down()
-	
+
+# Обработка нажатия кнопки входа в программу
+func _on_enter_button_down() -> void:
+	if not errors(true): return
+	_entrance(Login.get_text(), Global.hide_data(Password.get_text()))
+
 # Вход в программу
 func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
-	if len(users) == 0: Global.set_error(Error, "Неверный логин или пароль")
-	if Error.visible: return
+	if not errors(true, users): return
 	Global.config = users[0]
-	if Remember.button_pressed:
-		Global.config["enter"] = true
-		Global.update_config()
+	Global.config["enter"] = Remember.button_pressed
+	if Remember.button_pressed: Global.update_config()
 	Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
 	var color_scheme: Array = Requests.select(Requests.Tables.SETTINGS, "*")
-	if len(color_scheme) == 0:
-		Requests.insert_record(Requests.Tables.SETTINGS, [0, 0, 0])
-		color_scheme = [{"color_scheme"=0, "dark_theme"=0, "order_by"=0}]
 	for i in color_scheme[0].keys(): Global.config[i] = color_scheme[0][i]
 	ColorScheme.apply_palette(users[0].color_scheme, users[0].dark_theme)
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
-	
-# Обработка нажатия кнопки входа в программу
-func _on_enter_button_down() -> void:
-	check_text()
-	if Error.visible: return
-	_entrance(Login.get_text(), Marshalls.utf8_to_base64(Password.get_text()))
 
 # Обработка нажатия кнопки загрузки старой базы данных
 func _on_load_button_down() -> void:

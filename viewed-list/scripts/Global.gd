@@ -32,6 +32,9 @@ func enum_key(enums, object) -> String: return enums.keys()[object].to_lower()
 # Получить название текущей страницы
 func program_mod_text() -> String: return enum_key(ProgramModes, program_mod)
 
+# Шифрование данных
+func hide_data(data: String) -> String: return Marshalls.utf8_to_base64(data)
+
 # Проверка что текст — это число
 func valide_numeric_text(text_container: TextEdit) -> void:
 	var text = text_container.get_text()
@@ -58,9 +61,10 @@ func clear_page(container: VBoxContainer) -> void:
 		container.remove_child(i)
 
 # Изменение текста ошибки
-func set_error(container: Label, text: String) -> void:
+func set_error(container: Label, text: String) -> bool:
 	container.visible = true
 	container.set_text(text)
+	return false
 		
 # Изменение значений процесса и рейтинга в базе данных
 func save_title_data(container, parameter: TitleParameters, value) -> void:

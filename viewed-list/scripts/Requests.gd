@@ -20,6 +20,7 @@ func create_users_db() -> void:
 func create_title_db() -> void:
 	db.query("""CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT,
 		color_scheme INT, dark_theme BOOLEAN, order_by BOOLEAN);""")
+	if len(select(Tables.SETTINGS, "*")) == 0: db.query("""INSERT INTO `settings` (color_scheme, dark_theme, order_by) VALUES (0, 0, 0);""")
 	db.query("""CREATE TABLE IF NOT EXISTS sections (id INTEGER PRIMARY KEY AUTOINCREMENT,
 		title VARCHAR(255), part_name VARCHAR(255), chapter_name VARCHAR(255), display BOOLEAN);""")
 	db.query("""CREATE TABLE IF NOT EXISTS titles (id INTEGER PRIMARY KEY AUTOINCREMENT,
