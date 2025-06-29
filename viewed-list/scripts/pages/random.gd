@@ -13,7 +13,7 @@ extends Node2D
 @onready var Count = $Background/Count
 @onready var Rating = $Background/Rating
 
-var titles: Array = [] # Индексты тайтлов которые могут быть получены
+var titles: Array = [] # Индексы тайтлов, которые могут быть получены
 
 # Создание страницы
 func _ready() -> void:

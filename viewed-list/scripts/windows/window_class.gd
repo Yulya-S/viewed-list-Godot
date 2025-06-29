@@ -24,7 +24,7 @@ func set_window(new_object) -> void:
 # Получение значений контейнеров
 func get_values() -> Array: return []
 
-# Получение списка похожих знаечний в базе данных
+# Получение списка похожих значений в базе данных
 func get_similar() -> Array: return []
 
 # Проверка верности заполнения
@@ -59,7 +59,7 @@ func apply_changes() -> void:
 	_on_close_button_down()
 
 # Удаление объекта
-func delete_object(): pass
+func delete_object() -> void: pass
 
 # Обработка нажатия кнопки удаления
 func _on_delete_button_down() -> void: Dialog.show_window()

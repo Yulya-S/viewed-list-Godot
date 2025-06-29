@@ -32,7 +32,7 @@ func get_object_data(id: int) -> Dictionary:
 func get_values() -> Array:
 	return ['"'+Name.get_text()+'"','"'+PartName.get_text()+'"','"'+ChapterName.get_text()+'"',int(Display.button_pressed)]
 
-# Получение списка похожих знаечний в базе данных
+# Получение списка похожих значений в базе данных
 func get_similar() -> Array:
 	return Requests.select(Requests.Tables.SECTIONS, "id", 'title="'+Name.get_text()+'"')
 

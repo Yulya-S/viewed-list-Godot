@@ -24,7 +24,7 @@ func _on_add_button_down() -> void:
 # Обработка нажатия кнопки перехода к разделам / тайтлам
 func _on_sections_titles_button_down() -> void: Global.emit_signal("change_program_mod", int(mode))
 
-# Обоработка нажатия кнопки выхода из аккаунта
+# Обработка нажатия кнопки выхода из аккаунта
 func _on_exit_button_down() -> void:
 	Requests.connecting_users_db()
 	Global.config = {"login"="", "password"="", "enter"=false}

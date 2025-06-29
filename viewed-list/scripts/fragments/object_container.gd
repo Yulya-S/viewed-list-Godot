@@ -10,13 +10,13 @@ class_name object_container
 var state: Global.MouseOver = Global.MouseOver.NORMAL # Текущее состояние объекта
 var id: int = 0 # Подключенный раздел
 
-# Привязка объщих данных к контейнеру
+# Привязка общих данных к контейнеру
 func set_title(new_id: int, title: String) -> void:
 	id = new_id
 	Title.set_text(title)
 	Box.tooltip_text = title
 
-# Обработка нажатия клавишь мыши
+# Обработка нажатия клавиш мыши
 func _input(event: InputEvent) -> void:
 	if state == Global.MouseOver.NORMAL: return
 	if event.is_action("click") and event.is_pressed(): Global.emit_signal("open_object_page", self)

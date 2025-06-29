@@ -6,8 +6,9 @@ extends Control
 @onready var Hint = $Hint
 
 var hint_idx: int = 0 # Номер подсказки
-const hint_count: int = 34 # количество подсказок
+const hint_count: int = 34 # Количество подсказок
 
+# Отображение первой подсказки
 func _ready() -> void:
 	Count.get_child(0).set_text("/"+str(hint_count))
 	set_hint(0)
@@ -54,7 +55,7 @@ func set_hint(idx: int = 1) -> void:
 		33: set_marker(Vector2(760, 54), Vector2(131, 35), 5, 'Слева от кнопки "Выйти" отображено имя текущего пользователя')
 		_: set_marker(Vector2(391, 52), Vector2(113, 38), 0, 'Нажатие кнопки "Добавить тайтл" откроет окно создания тайтла, только при наличии покрайней мере одного существующего раздела')
 
-# Изменение параметро маркера
+# Изменение параметров маркера
 func set_marker(new_position: Vector2, new_size: Vector2, frame_idx: int, text: String) -> void:
 	Sprites.frame = frame_idx
 	Marker.position = new_position
@@ -64,8 +65,7 @@ func set_marker(new_position: Vector2, new_size: Vector2, frame_idx: int, text: 
 # Обработка нажатия кнопки отмены
 func _on_close_button_down() -> void: Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
 
-# Обработка нажатия кнопки следующей подсказки
+# Переключение подсказки
 func _on_nuxt_button_down() -> void: set_hint()
 
-# Обработка нажатия кнопки предыдущей подсказки
 func _on_previous_button_down() -> void: set_hint(-1)

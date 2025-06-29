@@ -4,22 +4,23 @@ signal open_object_page(page)
 signal change_program_mod(new_mod: ProgramModes)
 signal update_page()
 
-# Перечисление
+# Перечисления
 enum ProgramModes {SECTION, TITLE, REGISTRATION, SETTING, RANDOM, HINTS} # Страницы в приложении
 enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
-enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния прочтения/прочтения тайтла
+enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния изучения Тайтла
 enum Colors {FONT_COLOR, COLOR1, COLOR2, COLOR3, COLOR4} # Объекты в цветовой палитре
 
 # Параметры
-var program_mod: ProgramModes = ProgramModes.TITLE # текущая страница
+var program_mod: ProgramModes = ProgramModes.TITLE # Текущая страница
 var config: Dictionary = {"login" = "", "password" = "", "enter" = false} # Настройки программы
-var color_palette: Dictionary = {"font_color"="", "color1"="", "color2"="", "color3"="", "color4"=""}
+var color_palette: Dictionary = {"font_color"="", "color1"="", "color2"="", "color3"="", "color4"=""} # Цветовая палитра
 
 # Константы
 const FragmentsDir: String = "res://scenes/fragments/"
 const ConfigFilePath: String = "res://bases/config.json"
 
+# Создание и чтение конфигурационных данных
 func _ready() -> void:
 	Global.create_config()
 	Global.read_config()
@@ -27,7 +28,7 @@ func _ready() -> void:
 # Получить название текущей страницы
 func program_mod_text() -> String: return ProgramModes.keys()[program_mod].to_lower()
 
-# Проверка что текст это число
+# Проверка что текст — это число
 func valide_numeric_text(text_container: TextEdit) -> void:
 	var text = text_container.get_text()
 	if len(text) > 0:
@@ -38,23 +39,21 @@ func valide_numeric_text(text_container: TextEdit) -> void:
 			text_container.set_text(filtered_text)
 			text_container.set_caret_column(caret - (len(text) - len(filtered_text)))
 		
-		
 # Изменение текста в TextEdit
 func text_changed_TextEdit(container: TextEdit, is_numeric: bool = false) -> void:
 	var text = container.get_text()
 	if is_numeric: Global.valide_numeric_text(container)
 	if len(text) > 0 and "\t" in text:
 		container.set_text(container.get_text().replace("\t", ""))
-		if container.find_next_valid_focus():
-			container.find_next_valid_focus().grab_focus()
+		if container.find_next_valid_focus(): container.find_next_valid_focus().grab_focus()
 			
-# Заполнение списка объектами
+# Очистка списка
 func clear_page(container: VBoxContainer) -> void:
 	for i in container.get_children():
 		i.queue_free()
 		container.remove_child(i)
 
-# Изменение текста ошибки	
+# Изменение текста ошибки
 func set_error(container: Label, text: String) -> void:
 	container.visible = true
 	container.set_text(text)

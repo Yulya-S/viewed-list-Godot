@@ -7,23 +7,23 @@ class_name page_class
 @onready var ObjectsContainer = $ScrollContainer/VBoxContainer
 
 # Переменные
-var object_idx: int = 0 # Индекс последнего добаленного объекта
-var objects: Array = [] # Объекты которые будут добавлены
-var object_dir = load(Global.FragmentsDir+Global.program_mod_text()+".tscn") # Объект который будет добавлен
+var object_idx: int = 0 # Индекс последнего добавленного объекта
+var objects: Array = [] # Объекты, которые будут добавлены
+var object_dir = load(Global.FragmentsDir+Global.program_mod_text()+".tscn") # Путь к сцене объекта
 
 # Установка цветов на фон
 func set_colors() -> void:
 	FilterBox.color = ColorScheme.get_color(Global.Colors.COLOR2)
 	Background.color = ColorScheme.get_color(Global.Colors.COLOR4)
 
-# Динамическое добаление объектов списка
+# Динамическое добавление объектов списка
 func _process(_delta: float) -> void:
 	if object_idx != len(objects):
 		ObjectsContainer.add_child(object_dir.instantiate())
 		ObjectsContainer.get_child(-1).set_object(objects[object_idx])
 		object_idx += 1
 
-# Получение списка объектов которые будут добавлены
+# Получение списка объектов, которые будут добавлены
 func add_objects(values: Array) -> void:
 	Global.clear_page(ObjectsContainer)
 	object_idx = 0

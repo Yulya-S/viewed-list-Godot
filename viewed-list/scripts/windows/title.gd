@@ -35,7 +35,7 @@ func get_values() -> Array:
 	return [Section.selected+1, '"'+Name.get_text()+'"', Status.selected+1, Progress.Part.get_text(),
 			Progress.Chapter.get_text(), '"'+Note.get_text()+'"', Rating.value]
 
-# Получение списка похожих знаечний в базе данных
+# Получение списка похожих значений в базе данных
 func get_similar() -> Array:
 	return Requests.select(Requests.Tables.TITLES, "id", 'title="'+Name.get_text()+'" AND section_id='+str(Section.selected + 1))
 

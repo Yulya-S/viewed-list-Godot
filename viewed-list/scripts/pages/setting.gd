@@ -9,7 +9,7 @@ extends Control
 @onready var Color3 = $Border/ColorRect3
 @onready var Color4 = $Border/Background
 
-# Получние настроек
+# Получение настроек
 func _ready() -> void:
 	Order.selected = int(not bool(Global.config.order_by))
 	Palette.selected = Global.config.color_scheme

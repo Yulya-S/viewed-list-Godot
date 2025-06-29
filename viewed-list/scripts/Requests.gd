@@ -12,7 +12,7 @@ func generate_db_name() -> String:
 	for i in range(10): base_name += chars[randi()%len(chars)]
 	return base_name
 
-# Создание таблицы пользователей
+# Создание таблиц
 func create_users_db() -> void:
 	db.query("""CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
 		login VARCHAR(255), password VARCHAR(255), base VARCHAR(255));""")
@@ -51,7 +51,7 @@ func add_part_request(text: String, column: String, value, operator: String = "=
 	text += column + " " + operator + " " + str(value)
 	return text
 
-# Получить название таблици из enum Tables
+# Получить название таблицы из enum Tables
 func _get_table_name(table: Tables) -> String: return Tables.keys()[table].to_lower()
 
 # Получить названия колонок

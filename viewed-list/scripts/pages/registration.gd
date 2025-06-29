@@ -29,7 +29,7 @@ func _on_show_toggled(_toggled_on: bool) -> void:
 	if _toggled_on: Password.add_theme_color_override("font_color", Color.html("#ffffff"))
 	else: Password.add_theme_color_override("font_color", Color.html("#00000000"))
 
-# Обработка нажатия кнопки создания нового пользоавтеля
+# Обработка нажатия кнопки создания нового пользователя
 func _on_registration_button_down() -> void:
 	check_text()
 	var users: Array = Requests.select(Requests.Tables.USERS, "*", 'login="'+Login.get_text()+'"')
@@ -40,7 +40,6 @@ func _on_registration_button_down() -> void:
 		'"'+Marshalls.utf8_to_base64(Requests.generate_db_name())+'"'])
 	_on_enter_button_down()
 	
-
 # Вход в программу
 func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
@@ -73,7 +72,7 @@ func _on_load_button_down() -> void:
 # Закрытие окна выбора файла
 func _on_file_dialog_canceled() -> void: Background.visible = false
 
-# Считыванние данных из старой базы
+# Считывание данных из старой базы
 func _on_file_dialog_file_selected(path: String) -> void:
 	Requests.select_old_db(path)
 	_on_file_dialog_canceled()
