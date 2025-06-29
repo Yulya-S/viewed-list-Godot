@@ -1,14 +1,12 @@
 extends object_container
 # Подключение путей к объектам в сцене
-@onready var Part = $Object/Object/Part
-@onready var Chapter = $Object/Object/Chapter
-@onready var Count = $Object/Object/Count
+@onready var part_name = $Object/Object/Part
+@onready var chapter_name = $Object/Object/Chapter
+@onready var titles_count = $Object/Object/Count
 	
 # Привязка Раздела к контейнеру
 func set_object(data: Dictionary) -> void:
 	super.set_object(data)
-	Count.set_text(str(data.titles_count))
-	Part.set_text(data.part_name)
-	Chapter.set_text(data.chapter_name)
-	Part.visible = data.display	
-	Chapter.visible = data.display
+	for i in ["part_name", "chapter_name", "titles_count"]: get(i).set_text(str(data[i]))
+	part_name.visible = data.display	
+	chapter_name.visible = data.display
