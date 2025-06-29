@@ -9,6 +9,7 @@ var mode: bool = false # false -> страница разделов, true -> с�
 # Изменение шапки в зависимости от страницы
 func _ready() -> void:
 	User.set_text(Global.config.login)
+	if Global.program_mod > 1: Add.visible = false 
 	mode = bool(Global.program_mod - 1)
 	if mode:
 		SectionTitles.text = "К тайтлам"

@@ -1,6 +1,5 @@
 extends Node2D
 # Подключение путей к объектам в сцене
-@onready var Head = $Head
 @onready var FilterSection = $Filters/Section
 @onready var FilterStatus = $Filters/Status
 @onready var FilterRating = $Filters/Rating
@@ -18,7 +17,6 @@ func _ready() -> void:
 	_set_filter() # Получение списка тайтлов
 	Global.filling_out_sections(FilterSection)
 	# Скрытие полей
-	Head.Add.visible = false
 	hide_labels()
 	ColorScheme.set_color(self) # Замена цвета
 
