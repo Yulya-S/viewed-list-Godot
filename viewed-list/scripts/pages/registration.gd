@@ -55,7 +55,7 @@ func _entrance(user_login: String, user_password: String) -> void:
 		Requests.insert_record(Requests.Tables.SETTINGS, [0, 0, 0])
 		color_scheme = [{"color_scheme"=0, "dark_theme"=0, "order_by"=0}]
 	for i in color_scheme[0].keys(): Global.config[i] = color_scheme[0][i]
-	Global.color_palette = ColorScheme.return_color_palette(users[0].color_scheme, users[0].dark_theme)
+	ColorScheme.apply_palette(users[0].color_scheme, users[0].dark_theme)
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
 	
 # Обработка нажатия кнопки входа в программу

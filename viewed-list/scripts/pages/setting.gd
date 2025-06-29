@@ -18,7 +18,7 @@ func _on_palette_item_selected(index: int) -> void: ColorScheme.set_color(Exampl
 
 # Обработка нажатия кнопки отмены
 func _on_close_button_down() -> void:
-	Global.color_palette = ColorScheme.return_color_palette(Global.config.color_scheme, Global.config.dark_theme)
+	ColorScheme.apply_palette(Global.config.color_scheme, Global.config.dark_theme)
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
 
 # Изменение темы между светлой и темной

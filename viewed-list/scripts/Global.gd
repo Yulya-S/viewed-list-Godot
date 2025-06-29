@@ -9,12 +9,10 @@ enum ProgramModes {SECTION, TITLE, REGISTRATION, SETTING, RANDOM, HINTS} # Ст�
 enum TitleParameters {PART, CHAPTER, RATING, STATUS} # Числовые параметры для Тайтлов
 enum MouseOver {NORMAL, HOVER} # Состояния курсора мыши
 enum TitleStates {NONE, PROGRESS, WAIT, UNLIKE, COMPLETED} # Состояния изучения Тайтла
-enum Colors {FONT_COLOR, COLOR1, COLOR2, COLOR3, COLOR4} # Объекты в цветовой палитре
 
 # Параметры
 var program_mod: ProgramModes = ProgramModes.TITLE # Текущая страница
 var config: Dictionary = {"login" = "", "password" = "", "enter" = false} # Настройки программы
-var color_palette: Dictionary = {"font_color"="", "color1"="", "color2"="", "color3"="", "color4"=""} # Цветовая палитра
 
 # Константы
 const FragmentsDir: String = "res://scenes/fragments/"
