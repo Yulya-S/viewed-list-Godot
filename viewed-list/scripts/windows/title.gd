@@ -9,7 +9,7 @@ extends window_class
 # Заполнение списка разделов
 func _ready() -> void:
 	super._ready()
-	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): Section.add_item(i.title, i.id)
+	Global.filling_out_sections(Section)
 
 # Получение данных о тайтле
 func get_object_data(id: int) -> Dictionary:

@@ -81,3 +81,6 @@ func read_config() -> void:
 	if not json.parse(data) == OK: return
 	data = json.data
 	for i in data.keys(): config[i] = data[i]
+	
+# Заполнение выпадающего списка разделами
+func filling_out_sections(container: OptionButton) -> void: for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): container.add_item(i.title, i.id)

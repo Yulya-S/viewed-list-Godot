@@ -9,8 +9,8 @@ extends page_class
 # Создание страницы
 func _ready() -> void:
 	super._ready()
-	for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): FilterSection.add_item(i.title, i.id)
-
+	Global.filling_out_sections(FilterSection)
+	
 # Изменение значений текстовых контейнеров
 func _on_filter_rating_text_changed() -> void: Global.text_changed_TextEdit(FilterRating, true)
 		
