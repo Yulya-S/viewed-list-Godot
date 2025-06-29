@@ -9,8 +9,7 @@ class_name object_container
 var state: Global.MouseOver = Global.MouseOver.NORMAL # Текущее состояние объекта
 var id: int = 0 # Подключенный раздел
 
-# Замена цвета
-func _ready() -> void: ColorScheme.set_color(self)
+func _ready() -> void: ColorScheme.set_color(self) # Замена цвета
 
 # Привязка общих данных к контейнеру
 func set_object(data: Dictionary) -> void:
