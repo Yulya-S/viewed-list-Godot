@@ -25,8 +25,14 @@ func _ready() -> void:
 	Global.create_config()
 	Global.read_config()
 
+# Заполнение выпадающего списка разделами
+func filling_out_sections(container: OptionButton) -> void: for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): container.add_item(i.title, i.id)
+
+# Получить имя объекта из перечисления
+func enum_key(enums, object) -> String: return enums.keys()[object].to_lower()
+
 # Получить название текущей страницы
-func program_mod_text() -> String: return ProgramModes.keys()[program_mod].to_lower()
+func program_mod_text() -> String: return enum_key(ProgramModes, program_mod)
 
 # Проверка что текст — это число
 func valide_numeric_text(text_container: TextEdit) -> void:
@@ -61,7 +67,7 @@ func set_error(container: Label, text: String) -> void:
 # Изменение значений процесса и рейтинга в базе данных
 func save_title_data(container, parameter: TitleParameters, value) -> void:
 	if not FragmentsDir in container.scene_file_path: return
-	Requests.update(Requests.Tables.TITLES, TitleParameters.keys()[parameter].to_lower()+"="+str(value), "id="+str(container.id))
+	Requests.update(Requests.Tables.TITLES, enum_key(TitleParameters, parameter)+"="+str(value), "id="+str(container.id))
 
 # Создание файла конфигурации
 func create_config() -> void:
@@ -81,6 +87,3 @@ func read_config() -> void:
 	if not json.parse(data) == OK: return
 	data = json.data
 	for i in data.keys(): config[i] = data[i]
-	
-# Заполнение выпадающего списка разделами
-func filling_out_sections(container: OptionButton) -> void: for i in Requests.select(Requests.Tables.SECTIONS, "id, title"): container.add_item(i.title, i.id)

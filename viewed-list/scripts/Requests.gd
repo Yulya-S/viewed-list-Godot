@@ -52,7 +52,7 @@ func add_part_request(text: String, column: String, value, operator: String = "=
 	return text
 
 # Получить название таблицы из enum Tables
-func _get_table_name(table: Tables) -> String: return Tables.keys()[table].to_lower()
+func _get_table_name(table: Tables) -> String: return Global.enum_key(Tables, table)
 
 # Получить названия колонок
 func _get_columns(table: Tables) -> Array:

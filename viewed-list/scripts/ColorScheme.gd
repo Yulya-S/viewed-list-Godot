@@ -2,7 +2,7 @@ extends Node
 
 # Получить цвет по имени
 func get_color(color_state: Global.Colors, palette: Dictionary = Global.color_palette) -> Color:
-	return palette[Global.Colors.keys()[color_state].to_lower()]
+	return palette[Global.enum_key(Global.Colors, color_state)]
 
 # Замена цвета текста
 func set_font_color(object, palette: Dictionary = Global.color_palette, column: String = "font_color") -> void:
