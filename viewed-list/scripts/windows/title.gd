@@ -45,8 +45,8 @@ func _on_note_text_changed() -> void: Global.text_changed_TextEdit(Note)
 
 # Изменение раздела
 func _on_section_item_selected(_index: int) -> void:
-	check_name()
 	progress_display()
+	check_name()
 
 # Отображения Части, Главы и рейтинга при изменении статуса тайтла
 func _on_status_item_selected(_index: int) -> void:

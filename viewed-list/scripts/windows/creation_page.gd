@@ -2,8 +2,6 @@ extends Node
 class_name CreationPage
 
 # Подключение путей к объектам в сцене
-@onready var Border = $Background/Border
-@onready var WindowBox = $Window
 @onready var Error = $Window/Error
 @onready var Name = $Window/Name
 @onready var Delete = $Window/Delete
@@ -16,8 +14,7 @@ func _ready() -> void:
 	Name.grab_focus()
 	ColorScheme.set_color(self) # Замена цвета
 
-# Получение данных об объекте
-func get_object_data(_id: int) -> Dictionary: return {}
+func get_object_data(_id: int) -> Dictionary: return {} # Получение данных об объекте
 
 # Изменение данных на странице
 func set_window(new_object) -> void:
@@ -33,12 +30,13 @@ func get_values() -> Array: return []
 func get_similar() -> Array: return []
 
 # Проверка верности заполнения
-func check_name() -> void:
-	var value = get_similar()
+func check_name() -> bool:
 	Error.visible = false
-	for i in value: if not object or i.id != object.id: Global.set_error(Error, "Такой объект уже существует")
-	if Name.get_text() == "": Global.set_error(Error, "Поле названия должно быть не пустым")
-		
+	if Name.get_text() == "": return Global.set_error(Error, "Поле названия должно быть не пустым")
+	var value = get_similar()
+	for i in value: if not object or i.id != object.id: return Global.set_error(Error, "Такой объект уже существует")
+	return false
+	
 # Изменение названия тайтла
 func _on_name_text_changed() -> void:
 	Global.text_changed_TextEdit(Name)
@@ -46,8 +44,7 @@ func _on_name_text_changed() -> void:
 	
 # Обработка нажатия кнопки создания / изменения раздела
 func _on_apply_button_down() -> void:
-	check_name()
-	if Error.visible: return
+	if check_name(): return
 	var values: Array = get_values()
 	if object: Requests.update_record(Global.program_mod + 1, object.id, values)
 	else: Requests.insert_record(Global.program_mod + 1, values)

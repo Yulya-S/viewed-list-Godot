@@ -64,7 +64,7 @@ func clear_page(container: VBoxContainer) -> void:
 func set_error(container: Label, text: String) -> bool:
 	container.visible = true
 	container.set_text(text)
-	return false
+	return true
 		
 # Изменение значений процесса и рейтинга в базе данных
 func save_title_data(container, parameter: TitleParameters, value) -> void:

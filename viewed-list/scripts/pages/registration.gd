@@ -17,7 +17,7 @@ func errors(enter: bool, users: Array = [""]) -> bool:
 		return Global.set_error(Error, "Все поля должны быть заполнены")
 	if enter and len(users) == 0: return Global.set_error(Error, "Неверный логин или пароль")
 	if not enter and len(users) > 0: return Global.set_error(Error, "Имя аккаунта занято") 
-	return true
+	return false
 
 # Изменение значений
 func _on_login_text_changed() -> void: Global.text_changed_TextEdit(Login)
@@ -32,20 +32,20 @@ func _on_show_toggled(_toggled_on: bool) -> void:
 # Обработка нажатия кнопки создания нового пользователя
 func _on_registration_button_down() -> void:
 	var users: Array = Requests.select(Requests.Tables.USERS, "*", 'login="'+Login.get_text()+'"')
-	if not errors(false, users): return
+	if errors(false, users): return
 	Requests.insert_record(Requests.Tables.USERS, ['"'+Login.get_text()+'"',
 		'"'+Global.hide_data(Password.get_text())+'"', '"'+Global.hide_data(Requests.generate_db_name())+'"'])
 	_on_enter_button_down()
 
 # Обработка нажатия кнопки входа в программу
 func _on_enter_button_down() -> void:
-	if not errors(true): return
+	if errors(true): return
 	_entrance(Login.get_text(), Global.hide_data(Password.get_text()))
 
 # Вход в программу
 func _entrance(user_login: String, user_password: String) -> void:
 	var users: Array = Requests.select_user(user_login, user_password)
-	if not errors(true, users): return
+	if errors(true, users): return
 	Global.config = users[0]
 	Global.config["enter"] = Remember.button_pressed
 	if Remember.button_pressed: Global.update_config()
