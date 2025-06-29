@@ -1,4 +1,4 @@
-extends page_class
+extends ListPage
 # Подключение путей к объектам в сцене
 @onready var FilterSection = $Filters/Section
 @onready var FilterStatus = $Filters/Status

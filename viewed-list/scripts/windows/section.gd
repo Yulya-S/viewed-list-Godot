@@ -1,4 +1,4 @@
-extends window_class
+extends CreationPage
 # Подключение путей к объектам в сцене
 @onready var TitlesCount = $Window/TitlesCount
 @onready var Display = $Window/Display

@@ -1,5 +1,5 @@
 extends Node2D
-class_name page_class
+class_name ListPage
 # Подключение путей к объектам в сцене
 @onready var FilterName = $Filters/Name
 @onready var FilterOrder = $Filters/Order

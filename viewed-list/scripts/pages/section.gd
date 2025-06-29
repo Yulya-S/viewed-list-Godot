@@ -1,4 +1,4 @@
-extends page_class
+extends ListPage
 # Подключение путей к объектам в сцене
 @onready var FilterPageName = $Filters/PartName
 @onready var FilterChapterName = $Filters/ChapterName

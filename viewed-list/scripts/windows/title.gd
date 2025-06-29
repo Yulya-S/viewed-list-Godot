@@ -1,4 +1,4 @@
-extends window_class
+extends CreationPage
 # Подключение путей к объектам в сцене
 @onready var Section = $Window/Section
 @onready var Status = $Window/Status
