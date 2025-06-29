@@ -18,6 +18,7 @@ offset_top = 10.0
 offset_right = 148.0
 offset_bottom = 138.0
 scale = Vector2(0.31, 0.31)
+tooltip_text = "Инструкция"
 icon = ExtResource("2_a7yy4")
 
 [node name="Settings" type="Button" parent="."]
@@ -27,6 +28,7 @@ offset_top = 10.0
 offset_right = 207.68
 offset_bottom = 138.0
 scale = Vector2(0.31, 0.31)
+tooltip_text = "Настройки"
 icon = ExtResource("1_d75dd")
 
 [node name="Random" type="Button" parent="."]
@@ -36,6 +38,7 @@ offset_top = 10.0
 offset_right = 267.36
 offset_bottom = 138.0
 scale = Vector2(0.31, 0.31)
+tooltip_text = "Случайный тайтл"
 icon = ExtResource("4_jl5ir")
 
 [node name="SectionsTitles" type="Button" parent="."]
