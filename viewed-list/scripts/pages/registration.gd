@@ -51,7 +51,7 @@ func _entrance(user_login: String, user_password: String) -> void:
 	if Remember.button_pressed: Global.update_config()
 	Requests.connecting_db("res://bases/"+Marshalls.base64_to_utf8(users[0].base)+".db")
 	var color_scheme: Array = Requests.select(Requests.Tables.SETTINGS, "*")
-	for i in color_scheme[0].keys(): Global.config[i] = color_scheme[0][i]
+	for i in color_scheme[0].keys(): if i != "id": Global.config[i] = color_scheme[0][i]
 	ColorScheme.apply_palette(users[0].color_scheme, users[0].dark_theme)
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
 

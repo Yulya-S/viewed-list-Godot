@@ -16,25 +16,13 @@ func _ready() -> void:
 # Смена выбранной цветовой темы
 func _on_palette_item_selected(index: int) -> void: ColorScheme.set_color(Example, ColorScheme.return_color_palette(index, Dark.button_pressed))
 
+# Изменение темы между светлой и темной
+func _on_display_toggled(_toggled_on: bool) -> void: _on_palette_item_selected(Palette.selected)
+
 # Обработка нажатия кнопки отмены
 func _on_close_button_down() -> void:
 	ColorScheme.apply_palette(Global.config.color_scheme, Global.config.dark_theme)
 	Global.emit_signal("change_program_mod", Global.ProgramModes.TITLE)
-
-# Изменение темы между светлой и темной
-func _on_display_toggled(_toggled_on: bool) -> void: _on_palette_item_selected(Palette.selected)
-
-# Удаление пользователя
-func delete_object() -> void:
-	Requests.connecting_users_db()
-	DirAccess.remove_absolute("res://bases/"+Marshalls.base64_to_utf8(Global.config.base)+".db")
-	Requests.delete_record(Requests.Tables.USERS, Requests.select_user(Global.config.login, Global.config.password)[0].id)
-	Global.config = {"login"="", "password"="", "enter"=false}
-	Global.update_config()
-	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)
-	
-# Обработка нажатия кнопки удаления пользователя
-func _on_delete_button_down() -> void: Dialog.show_window()
 
 # Применение новых настроек
 func _on_apply_button_down() -> void:
@@ -43,3 +31,15 @@ func _on_apply_button_down() -> void:
 	Global.config.color_scheme = Palette.selected
 	Global.config.dark_theme = Dark.button_pressed
 	_on_close_button_down()
+
+# Удаление пользователя
+func delete_object() -> void:
+	Requests.connecting_users_db()
+	DirAccess.remove_absolute("res://bases/"+Marshalls.base64_to_utf8(Global.config.base)+".db")
+	Requests.delete_record(Requests.Tables.USERS, Global.config.id)
+	Global.config = {"enter"=false}
+	Global.update_config()
+	Global.emit_signal("change_program_mod", Global.ProgramModes.REGISTRATION)
+	
+# Обработка нажатия кнопки удаления пользователя
+func _on_delete_button_down() -> void: Dialog.show_window()
