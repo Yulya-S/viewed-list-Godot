@@ -44,8 +44,7 @@ func connecting_db(db_name: String) -> void:
 	create_title_db()
 
 # Добавление фрагмента текста в запрос
-func add_part_request(text: String, column: String, value, operator: String = "=",
-					  sep: String = " AND ") -> String:
+func add_part_request(text: String, column: String, value, operator: String = "=", sep: String = " AND ") -> String:
 	if not value: return text
 	if text: text += sep 
 	if operator == "LIKE": value = '"%' + str(value) + '%"'
@@ -145,31 +144,37 @@ func _get_data_from_table(table: Tables) -> Array:
 
 # Загрузка данных из старой базы данных
 func select_old_db(old_db: String) -> void:
+	# Получение существующих пользователей
 	var existing_users: Array = []
 	for i in select(Tables.USERS, "*"): existing_users.append(i.login)
+	# Считывание старой базы данных
 	Requests.connecting_db(old_db)
 	var users: Array = _get_data_from_table(Tables.USERS)
+	var titles: Array = _get_data_from_table(Tables.TITLES)
 	var sections: Dictionary = {}
 	for i in _get_data_from_table(Tables.SECTIONS): sections[i.id] = i
-	var titles: Array = _get_data_from_table(Tables.TITLES)
-	# Заполнение таблицы пользователей
+	# Подключение к базе пользователей
+	connecting_users_db()
+	var bases: Array = []
+	# Удаление существующих пользователей
+	for i in range(len(users)): if users[i].nickname in existing_users: users.pop_at(i)
+	# Создание пользователей
 	for i in users:
-		if i.nickname in existing_users: continue
-		connecting_users_db()
-		var sections_ids: Array = []
 		var password: String = ""
 		for l in i.password: password += char(l)
-		var base_name: String = Requests.generate_db_name()
-		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Marshalls.utf8_to_base64(base_name)+'"'])
-		connecting_db("res://bases/"+base_name)
-		insert_record(Requests.Tables.SETTINGS, [0, 0, i.order_by])
-		for l in titles: if i.id == l.user_id:
-			# Заполнение таблицы разделов
+		bases.append(Requests.generate_db_name())
+		insert_record(Tables.USERS, ['"'+i.nickname+'"', '"'+password+'"', '"'+Global.hide_data(bases[-1])+'"'])
+	# Заполнение баз данных
+	for i in range(len(users)):
+		var sections_ids: Array = []
+		connecting_db("res://bases/"+bases[i])
+		for l in titles: if users[i].id == l.user_id:
+			# Создание отсутствующего раздела
 			if l.section_id not in sections_ids:
 				sections_ids.append(l.section_id)
 				var data: Dictionary = sections[l.section_id]
 				insert_record(Tables.SECTIONS, ['"'+data.title+'"', '"'+data.bloc_name+'"', '"'+data.chapter_name+'"', data.display])
 			# Заполнение таблицы тайтлов
 			insert_record(Tables.TITLES, [sections_ids.find(l.section_id)+1, "'"+l.title+"'",
-				l.status+1, l.bloc, l.chapter, '"'+l.note+'"', l.stars+1])				
+				l.status+1, l.bloc, l.chapter, '"'+l.note+'"', l.stars+1])
 	connecting_users_db()
