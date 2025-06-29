@@ -3,7 +3,6 @@ extends Node2D
 const WindowsDir: String = "res://scenes/windows/"
 const PagesDir: String = "res://scenes/pages/"
 
-
 # Подключение сигналов
 func _ready() -> void:
 	Global.connect("open_object_page", Callable(self, "_open_object_page"))
