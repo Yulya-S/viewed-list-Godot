@@ -13,10 +13,10 @@ var id: int = 0 # Подключенный раздел
 func _ready() -> void: ColorScheme.set_color(self)
 
 # Привязка общих данных к контейнеру
-func set_title(new_id: int, title: String) -> void:
-	id = new_id
-	Title.set_text(title)
-	Box.tooltip_text = title
+func set_object(data: Dictionary) -> void:
+	id = data.id
+	Title.set_text(data.title)
+	Box.tooltip_text = data.title
 
 # Обработка нажатия клавиш мыши
 func _input(event: InputEvent) -> void:

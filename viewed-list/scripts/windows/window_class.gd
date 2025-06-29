@@ -64,7 +64,7 @@ func apply_changes() -> void:
 	_on_close_button_down()
 
 # Удаление объекта
-func delete_object() -> void: pass
+func delete_object() -> void: apply_changes()
 
 # Обработка нажатия кнопки удаления
 func _on_delete_button_down() -> void: Dialog.show_window()

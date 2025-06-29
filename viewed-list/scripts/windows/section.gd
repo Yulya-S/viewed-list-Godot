@@ -24,10 +24,9 @@ func get_values() -> Array:
 func get_similar() -> Array:
 	return Requests.select(Requests.Tables.SECTIONS, "id", 'title="'+Name.get_text()+'"')
 
-# Изменение названия Части
+# Изменение значений текстовых контейнеров
 func _on_part_name_text_changed() -> void: Global.text_changed_TextEdit(PartName)
 	
-# Изменение названия Главы
 func _on_chapter_name_text_changed() -> void: Global.text_changed_TextEdit(ChapterName)
 
 # Переключение отображения Части и Главы тайтла
@@ -38,4 +37,4 @@ func _on_display_toggled(toggled_on: bool) -> void:
 # Удаление раздела
 func delete_object():
 	Requests.delete_records_related_tables(Requests.Tables.SECTIONS, Requests.Tables.TITLES, object.id, "section_id")
-	apply_changes()
+	super.delete_object()

@@ -3,14 +3,6 @@ extends page_class
 @onready var FilterPageName = $Filters/PartName
 @onready var FilterChapterName = $Filters/ChapterName
 @onready var FilterCount = $Filters/Count
-@onready var FilterOrder = $Filters/Order
-
-# Создание страницы
-func _ready() -> void:
-	Global.connect("update_page", Callable(self, "_on_filter_button_down"))
-	FilterOrder.selected = int(not bool(Global.config.order_by))
-	_on_filter_button_down()
-	ColorScheme.set_color(self) # Замена цвета
 
 # Изменение значения фильтра названия части
 func _on_part_name_text_changed() -> void: Global.text_changed_TextEdit(FilterPageName)

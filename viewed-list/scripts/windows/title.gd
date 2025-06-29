@@ -56,4 +56,4 @@ func _on_status_item_selected(_index: int) -> void:
 # Удаление тайтла
 func delete_object():
 	Requests.delete_record(Requests.Tables.TITLES, object.id)
-	apply_changes()
+	super.delete_object()

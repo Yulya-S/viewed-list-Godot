@@ -5,15 +5,11 @@ extends object_container
 @onready var Rating = $Object/Object/Rating
 @onready var Progress = $Object/Object/Progress
 
-# Пути к подгружаемым сценам
-const FragmentsRating: String = "res://scenes/fragments/rating.tscn"
-const FragmentsProgress: String = "res://scenes/fragments/progress.tscn"
-
 var display_progress: bool = true # Параметр отображения прогресса
 	
 # Привязка тайтла к контейнеру
 func set_object(data: Dictionary) -> void:
-	set_title(data.id, data.title)
+	super.set_object(data)
 	Section.set_text(data.section_title)
 	StatusName.selected = data.status-1
 	_on_status_item_selected(StatusName.selected, false)

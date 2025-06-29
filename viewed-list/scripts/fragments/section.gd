@@ -6,7 +6,7 @@ extends object_container
 	
 # Привязка Раздела к контейнеру
 func set_object(data: Dictionary) -> void:
-	set_title(data.id, data.title)
+	super.set_object(data)
 	Count.set_text(str(data.titles_count))
 	Part.set_text(data.part_name)
 	Chapter.set_text(data.chapter_name)
