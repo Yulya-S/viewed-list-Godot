@@ -4,8 +4,7 @@ extends Node2D
 @onready var Part = $Part
 @onready var Chapter = $Chapter
 
-# Замена цвета
-func _ready() -> void: ColorScheme.set_color(self)
+func _ready() -> void: ColorScheme.set_color(self) # Замена цвета
 
 # Изменение наименований разделов
 func set_labels(part_name: String, chapter_name: String) -> void:
@@ -17,15 +16,12 @@ func set_values(part_value: int, chapter_value: int) -> void:
 	Part.text = str(part_value)
 	Chapter.text = str(chapter_value)
 
-
 # Изменение значения части
 func _on_part_text_changed() -> void: Global.text_changed_TextEdit(Part, true)
 
-func _on_part_focus_exited() -> void:
-	Global.save_title_data(TitleBox, Global.TitleParameters.PART, Part.get_text())
+func _on_part_focus_exited() -> void: Global.save_title_data(TitleBox, Global.TitleParameters.PART, Part.get_text())
 
 # Изменение значения главы
 func _on_chapter_text_changed() -> void: Global.text_changed_TextEdit(Chapter, true)
 
-func _on_chapter_focus_exited() -> void:
-	Global.save_title_data(TitleBox, Global.TitleParameters.CHAPTER, Chapter.get_text())
+func _on_chapter_focus_exited() -> void: Global.save_title_data(TitleBox, Global.TitleParameters.CHAPTER, Chapter.get_text())
