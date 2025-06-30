@@ -13,7 +13,9 @@ config_version=5
 config/name="viewed-list"
 run/main_scene="uid://cojkou66bmds8"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="uid://db8eq2nm7ynle"
+config/icon="uid://ddvf80ouqgwqn"
+config/macos_native_icon="uid://ddvf80ouqgwqn"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
